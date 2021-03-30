@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Questionnaire App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+<h1>Welcome to the Questionnaire Page</h1>
+
+<div>
+
+    <!-- SIGN IN -->
+    <div>
+        <form action="Login" method="POST" id="form-login">
+
+            <div>
+                <label>Username:</label>
+                <input type="username" name="username" id="username-input-login">
+            </div>
+
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" id="password-input-login">
+            </div>
+
+            <div>
+                <div>
+                    <button type="submit">Log in</button>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <p> Not yet registered?  <a  href="SignUp.html">Sign up here</a> ! </p>
+                </div>
+            </div>
+
+        </form>
+        <p id="errormessage"></p>
+    </div>
+</div>
+</body>
+</html>
