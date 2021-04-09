@@ -33,6 +33,9 @@ public class User implements Serializable {
     @NotNull
     private boolean isBanned;
 
+    @NotNull
+    private boolean isAdmin;
+
     @OneToMany(mappedBy = "user")
     private List<Log> logs;
 
@@ -78,5 +81,11 @@ public class User implements Serializable {
         this.isBanned = banned;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
 
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }

@@ -3,4 +3,47 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>it.polimi.db2_project.filters.UserFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+
+        <filter-name>UserFilter</filter-name>
+
+        <url-pattern>/HomepageData</url-pattern>
+        <url-pattern>/Leaderboard</url-pattern>
+        <url-pattern>/Logout</url-pattern>
+        <url-pattern>/QuestionnairePageData</url-pattern>
+        <url-pattern>/SubmitAnswer</url-pattern>
+
+        <url-pattern>/canceled.html </url-pattern>
+        <url-pattern>/banned.html </url-pattern>
+        <url-pattern>/homepage.html </url-pattern>
+        <url-pattern>/questionnaire.html </url-pattern>
+        <url-pattern>/leaderboard.html </url-pattern>
+        <url-pattern>/thanks.html </url-pattern>
+
+
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>it.polimi.db2_project.filters.AdminFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+
+        <filter-name>AdminFilter</filter-name>
+
+        <!--- all pages after 'Admin/ -->
+        <url-pattern>/Admin</url-pattern>
+        <url-pattern>/Admin/*</url-pattern>
+
+
+    </filter-mapping>
+
 </web-app>
