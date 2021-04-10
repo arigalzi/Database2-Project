@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionnaire App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="scripts/questionnaire.js" defer></script>
+    <link rel="stylesheet" href="css/questionnaire.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Gamified App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="homePage.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <!--li class="nav-item">
+                <a class="nav-link" href="#">Leaderboard</a>
+            </li!-->
+            <form class="form-inline my-2 my-lg-0" action="leaderboard.html">
+                <button class="btn btn-outline-light" type="submit">Leaderboard</button>
+
+            </form>
+
+        </ul>
+        <h2 id="header">Product of the day - Questionnaire</h2>
+        <li class="navbar-text">
+            <span class="nav-link" href="#" id="var_username">Logged In: @Username</span>
+        </li>
+        <form class="form-inline my-2 my-lg-0" action="Logout" method="POST">
+            <button class="btn btn-outline-light" type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+
+    <form class="needs-validation" id="questionnaire_form" novalidate>
+        <div class="row">
+            <div class="col">
+                <div id="mandatory_form">
+                    <div id="id_question_container">
+                        <!-- filled by JS -->
+                    </div>
+
+                    <button style = "margin-left: 47.5%"type="button" id ="nextButton" class="btn btn-primary" onclick="showOptionalForm()">Next</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="optional_form">
+            <div class="col">
+                <div class="card text-white bg-primary mb-3" style="max-width: 18rem; margin: 30px auto auto;">
+                    <div class="card-header">Optional Form</div>
+                    <div class="card-body">
+                        <p class="card-text">We are collecting statistical data, please help our Marketing section.</p>
+                    </div>
+                </div>
+                <div id="optionalInputs" style="text-align: left; margin-top: 1%" >
+                    <div id="border">
+                        <div>
+                            <label for="age"><b>Age:</b></label>
+                            <input style="margin-left: 50px" type="number" id="age" name="age" min="1" max="120">
+                        </div>
+
+                        <div>
+                            <label><b>Sex:</b></label>
+                            <label style="margin-left: 51px">M</label>
+                            <input  type="radio" name="selectSex" value = "M">
+                            <label>F</label>
+                            <input type="radio" name="selectSex" value = "F">
+                            <label>Other</label>
+                            <input type="radio" name="selectSex" value = "Other">
+                        </div>
+
+                        <div>
+                            <label><b>Expertise:</b></label>
+                            <select style="margin-left: 9px" name="expertiseLevel">
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" onclick="showMandatoryForm()">Back
+                            </button>
+                            <button type="button" id="id_cancel_questionnaire" class="btn btn-primary">Cancel
+                            </button>
+                            <button type="button" id="id_submit_questionnaire" class="btn btn-primary">Submit
+                            </button>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

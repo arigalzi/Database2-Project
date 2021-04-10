@@ -1,0 +1,26 @@
+#header {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    color: white;
+}
+
+.btn btn-primary{
+    margin-top: 5%;
+    margin-left: 55%;
+
+}
+
+#optionalInputs{
+    margin: 38%;
+    width: 50%;
+    padding: 40px;
+}
+div{
+    padding-bottom: 2%;
+}
+
+#border{
+    border-color: black;
+}
+
