@@ -2,12 +2,14 @@ package it.polimi.db2_project.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.io.*;
 import java.util.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Table(name = "logs", schema = "db2_app")
-public class Log {
+@Entity
+@Table(name = "log", schema = "db2_app")
+public class Log implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

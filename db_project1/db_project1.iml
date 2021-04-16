@@ -9,12 +9,14 @@
         <webroots>
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
+          <factory-entry name="db2_app" value="b13e5eea-9511-43d0-a7f3-e7c11618f3c4" />
           <factory-entry name="default" value="9c3004e7-577b-4ddf-8b3b-fac211efe47c" />
         </datasource-mapping>
         <naming-strategy-map />

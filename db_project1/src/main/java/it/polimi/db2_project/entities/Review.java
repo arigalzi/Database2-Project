@@ -1,16 +1,24 @@
 package it.polimi.db2_project.entities;
 
+import it.polimi.db2_project.entities.ids.ReviewKey;
+
 import javax.persistence.*;
+import java.io.*;
 
 @Entity
-public class Review {
+@Table(name = "review",schema = "db2_app")
+public class Review implements Serializable {
+    private static final long serialVersionUID = 1L;
+    public ReviewKey getId() {
+        return id;
+    }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reviewId;
+    public void setId(ReviewKey id) {
+        this.id = id;
+    }
 
-    @Id
-    private int productId;
+    @EmbeddedId
+    private ReviewKey id;
 
 
     @ManyToOne
@@ -23,13 +31,7 @@ public class Review {
 
     }
 
-    public int getReviewId() {
-        return reviewId;
-    }
 
-    public int getProductId() {
-        return productId;
-    }
 
     public Product getReviewedProduct() {
         return reviewedProduct;
@@ -37,14 +39,6 @@ public class Review {
 
     public String getText() {
         return text;
-    }
-
-    public void setReviewId(int reviewId) {
-        this.reviewId = reviewId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     public void setReviewedProduct(Product reviewedProduct) {

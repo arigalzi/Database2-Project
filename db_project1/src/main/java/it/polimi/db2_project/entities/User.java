@@ -11,7 +11,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
-@Table(name = "User", schema = "db2_app")
+@Entity
+@Table(name = "user", schema = "db2_app")
 @NamedQuery(name = "User.checkCredentials", query = "SELECT r FROM User r  WHERE r.username = ?1 and r.password = ?2")
 @NamedQuery(name = "User.getUser", query = "SELECT r FROM User r  WHERE r.username = ?1")
 public class User implements Serializable {

@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
         request.getSession().setAttribute ("errorType", errorType);
         request.getSession().setAttribute ("errorInfo", errorInfo);
         try {
-            getServletConfig().getServletContext().getRequestDispatcher("/error.html").forward(request, response);
+            getServletConfig().getServletContext().getRequestDispatcher("/db_project1/src/main/webapp/error.html").forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
         }

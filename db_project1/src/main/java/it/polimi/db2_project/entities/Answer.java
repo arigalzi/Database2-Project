@@ -9,7 +9,8 @@ import it.polimi.db2_project.entities.ids.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Table(name = "carola", schema = "db2_app")
+@Entity
+@Table(name = "answer", schema = "db2_app")
 @NamedQuery(name = "Answer.getUserFill", query = "SELECT distinct a.user FROM Anwer a WHERE a.question.productId = ?1")
 @NamedQuery(name = "Answer.getUserAnswers", query = "SELECT a FROM Answer a WHERE a.user.username = ?1 AND a.question.productId = ?2")
 @NamedQuery(name = "Answer.getSpecificAnswer", query = "SELECT a FROM Answer a WHERE a.userId = ?1 AND a.questionId = ?2 AND a.question.productId = ?3")

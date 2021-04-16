@@ -2,10 +2,12 @@ package it.polimi.db2_project.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.io.*;
 import java.util.*;
 
 @Entity
-public class Product {
+@Table(name = "product", schema = "db2_app")
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

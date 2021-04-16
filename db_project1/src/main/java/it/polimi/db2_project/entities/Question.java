@@ -31,7 +31,6 @@ public class Question implements Serializable,Comparable {
 
 
     @ManyToOne
-    @MapsId("productId")
     @JoinColumn(name = "productId")
     private Product product;
 
