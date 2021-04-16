@@ -90,12 +90,12 @@ public class UserService {
      * @param username username of the User
      * @throws PersistenceException if updateProfile fails
      * @throws IllegalArgumentException if the user does not exist
-
+    **/
     public void banUser(String username) throws PersistenceException, IllegalArgumentException{
-        User toBeBanned = getUser(username);
-        toBeBanned.setBanned(true);
-        em.merge(toBeBanned);
-    }*/
+        User user = getUser(username);
+        user.setBanned(true);
+        em.merge(user);
+    }
 
     /**
      * Method to check the status of the user, in relationship with the product

@@ -3,19 +3,21 @@ package it.polimi.db2_project.entities;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.*;
-import it.polimi.db2_project.entities.ids.RewardKey;
+
+import it.polimi.db2_project.entities.ids.*;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Table(name = "Answer", schema = "db2_app")
-@NamedQuery(name = "Answer.getUserFill", query = "SELECT distinct a.user FROM Answer a WHERE a.question.productId = ?1")
+@Table(name = "carola", schema = "db2_app")
+@NamedQuery(name = "Answer.getUserFill", query = "SELECT distinct a.user FROM Anwer a WHERE a.question.productId = ?1")
 @NamedQuery(name = "Answer.getUserAnswers", query = "SELECT a FROM Answer a WHERE a.user.username = ?1 AND a.question.productId = ?2")
 @NamedQuery(name = "Answer.getSpecificAnswer", query = "SELECT a FROM Answer a WHERE a.userId = ?1 AND a.questionId = ?2 AND a.question.productId = ?3")
 public class Answer implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private RewardKey id;
+    private AnswerKey id;
 
     @NotNull
     private int point;
@@ -32,18 +34,18 @@ public class Answer implements Serializable {
     private User user;
 
     @ManyToOne
-    @MapsId("questionId")
+    //@MapsId("questionId")
     @JoinColumns(
             {  @JoinColumn(name = "questionId", referencedColumnName = "questionId"),
                 @JoinColumn(name = "productId", referencedColumnName = "productId")
             })
     private Question question;
 
-    public void setId(RewardKey id) {
+    public void setId(AnswerKey id) {
         this.id = id;
     }
 
-    public RewardKey getId() {
+    public AnswerKey getId() {
         return id;
     }
 

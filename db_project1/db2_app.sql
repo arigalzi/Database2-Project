@@ -1,4 +1,4 @@
-DROP SCHEMA IF EXISTS `db2_app` ;
+DROP SCHEMA IF EXISTS `db2_app`;
 CREATE SCHEMA IF NOT EXISTS `db2_app` DEFAULT CHARACTER SET utf8 ;
 USE `db2_app` ;
 
@@ -18,10 +18,11 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`User` (
 DROP TABLE IF EXISTS `db2_app.Question` ;
 CREATE TABLE IF NOT EXISTS `db2_app`.`Question`(
 	  `questionID` INT NOT NULL AUTO_INCREMENT,
-      ]`date` DATE,
+      `date` DATE,
 	  `isMandatory` BOOLEAN DEFAULT 0, -- 0 for mandatory for the marketing 1 for stats fixed
 	  `text` VARCHAR(50 )NOT NULL,
 	  `questionNumber` INT NOT NULL,
+      `productID` int not null,
 	  FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`),
 	  PRIMARY KEY ( `questionID` , `date`)
 );
@@ -32,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`Questionnaire`( -- N:N REL between questio
 	  `questionID` INT NOT NULL,
 	  `userID`  INT NOT NULL,
       `date` DATE,
+      `productID` int not null,
 	  FOREIGN KEY (`date`) REFERENCES `Question` (`date`) ON DELETE CASCADE ON UPDATE CASCADE,
 	  FOREIGN KEY (`questionID`) REFERENCES `Question` (`questionID`) ON DELETE CASCADE ON UPDATE CASCADE,
 	  FOREIGN KEY (`userID`) REFERENCES `User` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -48,15 +50,14 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`Product`(
 	  PRIMARY KEY (`productID`)
 );
 
-DROP TABLE IF EXISTS `db2_app.Replying` ;
-CREATE TABLE IF NOT EXISTS `db2_app`.`Replying`(
+DROP TABLE IF EXISTS `db2_app.Answer` ;
+CREATE TABLE IF NOT EXISTS `db2_app`.`Answer`(
 	  `questionID` INT NOT NULL,
 	  `userID` INT NOT NULL ,
 	  `answer` VARCHAR(50) NOT NULL,
 	  `point` INT DEFAULT 0,
-      `answer` VARCHAR(50),
       `isSubmitted` BOOLEAN DEFAULT 0,
-	  FOREIGN KEY (`questionID`) REFERENCES `Product` (`questionID`) ON DELETE CASCADE ON UPDATE CASCADE,
+	  FOREIGN KEY (`questionID`) REFERENCES `Question` (`questionID`) ON DELETE CASCADE ON UPDATE CASCADE,
 	  FOREIGN KEY (`userID`) REFERENCES `User` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
 	  PRIMARY KEY (`userID`, `questionID`)
 );
@@ -93,3 +94,4 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`Log`(
 
 -- queries necessarie: tot punti di un utente per un questionario ; tot punti di utenti su un questionario ; prodotto del giorno;
 -- verifica se in una answer c'e una offensive;
+

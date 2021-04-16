@@ -46,4 +46,43 @@
 
     </filter-mapping>
 
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>AnswerData</servlet-name>
+        <servlet-class>it.polimi.db2_project.servlets.AnswerData</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnswerData</servlet-name>
+        <url-pattern>/Answer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>it.polimi.db2_project.servlets.Login</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>it.polimi.db2_project.servlets.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>QuestionnaireData</servlet-name>
+        <servlet-class>it.polimi.db2_project.servlets.QuestionnaireData</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>QuestionnaireData</servlet-name>
+        <url-pattern>/QuestionnaireData</url-pattern>
+    </servlet-mapping>
 </web-app>

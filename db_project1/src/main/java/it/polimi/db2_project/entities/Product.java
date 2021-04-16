@@ -29,7 +29,7 @@ public class Product {
     @OneToMany(mappedBy = "product") //amount of questions is limited
     private List<Question> questions;
 
-    @OneToMany(mappedBy = "productID")  // Nel mappedBy metto il nome dell'attributo nella classe che ha relazione
+    @OneToMany(mappedBy = "reviewedProduct")  // Nel mappedBy metto il nome dell'attributo nella classe che ha relazione
     private List<Review> reviews;
 
 

@@ -8,8 +8,9 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
-@Table(name = "question", schema = "db2_app")
-public class Question implements Serializable {
+@Table(name = "Question", schema = "db2_app")
+@NamedQuery(name = "Question.getQuestionsOfTheDay",query = "SELECT q FROM Question q WHERE q.date = ?1")
+public class Question implements Serializable,Comparable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -89,5 +90,17 @@ public class Question implements Serializable {
 
     public void setQuestionNumber(int questionNumber) {
         this.questionNumber = questionNumber;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        Question q = (Question) o;
+       if(this.getQuestionNumber() < q.getQuestionNumber())
+           return -1;
+       else if(this.getQuestionNumber() == q.getQuestionNumber())
+           return 0;
+       else
+           return 1;
     }
 }

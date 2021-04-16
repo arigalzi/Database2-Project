@@ -8,7 +8,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "dirtyWord", schema = "db2_app")
-@NamedQuery(name = "DirtyWords.CheckSentence", query = "SELECT d FROM DirtyWord d WHERE d.word in ?1")
+@NamedQuery(name = "DirtyWord.checkSentence", query = "SELECT d FROM DirtyWord d WHERE d.word in ?1")
 public class DirtyWord implements Serializable {
 
     private static final long serialVersionUID = 1L;
