@@ -19,44 +19,16 @@
         <url-pattern>/QuestionnairePageData</url-pattern>
         <url-pattern>/SubmitAnswer</url-pattern>
 
-        <url-pattern>/canceled.html </url-pattern>
-        <url-pattern>/banned.html </url-pattern>
-        <url-pattern>/homepage.html </url-pattern>
+        <url-pattern>/homePage.html </url-pattern>
         <url-pattern>/questionnaire.html </url-pattern>
+        <url-pattern>/error.html </url-pattern>
+        <url-pattern>/greetings.html </url-pattern>
         <url-pattern>/leaderboard.html </url-pattern>
-        <url-pattern>/thanks.html </url-pattern>
-
-
-    </filter-mapping>
-
-
-    <filter>
-        <filter-name>AdminFilter</filter-name>
-        <filter-class>it.polimi.db2_project.filters.AdminFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-
-        <filter-name>AdminFilter</filter-name>
-
-        <!--- all pages after 'Admin/ -->
-        <url-pattern>/Admin</url-pattern>
-        <url-pattern>/Admin/*</url-pattern>
-
 
     </filter-mapping>
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-
-    <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>it.polimi.db2_project.servlets.Login</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
 
 </web-app>
