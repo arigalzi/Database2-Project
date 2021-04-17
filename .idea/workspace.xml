@@ -10,9 +10,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e88e7fe-ffd1-46ac-96fa-11ecaba631de" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/db_project1/db_project1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/db_project1_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/db_project1_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ognl_ognl_3_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_20_0_GA.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/db_project1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/db_project1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Answer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Answer.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Answer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Log.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Question.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Question.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Review.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/servlets/AnswerData.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/servlets/AnswerData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/servlets/QuestionnaireData.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/servlets/QuestionnaireData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT.war" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Answer.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Answer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/ids/ReviewKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/ids/ReviewKey.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/services/AnswerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/services/AnswerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/services/QuestionnaireService.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/services/QuestionnaireService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/servlets/AnswerData.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/servlets/AnswerData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/servlets/QuestionnaireData.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/servlets/QuestionnaireData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/lib/attoparser-2.0.5.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/lib/javassist-3.20.0-GA.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/lib/ognl-3.1.12.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/lib/slf4j-api-1.7.25.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/lib/thymeleaf-3.0.11.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/lib/unbescape-1.1.6.RELEASE.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/scripts/error.js" beforeDir="false" />
     </list>
     <list id="44970d16-80b5-4ae5-ac46-004433a68509" name="Correction push" comment="" />
     <list id="24d85439-93de-4b3e-9f87-f9be27415979" name="Uncommitted changes before Update at 09/04/2021 21:09 [Default Changelist]" comment="" />
@@ -36,13 +72,18 @@
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
-    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_WARNINGS" value="true" />
     <option name="FILTER_INFO" value="true" />
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectId" id="1qsPLR0QpRDlTiVEOir4z20nft0" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -59,9 +100,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/db_project1/src/main/webapp/scripts" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.4823386" />
+    <property name="project.structure.side.proportion" value="0.32577565" />
     <property name="settings.editor.selected.configurable" value="vcs.Mercurial" />
   </component>
   <component name="RecentsManager">
@@ -70,6 +111,7 @@
       <recent name="D:\DATI POLI\PRIMO SEMESTRE\DATA BASE 2\PROJECT\DB2_project\db_project1\src\main\webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/db_project1/src/main/webapp" />
       <recent name="D:\DATI POLI\PRIMO SEMESTRE\DATA BASE 2\PROJECT\DB2_project\db_project1\src\main\webapp" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -77,12 +119,48 @@
     </key>
   </component>
   <component name="RunManager" selected="TomEE Server.TomEE 8.0.3">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="db2_app.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/db_project1/db2_app.sql" />
       <script-mode>FILE</script-mode>
       <method v="2" />
     </configuration>
     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/db_project1/src/main/webapp/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="db_project1 [clean]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/db_project1" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
       <method v="2" />
     </configuration>
     <configuration name="TomEE 8.0.3" type="TomeeConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="TomEE 8.0.3" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
@@ -96,7 +174,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="aace12d9-a4b7-425f-8228-f21a9139ba17" />
+        <option name="BASE_DIRECTORY_NAME" value="b0d67fbb-620b-42ee-8a35-23df5847eb44" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -168,7 +246,9 @@
       </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
-        <option name="BuildArtifacts" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="db_project1:war exploded" />
+        </option>
       </method>
     </configuration>
     <configuration default="true" type="TomeeConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="TomEE 8.0.3" ALTERNATIVE_JRE_ENABLED="false">
@@ -249,6 +329,94 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Tomcat 9.0.35" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.35" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/db_project1_war_exploded/" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="db_project1:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/db_project1_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="a406921e-5fed-4164-9c00-85f59c4971fa" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="50498" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="db_project1:war exploded" />
+        </option>
+      </method>
+    </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
       <deployment />
       <server-settings />
@@ -261,8 +429,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Database Script.db2_app.sql" />
+      <item itemvalue="JavaScript Debug.index.html" />
+      <item itemvalue="Maven.db_project1 [clean]" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.35" />
+      <item itemvalue="TomEE Server.TomEE 8.0.3" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Maven.db_project1 [clean]" />
         <item itemvalue="Database Script.db2_app.sql" />
         <item itemvalue="JavaScript Debug.index.html" />
       </list>
@@ -297,6 +473,8 @@
       <workItem from="1618572924236" duration="6738000" />
       <workItem from="1618586187740" duration="1550000" />
       <workItem from="1618592851396" duration="184000" />
+      <workItem from="1618605377428" duration="278000" />
+      <workItem from="1618648593096" duration="5836000" />
     </task>
     <task id="LOCAL-00001" summary="Questionnaire HTML added + navigation bar on Homepage linked to Questionnaire">
       <created>1618057582661</created>
