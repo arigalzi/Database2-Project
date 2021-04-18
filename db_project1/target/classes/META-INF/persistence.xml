@@ -13,6 +13,9 @@
         <class>it.polimi.db2_project.entities.Review</class>
         <class>it.polimi.db2_project.entities.User</class>
         <properties>
+            <!-- database connection -->
+            
+            <property name="eclipselink.ddl-generation" value="create-tables" />
         </properties>
     </persistence-unit>
 </persistence>

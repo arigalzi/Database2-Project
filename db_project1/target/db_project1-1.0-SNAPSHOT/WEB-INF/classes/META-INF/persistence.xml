@@ -13,6 +13,13 @@
         <class>it.polimi.db2_project.entities.Review</class>
         <class>it.polimi.db2_project.entities.User</class>
         <properties>
+            <!-- database connection -->
+
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db2_app"/>
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="Cugola123." />
+            <property name="hibernate.archive.autodetection" value="class, hbm"/>
         </properties>
     </persistence-unit>
 </persistence>
