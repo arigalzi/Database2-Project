@@ -26,8 +26,6 @@ public class Product implements Serializable {
     public Product(){
 
     }
-    //Product is OWNER entity (has fk column)
-
     @OneToMany(mappedBy = "product") //amount of questions is limited
     private List<Question> questions;
 

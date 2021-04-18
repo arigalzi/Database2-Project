@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+@Embeddable
 public class QuestionKey implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -15,11 +16,17 @@ public class QuestionKey implements Serializable {
     @Column(name = "productId")
     private int productId;
 
-    public QuestionKey(int questionId, Date date) {}
+    @Column(name = "date")
+    private Date date;
 
-    public QuestionKey(int questionId, int productId) {
-        this.questionId = questionId;
+    public QuestionKey() {
+
+    }
+
+    public QuestionKey(int questionId, Date date,int productId) {
         this.productId = productId;
+       this.questionId = questionId;
+       this.date = date;
     }
 
     public void setQuestionId(int questionId) {

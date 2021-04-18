@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.security.InvalidParameterException;
 
 
-@WebServlet("/Login")
+@WebServlet
 public class Login extends HttpServlet {
     @EJB(name = "it.polimi.db2_project.entities.services/UserService")
     private UserService userService;

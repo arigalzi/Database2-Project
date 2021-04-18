@@ -1,10 +1,26 @@
 package it.polimi.db2_project.entities.ids;
 
+import it.polimi.db2_project.entities.*;
+
 import javax.persistence.*;
+import java.io.*;
 import java.util.*;
 
 @Embeddable
-public class ReviewKey {
+public class ReviewKey implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+
+    @Column(name = "reviewID")
+    private int reviewId;
+
+    @Column(name = "productID")
+    private int productId;
+
+    public ReviewKey() {
+
+    }
 
     public int getReviewId() {
         return reviewId;
@@ -13,13 +29,6 @@ public class ReviewKey {
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
     }
-
-    @Column(name = "reviewId")
-    private int reviewId;
-
-    @Column(name = "productId")
-    private int productId;
-
 
     public int getProductId() {
         return productId;

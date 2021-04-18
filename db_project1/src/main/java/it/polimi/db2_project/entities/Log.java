@@ -20,7 +20,7 @@ public class Log implements Serializable {
     private Date timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "username", insertable = false, updatable = false)
+    @JoinColumn(name = "userID", referencedColumnName = "userID", insertable = false, updatable = false)
     private User user;
 
     @NotNull

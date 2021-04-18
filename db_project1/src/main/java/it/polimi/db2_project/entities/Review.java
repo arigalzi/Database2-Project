@@ -6,23 +6,24 @@ import javax.persistence.*;
 import java.io.*;
 
 @Entity
+@IdClass(ReviewKey.class)
 @Table(name = "review",schema = "db2_app")
 public class Review implements Serializable {
-    private static final long serialVersionUID = 1L;
-    public ReviewKey getId() {
-        return id;
-    }
 
-    public void setId(ReviewKey id) {
-        this.id = id;
-    }
+    private static final long serialVersionUID = 1L;
+
 
     @EmbeddedId
     private ReviewKey id;
 
 
+    @MapsId("reviewId")
+    @Column(name="reviewID")
+    private int reviewId;
+
     @ManyToOne
-    @JoinColumn(name = "productId")
+    @MapsId("productId")
+    @JoinColumn(name = "productID",referencedColumnName = "productID")
     private Product reviewedProduct;
 
     private String text;
@@ -31,7 +32,22 @@ public class Review implements Serializable {
 
     }
 
+    public int getReviewId() {
+        return reviewId;
+    }
 
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
+    }
+
+
+    public ReviewKey getId() {
+        return id;
+    }
+
+    public void setId(ReviewKey id) {
+        this.id = id;
+    }
 
     public Product getReviewedProduct() {
         return reviewedProduct;

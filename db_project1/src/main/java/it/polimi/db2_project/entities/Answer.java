@@ -11,9 +11,10 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "answer", schema = "db2_app")
-@NamedQuery(name = "Answer.getUserFill", query = "SELECT distinct a.user FROM Answer a WHERE a.productID = ?1")
-@NamedQuery(name = "Answer.getUserAnswers", query = "SELECT a FROM Answer a WHERE a.user.username = ?1 AND a.productID = ?2")
-@NamedQuery(name = "Answer.getSpecificAnswer", query = "SELECT a FROM Answer a WHERE a.userID = ?1 AND a.questionID = ?2 AND a.question.productID = ?3")
+@IdClass(AnswerKey.class)
+@NamedQuery(name = "Answer.getUserFill", query = "SELECT distinct a.user FROM Answer a WHERE a.product.productId = ?1")
+@NamedQuery(name = "Answer.getUserAnswers", query = "SELECT a FROM Answer a WHERE a.user.username = ?1 AND a.product.productId = ?2")
+@NamedQuery(name = "Answer.getSpecificAnswer", query = "SELECT a FROM Answer a WHERE a.user.userID = ?1 AND a.question.questionId = ?2 AND a.question.product.productId = ?3")
 public class Answer implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -31,14 +32,27 @@ public class Answer implements Serializable {
 
     @ManyToOne
     @MapsId("userId")
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userID",insertable = false,updatable = false)
     private User user;
 
+    @MapsId("questionId")
+    @JoinColumn(name = "questionID")
+    private int questionId;
+
+    @MapsId("date")
+    @JoinColumn(name = "date")
+    private Date date;
+
     @ManyToOne
-    //@MapsId("questionId")
+    @MapsId("productId")
+    @JoinColumn(name = "productID",referencedColumnName = "productID",insertable = false,updatable = false)
+    private Product product;
+
+    @ManyToOne
     @JoinColumns(
-            {  @JoinColumn(name = "questionId", referencedColumnName = "questionId"),
-                @JoinColumn(name = "productId", referencedColumnName = "productId")
+            {  @JoinColumn(name = "questionID", referencedColumnName = "questionId"),
+                @JoinColumn(name = "productID", referencedColumnName = "productId"),
+                    @JoinColumn(name = "date", referencedColumnName = "date")
             })
     private Question question;
 

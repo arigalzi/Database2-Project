@@ -8,17 +8,26 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
-@Table(name = "Question", schema = "db2_app")
+@Table(name = "question", schema = "db2_app")
 @NamedQuery(name = "Question.getQuestionsOfTheDay",query = "SELECT q FROM Question q WHERE q.date = ?1")
 public class Question implements Serializable,Comparable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EmbeddedId
+    private QuestionKey id;
+
+    @MapsId("questionId")
+    @Column(name="questionID")
     private int questionId;
 
-    //@Id
-    //private int productId;
+    @MapsId("date")
+    @Column(name="date")
+    private Date date;
+
+    @ManyToOne
+    @MapsId("productId")
+    @JoinColumn(name = "productID")
+    private Product product;
 
     private String text;
 
@@ -26,22 +35,6 @@ public class Question implements Serializable,Comparable {
     private boolean isMandatory;
 
     private int questionNumber;
-
-    private Date date;
-
-
-    @ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;
-
-
-    //@ManyToMany
-    //@JoinTable(name="answer", //come aggiungo gli attributi della relationship?
-    //        joinColumns={@JoinColumn(name="questionId", referencedColumnName = "questionId"),
-    //                     @JoinColumn(name="date", referencedColumnName = "date"),},
-    //        inverseJoinColumns={@JoinColumn(name="userId")})
-    //private Set<Answer> answers;
-
 
 
     public boolean isMandatory() {
@@ -65,6 +58,13 @@ public class Question implements Serializable,Comparable {
         this.date = date;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
 
     public int getQuestionId() {
@@ -76,7 +76,7 @@ public class Question implements Serializable,Comparable {
     }
 
     public QuestionKey getQuestionKey() {
-        return new QuestionKey(questionId, date);
+        return id;
     }
 
     public String getText() {
