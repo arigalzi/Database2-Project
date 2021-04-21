@@ -3,7 +3,7 @@ package it.polimi.db2_project.entities.ids;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.Date;
+
 import java.util.Objects;
 
 @Embeddable
@@ -16,17 +16,14 @@ public class QuestionKey implements Serializable {
     @Column(name = "productId")
     private int productId;
 
-    @Column(name = "date")
-    private Date date;
 
     public QuestionKey() {
 
     }
 
-    public QuestionKey(int questionId, Date date,int productId) {
+    public QuestionKey(int questionId,int productId) {
         this.productId = productId;
        this.questionId = questionId;
-       this.date = date;
     }
 
     public void setQuestionId(int questionId) {

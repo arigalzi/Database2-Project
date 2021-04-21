@@ -16,14 +16,6 @@ public class Question implements Serializable,Comparable {
     @EmbeddedId
     private QuestionKey id;
 
-    @MapsId("questionId")
-    @Column(name="questionID")
-    private int questionId;
-
-    @MapsId("date")
-    @Column(name="date")
-    private Date date;
-
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "productID")
@@ -31,11 +23,21 @@ public class Question implements Serializable,Comparable {
 
     private String text;
 
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
     @NotNull
     private boolean isMandatory;
 
     private int questionNumber;
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public boolean isMandatory() {
         return isMandatory;
@@ -46,17 +48,11 @@ public class Question implements Serializable,Comparable {
     }
 
 
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
-    }
-
     public void setText(String text) {
         this.text = text;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+
 
     public Product getProduct() {
         return product;
@@ -66,14 +62,6 @@ public class Question implements Serializable,Comparable {
         this.product = product;
     }
 
-
-    public int getQuestionId() {
-        return questionId;
-    }
-
-    public Date getDate() {
-        return date;
-    }
 
     public QuestionKey getQuestionKey() {
         return id;

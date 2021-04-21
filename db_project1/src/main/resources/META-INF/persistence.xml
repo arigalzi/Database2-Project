@@ -5,6 +5,7 @@
              version="2.2">
     <persistence-unit name="db2_app" transaction-type="JTA">
     <!-- configure -->
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>it.polimi.db2_project.entities.Answer</class>
         <class>it.polimi.db2_project.entities.DirtyWord</class>
         <class>it.polimi.db2_project.entities.Log</class>
