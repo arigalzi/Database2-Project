@@ -24,7 +24,7 @@ public class Log implements Serializable {
     private User user;
 
     @NotNull
-    private String userId;
+    private int userId;
 
     public int getLogId() {
         return logId;
@@ -50,11 +50,11 @@ public class Log implements Serializable {
         this.user = user;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 }

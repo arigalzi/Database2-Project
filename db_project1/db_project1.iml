@@ -16,7 +16,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="EclipseLink" />
         <datasource-mapping>
-          <factory-entry name="db2_app" value="afa31789-ae5d-4724-801b-241fdc7e7549" />
+          <factory-entry name="db2_app" value="be19fb16-f071-4598-8ac9-14255efdcfca" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />

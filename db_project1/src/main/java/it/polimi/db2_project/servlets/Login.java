@@ -88,7 +88,7 @@ public class Login extends HttpServlet {
                 User user = userService.addUser(username,email,password,false);
                 userService.LogUser(user);
                 request.getSession().setAttribute("user", username);
-                String path = getServletContext().getContextPath() + "/homepage.html";
+                String path = getServletContext().getContextPath() + "/homePage.html";
                 response.sendRedirect(path);
             }
             //USER ALREADY EXISTING
@@ -123,7 +123,7 @@ public class Login extends HttpServlet {
                 }
                 //Casual User Login
                 else{
-                    String path = getServletContext().getContextPath() + "/homepage.html";
+                    String path = getServletContext().getContextPath() + "/homePage.html";
                     response.sendRedirect(path);
                 }
             }

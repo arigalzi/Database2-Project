@@ -141,7 +141,7 @@ public class UserService {
     public void LogUser(User user) throws PersistenceException, IllegalArgumentException{
         Log log = new Log();
         log.setUser(user);
-        log.setUserId(user.getUsername());
+        log.setUserId(user.getUserID());
         log.setDate(new Timestamp(System.currentTimeMillis()));
 
         em.persist(log);
