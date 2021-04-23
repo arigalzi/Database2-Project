@@ -35,11 +35,10 @@
         </ul>
         <div class="navbar-text" id = "header">
             <h2>Product of the day - Questionnaire</h2>
-            <p id="error_message" style="font-size: 1em"></p>
         </div>
 
         <li class="navbar-text">
-            <span class="nav-link" href="#" id="var_username">Logged In: @Username</span>
+            <span class="nav-link" href="#" id="var_username">Logged In: Ciaoo</span>
         </li>
         <form class="form-inline my-2 my-lg-0" action="Logout" method="POST">
             <button class="btn btn-outline-light" type="submit">Logout</button>
@@ -50,12 +49,14 @@
     <form class="needs-validation" id="questionnaire_form" novalidate>
         <div class="row">
             <div class="col">
-                <div id="mandatory_form">
-                    <div id="id_question_container">
+                <div id="mandatory_form" style="margin-top: 1%">
+                    <div id="id_question_container" style="text-align: center">
+                        <h4 id="id_product_name">Title</h4>
+                        <label id="id_product_description">Description</label>
                         <!-- filled by JS -->
                     </div>
 
-                    <button style = "margin-left: 47.5%"type="button" id ="nextButton" class="btn btn-primary" onclick="showOptionalForm()">Next</button>
+                    <button style = "margin-left: 48%"type="button" id ="nextButton" class="btn btn-primary" onclick="showOptionalForm()">Next</button>
 
                 </div>
             </div>
@@ -112,6 +113,9 @@
                 </div>
 
             </div>
+
+            <p id="error_message" style="font-size: 1em"></p>
+
         </div>
     </form>
 </body>

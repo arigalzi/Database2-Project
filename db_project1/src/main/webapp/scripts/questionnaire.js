@@ -15,38 +15,36 @@ function manageRequest(method,url,element,requestName,responseFunc) {
     // Process the server response assigning a function to the variable
     request.onreadystatechange = function () {
         responseFunc(request);
-        /*after declaring what happens
-        when you receive the response, you need to actually make the request*/
-        request.open(method, url);
-        var submission;
-        switch (requestName) {
-            case "cancel":
-                submission = false;
-                if (element == null) {
-                    request.send();
-                } else
-                    request.setRequestHeader("cancelled", submission);
+    };
+    /*after declaring what happens
+    when you receive the response, you need to actually make the request*/
+    request.open(method, url);
+    var submission;
+    switch (requestName) {
+        case "cancel":
+            submission = false;
+            if (element == null) {
+                request.send();
+            } else
+                request.setRequestHeader("cancelled", submission);
+            request.send(new FormData(element));
+            break;
+        case "submit":
+            submission = true;
+            if (element == null) {
+                request.send();
+            } else
+                request.setRequestHeader("submitted", submission)
+            request.send(new FormData(element));
+            break;
+        default:
+            if (element == null) {
+                request.send();
+            } else
                 request.send(new FormData(element));
-                break;
-            case "submit":
-                submission = true;
-                if (element == null) {
-                    request.send();
-                } else
-                    request.setRequestHeader("submitted", submission)
-                request.send(new FormData(element));
-                break;
-            default:
-                if (element == null) {
-                    request.send();
-                } else
-                    request.send(new FormData(element));
-                break;
+            break;
 
-        }
     }
-
-
 
 }
 
@@ -56,14 +54,14 @@ function manageRequest(method,url,element,requestName,responseFunc) {
  */
 function addQuestions(questionList){
 
-    var container = document.getElementById("id_question_container");
+    let container = document.getElementById("id_question_container");
     container.innerHTML = "";
-    questionsList.forEach(question => {
+    questionList.forEach((question) => {
 
-        var questionBox = document.createElement("div");
+        let questionBox = document.createElement("div");
         questionBox.className = "mandatory-question";
         questionBox.innerHTML =
-            "             <label class=\"col-form-label\">" + text + "</label>\n" +
+            "             <label class=\"col-form-label\">" + question + "</label>\n" +
             "                   <div class=\"form-group\">\n" +
             "                           <textarea class=\"form-control\" name=\"mandatory\" id=\"answer\" rows=\"3\" placeholder=\"Answer\" required></textarea>\n" +
             "                           <div class=\"invalid-tooltip\">\n" +
@@ -71,7 +69,7 @@ function addQuestions(questionList){
             "                           </div>\n" +
             "                        </div>\n"
         container.appendChild(questionBox);
-    })
+    });
 }
 function showError(){
 
@@ -123,7 +121,7 @@ function manageForms(button_type){
       function(request,action){
         switch (action){
             case "Cancel":
-                if (request.readyState == 4 && request.status == 200) {
+                if (request.readyState === 4 && request.status === 200) {
                     document.getElementById("mandatory_form").reset();
                     showMandatoryForm();
                     showMessage("error_message","The form has been canceled successfully");
@@ -131,22 +129,24 @@ function manageForms(button_type){
                 else{
                     showMessage("error_message","Error in cancelling the form")
                 }
+                break;
             case "Submit":
-                if (request.readyState == 4){
-                    if(request.status == 200){
+                if (request.readyState === 4){
+                    if(request.status === 200){
                         window.location.assign("../thanks.html");
                     }
-                    else if(request.status == 400){
+                    else if(request.status === 400){
                         window.location.assign("../banned.html");
                     }
                 }
+                break;
 
         }
 
       });
     manageRequest("POST", './AnswerData', form2, "cancel",
         function(request){
-            if (request.readyState == 4 && request.status == 200) {
+            if (request.readyState === 4 && request.status === 200) {
                 document.getElementById("optional_form").reset();
                 showMandatoryForm();
                 showMessage("error_message","The form has been canceled successfully");
@@ -159,14 +159,30 @@ function manageForms(button_type){
 
 }
 
-window.addEventListener("load", () => {
+
+
+window.addEventListener('load', () => {
     initForms();
-    manageRequest("GET","",null,null,function(request){
-        if (request.readyState == 4 && request.status == 200) {
-            var message = request.responseText;
-            var parsed = JSON.parse(message)
-            var text = parsed.text;
-            addQuestions(text);
+    console.log('page is fully loaded');
+    manageRequest("GET","./QuestionnaireData",null,null,function(request){
+        if (request.readyState === 4 && request.status === 200) {
+            let message = request.responseText;
+            let parsed = JSON.parse(message);
+            console.log(parsed);
+            addQuestions(parsed);
+        }
+        else {
+            switch (request.status) {
+                case 400: // bad request
+                    showMessage("error_message","Bad request");
+                    break;
+                case 401: // unauthorized
+                    showMessage("error_message","unauthorized");
+                    break;
+                case 500: // server error
+                    showMessage("error_message","internal server error");
+                    break;
+            }
         }
     });
 });

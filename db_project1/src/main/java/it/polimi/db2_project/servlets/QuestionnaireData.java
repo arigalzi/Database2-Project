@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet({"/QuestionnaireData"})
+@WebServlet("/QuestionnaireData")
 public class QuestionnaireData extends HttpServlet {
     @EJB(
             name = "it.polimi.db2.entities.services/QuestionnaireService"
@@ -31,8 +31,12 @@ public class QuestionnaireData extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.setStatus(200);
-        List<Question> questionList = this.questionnaireService.getQuestionsOfTheDay();
-        this.questionnaireService.orderByQuestionNumber(questionList);
-        out.print((new Gson()).toJson(questionList));
+        List<Question> questionList = questionnaireService.getQuestionsOfTheDay();
+        questionnaireService.orderByQuestionNumber(questionList);
+        List<String> textResponse =  questionnaireService.convertToString(questionList);
+        String var = (new Gson()).toJson(textResponse);
+        System.out.println((new Gson()).toJson(textResponse));
+        out.print((new Gson()).toJson(textResponse));
+
     }
 }

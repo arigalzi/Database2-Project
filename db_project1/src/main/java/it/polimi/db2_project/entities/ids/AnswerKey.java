@@ -15,9 +15,13 @@ public class AnswerKey implements Serializable {
     private QuestionKey questionKey;
 
 
+    public QuestionKey getQuestionKey() {
+        return questionKey;
+    }
 
-
-
+    public void setQuestionKey(QuestionKey questionKey) {
+        this.questionKey = questionKey;
+    }
 
     public int getUserId() {
         return userId;
