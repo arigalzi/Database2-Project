@@ -13,65 +13,62 @@
 <!-- TODO Just a copy --->
 
 <!--nav bar --->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Gamified App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="margin-top: -0.3% " href="homePage.html">GamifiedApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="btn btn-outline-light" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="homePage.html">Home <span class="sr-only">(current)</span></a>
             </li>
-            <!--li class="nav-item">
-                <a class="nav-link" href="#">Leaderboard</a>
-            </li!-->
-            <form class="form-inline my-2 my-lg-0" action="leaderboard.html">
-                <button class="btn btn-outline-light" type="submit">Leaderboard</button>
-            </form>
-            <form class="form-inline my-2 my-lg-0" action="questionnaire.html">
-                <button class="btn btn-outline-light" type="submit">Questionnaire</button>
-            </form>
-
+            <li class="nav-item">
+                <a class="nav-link" href="leaderboard.html">LeaderBoard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="questionnaire.html">Questionnaire</a>
+            </li>
         </ul>
-        <h2 style="margin-left: 16%; width: 50%;padding: 10px; color: white;">HomePage</h2>
-        <li class="navbar-text">
-            <span class="nav-link" href="#" id="var_username">Logged In: @Username</span>
-        </li>
-        <form class="form-inline my-2 my-lg-0" action="Logout" method="POST">
-            <button class="btn btn-outline-light" type="submit">Logout</button>
-        </form>
+        <span class="navbar-text" id="var_username">
+      Logged In: @Username
+    </span>
+        <ul  class="navbar-nav ">
+            <li class="nav-item" action="Logout" method="POST">
+                <a class="nav-link" href="index.html">Logout</a>
+            </li>
+        </ul>
     </div>
 </nav>
 
+<h2 style="margin-left:10px;margin-top: 2%" >Product of the Day:</h2></div>
+<br>
 <div class="container">
-    <div class="row justify-content-md-center">
+    <div  style="margin-left: -42%;" class="row justify-content-md-center">
         <div class="col-sm-8">
-            <div class="row"> <h1>Product of the Day:</h1></div>
-            <div class="row"><h4 id="id_product_title">Title</h4></div>
-            <!--div class="row"><img id="id_product_image" alt="error: image not found"/></div!-->
-            <div class="row"><img id="id_product_image" width="321" height="321"/></div>
             <div class="row">
-                <div id="id_product_descript"> this is the product description, you should buy it</div>
-            </div>
-            <div class="row" id="id_action_row">
+                    <h4   id="id_product_title">Title</h4>
+                </div>
+                <!--div class="row"><img id="id_product_image" alt="error: image not found"/></div!-->
+                <div class="row">
+                    <img id="id_product_image" width="321" height="321"/>
+                </div>
+                <div class="row">
+                    <div id="id_product_description"> this is the product description, you should buy it</div>
+                </div>
 
-            </div>
+                <hr>
+                <div class="row">
+                    <table id="id_Review_Table"  style="width:40%">
 
-            <hr>
-            <div class="row">
-                <table id="id_Review_Table"  style="width:40%">
-
-                    <thead>
-                    <tr>
-                        <th>Reviews</th>
-                    </tr>
-                    </thead>
-                    <tbody id="id_ReviewBody"></tbody>
-                </table>
-            </div>
+                        <thead>
+                        <tr>
+                            <th>Reviews</th>
+                        </tr>
+                        </thead>
+                        <tbody id="id_ReviewBody"></tbody>
+                    </table>
+                </div>
         </div>
 
     </div>

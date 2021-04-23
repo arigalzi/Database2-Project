@@ -7,36 +7,69 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<h1>SignUp Page</h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="margin-top: -0.4% " href="homePage.html">GamifiedApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="homePage.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="leaderboard.html">LeaderBoard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="questionnaire.html">Questionnaire</a>
+            </li>
+
+            <li class="nav-item"  action="Logout" method="POST">
+                <a class="nav-link" href="index.html">Logout</a>
+            </li>
+
+        </ul>
+        <span class="navbar-text" id="var_username">
+      Logged In: @Username
+    </span>
+        <ul  class="navbar-nav ">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<h1 style="text-align: center;margin-top: 2%">SignUp Page</h1>
 <div>
 
     <!-- SIGN UP -->
-    <form action="Login" method="POST">
-
+    <form style="text-align: center" action="Login" method="POST">
+        <br>
         <div>
             <label>Username:</label>
             <input type="username" name="username" id="username-input" placeholder="Insert your username">
         </div>
-
+        <br>
         <div>
-            <label>Email:</label>
-            <input type="email" name="email" id="email-input"
+            <label style="margin-left: -30px">Email:</label>
+            <input  type="email" name="email" id="email-input"
                    placeholder="email@meeting.com">
         </div>
-
+        <br>
         <div>
             <label>Password:</label>
             <input type="password" name="password" id="password-input"
                    placeholder="Insert your password">
         </div>
-
+        <br>
         <div>
             <input type="hidden" id="signup-hidden" name="signUp" value="true">
         </div>
 
         <div>
             <div>
-                <button type="submit">Create Account</button>
+                <button class="btn btn-secondary" type="submit">Create Account</button>
             </div>
         </div>
 

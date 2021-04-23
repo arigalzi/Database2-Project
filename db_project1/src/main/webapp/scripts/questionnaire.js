@@ -62,12 +62,14 @@ function addQuestions(questionList){
         questionBox.className = "mandatory-question";
         questionBox.innerHTML =
             "             <label class=\"col-form-label\">" + question + "</label>\n" +
-            "                   <div class=\"form-group\">\n" +
-            "                           <textarea class=\"form-control\" name=\"mandatory\" id=\"answer\" rows=\"3\" placeholder=\"Answer\" required></textarea>\n" +
+            "                   <div class=\"row\">\n" +
+            "                      <div class=\"col\">\n" +
+            "                           <input style=\"text-align: center;\" name=\"mandatory\" id=\"answer\" placeholder=\"Answer\" required></input>\n" +
             "                           <div class=\"invalid-tooltip\">\n" +
             "                                Please provide a valid answer. This field is mandatory.\n" +
             "                           </div>\n" +
-            "                        </div>\n"
+            "                        </div>\n" +
+            "                     </div>\n"
         container.appendChild(questionBox);
     });
 }
