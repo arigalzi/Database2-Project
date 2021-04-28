@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`Answer`(
 `questionID` INT NOT NULL,
 `userID` INT NOT NULL ,
 `answer` VARCHAR(50) NOT NULL,
-`point` INT DEFAULT 0,
 `isSubmitted` BOOLEAN DEFAULT 0,
 PRIMARY KEY (`userID`, `questionID`),
 FOREIGN KEY (`questionID`) REFERENCES `Question` (`questionID`) ON DELETE CASCADE ON UPDATE CASCADE,
