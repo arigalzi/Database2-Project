@@ -18,6 +18,7 @@ PRIMARY KEY (`userID`)
 DROP TABLE IF EXISTS `db2_app.Product` ;
 CREATE TABLE IF NOT EXISTS `db2_app`.`Product`(
 `productID` INT NOT NULL AUTO_INCREMENT,
+`date` DATE,
 `name` VARCHAR(50) NOT NULL,
 `image` longblob,
 `description` VARCHAR(256),
@@ -28,7 +29,6 @@ PRIMARY KEY (`productID`)
 DROP TABLE IF EXISTS `db2_app.Question` ;
 CREATE TABLE IF NOT EXISTS `db2_app`.`Question`(
 `questionID` INT NOT NULL AUTO_INCREMENT,
-`date` DATE,
 `isMandatory` BOOLEAN DEFAULT 0, -- 0 for mandatory for the marketing 1 for stats fixed
 `text` VARCHAR(50 )NOT NULL,
 `questionNumber` INT NOT NULL,
@@ -60,6 +60,17 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`DirtyWord`(
 PRIMARY KEY (`dirtyID`)
 );
 
+-- Table `Log`
+DROP TABLE IF EXISTS `db2_app.Log` ;
+CREATE TABLE IF NOT EXISTS `db2_app`.`Log`(
+`logID` INT NOT NULL AUTO_INCREMENT,
+`timestamp` TIME ,
+`userID` INT NOT NULL,
+PRIMARY KEY (`logID`),
+FOREIGN KEY (`userID`) REFERENCES `User` (`userID`)  ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
 -- Table `Review`
 -- Weak Entity
 DROP TABLE IF EXISTS `db2_app.Review` ;
@@ -67,19 +78,21 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`Review`(
 `reviewID` INT NOT NULL AUTO_INCREMENT,
 `text` VARCHAR(50) NOT NULL,
 `productID` INT NOT NULL,
-PRIMARY KEY (`productID`, `reviewID`),
+PRIMARY KEY (`reviewID`, `productID`),
 FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Table `Log`
-DROP TABLE IF EXISTS `db2_app.Log` ;
-CREATE TABLE IF NOT EXISTS `db2_app`.`Log`(
-`logID` INT NOT NULL AUTO_INCREMENT,
-`timestamp` TIME NOT NULL,
+
+DROP TABLE IF EXISTS `db2_app.Evaluation` ;
+CREATE TABLE IF NOT EXISTS `db2_app`.`Evaluation`(
 `userID` INT NOT NULL,
-PRIMARY KEY (`logID`),
-FOREIGN KEY (`userID`) REFERENCES `User` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+`productID` INT NOT NULL ,
+`totalPoints` INT NOT NULL,
+PRIMARY KEY (`userID`, `productID`),
+FOREIGN KEY (`userID`) REFERENCES `User` (`userID`)  ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 
 -- queries necessarie: tot punti di un utente per un questionario ; tot punti di utenti su un questionario ; prodotto del giorno;
