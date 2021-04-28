@@ -14,37 +14,44 @@ function manageRequest(method,url,element,requestName,responseFunc) {
 
     // Process the server response assigning a function to the variable
     request.onreadystatechange = function () {
-        responseFunc(request);
+        responseFunc(request,requestName);
     };
     /*after declaring what happens
     when you receive the response, you need to actually make the request*/
     request.open(method, url);
     var submission;
-    switch (requestName) {
-        case "cancel":
-            submission = false;
-            if (element == null) {
-                request.send();
-            } else
-                request.setRequestHeader("cancelled", submission);
-            request.send(new FormData(element));
-            break;
-        case "submit":
-            submission = true;
-            if (element == null) {
-                request.send();
-            } else
-                request.setRequestHeader("submitted", submission)
-            request.send(new FormData(element));
-            break;
-        default:
-            if (element == null) {
-                request.send();
-            } else
-                request.send(new FormData(element));
-            break;
 
+    if(requestName == null) {
+        console.log(requestName);
+        console.log("No of the two")
+        if (element == null) {
+            request.send();
+        } else
+            console.log((new FormData(element)).values());
+        request.send(new FormData(element));
     }
+    else if(requestName.trim() === 'Cancel') {
+        console.log("in cancel");
+        submission = false;
+        if (element == null) {
+            request.send();
+        } else
+            request.setRequestHeader("submitted", submission);
+        request.send(new FormData(element));
+    }
+    else if(requestName.trim() === 'Submit') {
+        console.log("in submit");
+        submission = true;
+        if (element == null) {
+            request.send();
+        } else
+            request.setRequestHeader("submitted", submission)
+        for (var pair of new FormData(element).entries()) {
+            console.log(pair[0]+ ', ' + pair[1]);
+        }
+        request.send(new FormData(element));
+    }
+
 
 }
 
@@ -62,9 +69,9 @@ function addQuestions(questionList){
         questionBox.className = "mandatory-question";
         questionBox.innerHTML =
             "             <label class=\"col-form-label\">" + question + "</label>\n" +
-            "                   <div class=\"row\">\n" +
+            "                   <div class=\"form-group\">\n" +
             "                      <div class=\"col\">\n" +
-            "                           <input style=\"text-align: center;\" name=\"mandatory\" id=\"answer\" placeholder=\"Answer\" required></input>\n" +
+            "                           <input style=\"text-align: center;\" name=\"mandatory\" id=\"answer\" placeholder=\"Insert your answer\" required/>\n" +
             "                           <div class=\"invalid-tooltip\">\n" +
             "                                Please provide a valid answer. This field is mandatory.\n" +
             "                           </div>\n" +
@@ -117,46 +124,36 @@ function initForms(){
  */
 function manageForms(button_type){
     let action = button_type.textContent;
-    let form1 = document.getElementById("mandatory_form");
-    let form2 = document.getElementById("optional_form");
-    manageRequest("POST", './AnswerData', form1, action,
-      function(request,action){
-        switch (action){
-            case "Cancel":
-                if (request.readyState === 4 && request.status === 200) {
-                    document.getElementById("mandatory_form").reset();
-                    showMandatoryForm();
-                    showMessage("error_message","The form has been canceled successfully");
-                }
-                else{
-                    showMessage("error_message","Error in cancelling the form")
-                }
-                break;
-            case "Submit":
-                if (request.readyState === 4){
-                    if(request.status === 200){
-                        window.location.assign("../thanks.html");
-                    }
-                    else if(request.status === 400){
-                        window.location.assign("../banned.html");
-                    }
-                }
-                break;
+    console.log(action)
+    let form = document.getElementById("questionnaire_form");
+    for (var pair of new FormData(form).entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }
 
-        }
+    //Manage mandatory form
+    manageRequest("POST", './AnswerData', form, action,
+      function(request,action){
+        //When the server has responded that we reset the form
+          if(action.trim() === "Cancel") {
+              if (request.readyState === 4 && request.status === 200) {
+                  document.getElementById("mandatory_form").reset();
+                  showMandatoryForm();
+                  showMessage("error_message", "The form has been canceled successfully");
+              } else {
+                  showMessage("error_message", "Error in cancelling the form")
+              }
+          }
+          else if(action.trim() === "Submit") {
+              if (request.readyState === 4) {
+                  if (request.status === 200) {
+                      window.location.assign("../db_project1_war_exploded/greetings.html");
+                  } else if (request.status === 400) {
+                      window.location.assign("../banned.html");
+                  }
+              }
+          }
 
       });
-    manageRequest("POST", './AnswerData', form2, "cancel",
-        function(request){
-            if (request.readyState === 4 && request.status === 200) {
-                document.getElementById("optional_form").reset();
-                showMandatoryForm();
-                showMessage("error_message","The form has been canceled successfully");
-            }
-            else{
-                showMessage("error_message","Error in cancelling the form")
-            }
-        })
 
 
 }

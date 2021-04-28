@@ -9,7 +9,8 @@ import java.util.*;
 
 @Entity
 @Table(name = "question", schema = "db2_app")
-@NamedQuery(name = "Question.getQuestionsOfTheDay",query = "SELECT q FROM Question q WHERE q.date = ?1")
+@NamedQuery(name = "Question.getQuestionsOfTheDay",query = "SELECT q FROM Question q WHERE q.date = ?1 AND q.isMandatory=true")
+@NamedQuery(name = "Question.getOptionalQuestions",query = "SELECT q FROM Question q WHERE q.date = ?1 AND q.isMandatory=false")
 public class Question implements Serializable,Comparable {
     private static final long serialVersionUID = 1L;
 
