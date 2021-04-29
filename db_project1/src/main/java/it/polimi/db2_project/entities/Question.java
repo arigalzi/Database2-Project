@@ -9,8 +9,8 @@ import java.util.*;
 
 @Entity
 @Table(name = "question", schema = "db2_app")
-@NamedQuery(name = "Question.getQuestionsOfTheDay",query = "SELECT q FROM Question q WHERE q.date = ?1 AND q.isMandatory=true")
-@NamedQuery(name = "Question.getOptionalQuestions",query = "SELECT q FROM Question q WHERE q.date = ?1 AND q.isMandatory=false")
+@NamedQuery(name = "Question.getQuestionsOfTheDay",query = "SELECT q FROM Question q WHERE q.product.date = ?1 AND q.isMandatory=true")
+@NamedQuery(name = "Question.getOptionalQuestions",query = "SELECT q FROM Question q WHERE q.product.date = ?1 AND q.isMandatory=false")
 public class Question implements Serializable,Comparable {
     private static final long serialVersionUID = 1L;
 
@@ -24,21 +24,10 @@ public class Question implements Serializable,Comparable {
 
     private String text;
 
-    @Temporal(TemporalType.DATE)
-    private Date date;
-
     @NotNull
     private boolean isMandatory;
 
     private int questionNumber;
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public boolean isMandatory() {
         return isMandatory;

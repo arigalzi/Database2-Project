@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "log", schema = "db2_app")
+@NamedQuery(name = "Log.getCurrentLogOfUser", query = "SELECT l FROM Log l WHERE l.user= ?1 AND l.timestamp = (SELECT MAX(l.timestamp) FROM Log l WHERE l.user = ?1)")
 public class Log implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -25,6 +26,20 @@ public class Log implements Serializable {
 
     @NotNull
     private int userId;
+
+    @NotNull
+    @Column(name = "formCancelled")
+    private boolean isFormCancelled;
+
+    public boolean isFormCancelled() {
+        return isFormCancelled;
+    }
+
+    public void setFormCancelled(boolean formCancelled) {
+        isFormCancelled = formCancelled;
+    }
+
+
 
     public int getLogId() {
         return logId;

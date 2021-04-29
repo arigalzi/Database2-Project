@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
         request.getSession().setAttribute ("errorType", errorType);
         request.getSession().setAttribute ("errorInfo", errorInfo);
         try {
-            getServletConfig().getServletContext().getRequestDispatcher("/db_project1/src/main/webapp/error.html").forward(request, response);
+            getServletConfig().getServletContext().getRequestDispatcher("/error.html").forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
         }
@@ -136,4 +136,4 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 }
-
+/*TODO Va gestito il messaggio di errore se uno fa login senza essere registrato*/

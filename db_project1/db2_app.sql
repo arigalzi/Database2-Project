@@ -43,11 +43,12 @@ FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`)
 DROP TABLE IF EXISTS `db2_app.Answer` ;
 CREATE TABLE IF NOT EXISTS `db2_app`.`Answer`(
 `questionID` INT NOT NULL,
+`productID` INT NOT NULL,
 `userID` INT NOT NULL ,
 `answer` VARCHAR(50) NOT NULL,
-`isSubmitted` BOOLEAN DEFAULT 0,
-PRIMARY KEY (`userID`, `questionID`),
+PRIMARY KEY (`userID`, `questionID`,`productID`),
 FOREIGN KEY (`questionID`) REFERENCES `Question` (`questionID`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`productID`) REFERENCES `Question` (`productID`) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (`userID`) REFERENCES `User` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -65,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`Log`(
 `logID` INT NOT NULL AUTO_INCREMENT,
 `timestamp` TIME ,
 `userID` INT NOT NULL,
+`formCancelled` BOOLEAN DEFAULT 0,
 PRIMARY KEY (`logID`),
 FOREIGN KEY (`userID`) REFERENCES `User` (`userID`)  ON DELETE CASCADE ON UPDATE CASCADE
 );

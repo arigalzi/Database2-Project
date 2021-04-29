@@ -7,6 +7,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "product", schema = "db2_app")
+@NamedQuery(name = "Product.getProductOfTheDay", query = "SELECT p FROM Product p WHERE p.date = ?1")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,6 +24,11 @@ public class Product implements Serializable {
     @Lob
     private byte[] image;
 
+
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
     public Product(){
 
     }
@@ -32,6 +38,14 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "reviewedProduct")  // Nel mappedBy metto il nome dell'attributo nella classe che ha relazione
     private List<Review> reviews;
 
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public int getProductId() {
         return productId;

@@ -143,8 +143,15 @@ public class UserService {
         log.setUser(user);
         log.setUserId(user.getUserID());
         log.setDate(new Timestamp(System.currentTimeMillis()));
-
+        log.setFormCancelled(false);
         em.persist(log);
+    }
+
+
+    public void cancelForm(User user){
+        Log current_log = em.createNamedQuery("Log.getCurrentLogOfUser", Log.class).setParameter(1,user).getSingleResult();
+        current_log.setFormCancelled(true);
+        em.merge(current_log);
     }
 }
 

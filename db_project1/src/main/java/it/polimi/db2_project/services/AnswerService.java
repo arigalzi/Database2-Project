@@ -1,10 +1,9 @@
 package it.polimi.db2_project.services;
 
-import it.polimi.db2_project.entities.Answer;
-import it.polimi.db2_project.entities.DirtyWord;
-import it.polimi.db2_project.entities.Question;
-import it.polimi.db2_project.entities.User;
+import it.polimi.db2_project.entities.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,9 +12,7 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 public class AnswerService {
-    @PersistenceContext(
-            unitName = "db2_app"
-    )
+    @PersistenceContext(unitName = "db2_app")
     private EntityManager em;
 
     public AnswerService() {
@@ -49,13 +46,23 @@ public class AnswerService {
         return answers;
     }
 
-    public void addAnswer(String response, boolean isSubmitted, User user, Question question){
+    public void addAnswer(String response, User user, Question question){
         Answer answer = new Answer();
         answer.setAnswer(response);
-        answer.setSubmitted(isSubmitted);
         answer.setUser(user);
         answer.setQuestion(question);
         //Points are set by the triggers
         em.persist(answer);
+    }
+
+    public boolean alreadyFilled(String username, Product product){
+        List<Answer> answers;
+        try {
+            answers =  em.createNamedQuery("Answer.getUserAnswers", Answer.class).setParameter(1, username).setParameter(2, product.getProductId()).getResultList();
+        }
+        catch(NoResultException e){
+              answers = null;
+            }
+        return answers.size() != 0;
     }
 }

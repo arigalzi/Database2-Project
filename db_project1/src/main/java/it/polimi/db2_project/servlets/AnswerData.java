@@ -81,30 +81,25 @@ public class AnswerData extends HttpServlet {
 
         //Manage cancelled FORM
         if(request.getHeader("submitted").equals("false")){
-            //Manage the mandatory responses
-            for (int i = 0; i < mandatory_answers.length; i++)
-                answerService.addAnswer(mandatory_answers[i],false,user,questionList.get(i));
-
-
-            //Manage the optional responses
-            answerService.addAnswer(age, false, user, optionalQuestions.get(0));
-            answerService.addAnswer(sex, false, user, optionalQuestions.get(1));
-            answerService.addAnswer(expertiseLevel, false, user, optionalQuestions.get(2));
-
+            //No respondes are stored but we set the current Log with questionnaireCancelled a true
+            userService.cancelForm(user);
 
         }
+
         //Manage submitted FORM
         else {
             //Manage the mandatory responses
             for (int i = 0; i < mandatory_answers.length; i++)
-                answerService.addAnswer(mandatory_answers[i], true, user, questionList.get(i));
+                answerService.addAnswer(mandatory_answers[i], user, questionList.get(i));
 
             //Manage the optional responses
-            answerService.addAnswer(age, true, user, optionalQuestions.get(0));
-            answerService.addAnswer(sex, true, user, optionalQuestions.get(1));
-            answerService.addAnswer(expertiseLevel, true, user, optionalQuestions.get(2));
+            answerService.addAnswer(age, user, optionalQuestions.get(0));
+            answerService.addAnswer(sex, user, optionalQuestions.get(1));
+            answerService.addAnswer(expertiseLevel, user, optionalQuestions.get(2));
 
         }
+
+        System.out.println("Request managed by AnswerData");
 
 
     }

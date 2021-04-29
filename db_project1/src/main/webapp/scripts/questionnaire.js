@@ -101,6 +101,13 @@ function showMandatoryForm(){
     mandatory.style.display = "block";
 }
 
+function showNoForms(){
+    let mandatory = document.getElementById("mandatory_form");
+    let optional = document.getElementById("optional_form");
+    optional.style.display = "none"; //element is not displayed
+    mandatory.style.display = "none";
+}
+
 
 function showOptionalForm(){
 
@@ -136,9 +143,9 @@ function manageForms(button_type){
         //When the server has responded that we reset the form
           if(action.trim() === "Cancel") {
               if (request.readyState === 4 && request.status === 200) {
-                  document.getElementById("mandatory_form").reset();
-                  showMandatoryForm();
-                  showMessage("error_message", "The form has been canceled successfully");
+                  document.getElementById("mandatory_form").value = "";
+                  showNoForms();
+                  showMessage("error_message", "The form has been canceled successfully \n Go back to HomePage");
               } else {
                   showMessage("error_message", "Error in cancelling the form")
               }
@@ -173,7 +180,9 @@ window.addEventListener('load', () => {
         else {
             switch (request.status) {
                 case 400: // bad request
-                    showMessage("error_message","Bad request");
+                    console.log("In 400")
+                    showNoForms();
+                    showMessage("error_message","Error: Questionnaire already completed \n Go back to HomePage");
                     break;
                 case 401: // unauthorized
                     showMessage("error_message","unauthorized");

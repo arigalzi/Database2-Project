@@ -21,12 +21,6 @@ public class Answer implements Serializable {
     private AnswerKey id;
 
     @NotNull
-    private int point;
-
-    @NotNull
-    private boolean isSubmitted;
-
-    @NotNull
     private String answer;
 
     @ManyToOne
@@ -50,28 +44,15 @@ public class Answer implements Serializable {
         return id;
     }
 
-    public void setPoint(int points) {
-        this.point = points;
-    }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public int getPoint() {
-        return point;
-    }
+
 
     public User getUser() {
         return user;
-    }
-
-    public boolean isSubmitted() {
-        return isSubmitted;
-    }
-
-    public void setSubmitted(boolean submitted) {
-        isSubmitted = submitted;
     }
 
     public String getAnswer() {
