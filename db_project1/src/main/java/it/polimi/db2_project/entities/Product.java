@@ -7,7 +7,9 @@ import java.util.*;
 
 @Entity
 @Table(name = "product", schema = "db2_app")
+@NamedQuery(name = "Product.getProductDummy", query = "SELECT p FROM Product p WHERE p.name = ?1")
 @NamedQuery(name = "Product.getProductOfTheDay", query = "SELECT p FROM Product p WHERE p.date = ?1")
+@NamedQuery(name = "Product.getProduct", query = "SELECT p FROM Product p  WHERE p.productId = ?1")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;

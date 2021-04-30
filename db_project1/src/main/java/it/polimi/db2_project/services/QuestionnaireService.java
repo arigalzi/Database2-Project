@@ -28,6 +28,7 @@ public class QuestionnaireService {
         return this.em.createNamedQuery("Question.getOptionalQuestions", Question.class).setParameter(1,date).getResultList();
     }
 
+
     public void orderByQuestionNumber(List<Question> questions) {
         questions.sort((o1, o2) -> {
             return o1.compareTo(o2);
