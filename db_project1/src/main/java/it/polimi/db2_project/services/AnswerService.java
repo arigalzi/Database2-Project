@@ -61,8 +61,8 @@ public class AnswerService {
             answers =  em.createNamedQuery("Answer.getUserAnswers", Answer.class).setParameter(1, username).setParameter(2, product.getProductId()).getResultList();
         }
         catch(NoResultException e){
-              answers = null;
-            }
+            answers = null;
+        }
         return answers.size() != 0;
     }
 }

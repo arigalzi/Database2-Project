@@ -8,6 +8,7 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>it.polimi.db2_project.entities.Answer</class>
         <class>it.polimi.db2_project.entities.DirtyWord</class>
+        <class>it.polimi.db2_project.entities.Evaluation</class>
         <class>it.polimi.db2_project.entities.Log</class>
         <class>it.polimi.db2_project.entities.Product</class>
         <class>it.polimi.db2_project.entities.Question</class>
