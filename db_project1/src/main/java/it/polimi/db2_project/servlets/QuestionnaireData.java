@@ -47,7 +47,6 @@ public class QuestionnaireData extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.setStatus(200);
             List<Question> questionList = questionnaireService.getQuestionsOfTheDay();
-            questionnaireService.orderByQuestionNumber(questionList);
             List<String> textResponse = questionnaireService.convertToString(questionList);
             String var = (new Gson()).toJson(textResponse);
             System.out.println((new Gson()).toJson(textResponse));

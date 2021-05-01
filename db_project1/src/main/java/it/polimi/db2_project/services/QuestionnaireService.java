@@ -29,12 +29,6 @@ public class QuestionnaireService {
     }
 
 
-    public void orderByQuestionNumber(List<Question> questions) {
-        questions.sort((o1, o2) -> {
-            return o1.compareTo(o2);
-        });
-    }
-
     public List<String> convertToString(List<Question> questions){
         ArrayList<String> texts = new ArrayList<>();
         for (Question q: questions) {

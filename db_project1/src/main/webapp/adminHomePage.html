@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Questionnaire App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="./scripts/Homepage.js" defer></script>
+</head>
+<body>
+
+
+<!--nav bar --->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" style="margin-top: -0.3% " href="homePage.html">GamifiedApp</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active" >
+        <a class="nav-link" href="adminHomePage.html" style="border: 1px groove #fcfcfc;border-radius: 5px;" >Home <span class=" sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="creationPage.html" style="border: 1px solid #fcfcfc;border-radius: 5px;">Create Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="inspectionPage.html" style="border: 1px solid #fcfcfc;border-radius: 5px;">Inspect past Questionnaires</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="deletionPage.html" style="border: 1px solid #fcfcfc;border-radius: 5px;">Delete past Questionnaires</a>
+      </li>
+    </ul>
+    <span class="navbar-text" id="var_username" style="margin-right: 50px">
+      Logged In as Admin: @Username
+    </span>
+    <ul  class="navbar-nav ">
+      <li class="nav-item" action="Logout" method="POST">
+        <a class="nav-link" href="index.html" style="border: 1px groove #fcfcfc;border-radius: 5px;">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<h2 style="margin-left:10px;margin-top: 2%" >Product of the Day:</h2></div>
+<br>
+<div class="container">
+  <div  style="margin-left: -42%;" class="row justify-content-md-center">
+    <div class="col-sm-8">
+      <div class="row">
+        <h4   id="id_product_title">Title</h4>
+      </div>
+      <!--div class="row"><img id="id_product_image" alt="error: image not found"/></div!-->
+      <div class="row">
+        <img id="id_product_image" width="321" height="321"/>
+      </div>
+      <div class="row">
+        <div id="id_product_description"> this is the product description, you should buy it</div>
+      </div>
+
+      <hr>
+      <div class="row">
+        <table id="id_Review_Table"  style="width:40%">
+
+          <thead>
+          <tr>
+            <th>Reviews</th>
+          </tr>
+          </thead>
+          <tbody id="id_ReviewBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+</div>
+
+</body>
+</html>

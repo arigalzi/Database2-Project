@@ -13,7 +13,8 @@
 
         <filter-name>UserFilter</filter-name>
 
-        <url-pattern>/HomepageData</url-pattern>
+        <url-pattern>/GoToHomepageData</url-pattern>
+        <url-pattern>/Error</url-pattern>
         <url-pattern>/Leaderboard</url-pattern>
         <url-pattern>/Logout</url-pattern>
         <url-pattern>/QuestionnairePageData</url-pattern>

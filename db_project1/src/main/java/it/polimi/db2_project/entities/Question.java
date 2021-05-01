@@ -9,9 +9,9 @@ import java.util.*;
 
 @Entity
 @Table(name = "question", schema = "db2_app")
-@NamedQuery(name = "Question.getQuestionsOfTheDay",query = "SELECT q FROM Question q WHERE q.product.date = ?1 AND q.isMandatory=true")
+@NamedQuery(name = "Question.getQuestionsOfTheDay",query = "SELECT q FROM Question q WHERE q.product.date = ?1 AND q.isMandatory=true ORDER BY q.questionNumber DESC")
 @NamedQuery(name = "Question.getOptionalQuestions",query = "SELECT q FROM Question q WHERE q.product.date = ?1 AND q.isMandatory=false")
-public class Question implements Serializable,Comparable {
+public class Question implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
@@ -70,14 +70,4 @@ public class Question implements Serializable,Comparable {
     }
 
 
-    @Override
-    public int compareTo(Object o) {
-        Question q = (Question) o;
-       if(this.getQuestionNumber() < q.getQuestionNumber())
-           return -1;
-       else if(this.getQuestionNumber() == q.getQuestionNumber())
-           return 0;
-       else
-           return 1;
-    }
 }

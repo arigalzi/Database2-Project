@@ -51,7 +51,6 @@ public class AnswerData extends HttpServlet {
 
         List<Question> questionList = questionnaireService.getQuestionsOfTheDay();
         List<Question> optionalQuestions = questionnaireService.getOptionalQuestions();
-        questionnaireService.orderByQuestionNumber(questionList);
 
         //Manage the responses
         String[] mandatory_answers = new String[questionList.size()];

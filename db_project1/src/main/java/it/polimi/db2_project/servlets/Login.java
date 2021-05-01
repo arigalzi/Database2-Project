@@ -35,11 +35,9 @@ public class Login extends HttpServlet {
     protected void sendError(HttpServletResponse response, HttpServletRequest request, String errorType, String errorInfo) throws IOException {
         request.getSession().setAttribute ("errorType", errorType);
         request.getSession().setAttribute ("errorInfo", errorInfo);
-        try {
-            getServletConfig().getServletContext().getRequestDispatcher("/error.html").forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        }
+        String path = getServletContext().getContextPath() + "/error.html";
+        response.sendRedirect(path);
+        return;
     }
 
     /**
@@ -88,6 +86,11 @@ public class Login extends HttpServlet {
             //try to register a new user
             try {
                 User user = userService.addUser(username,email,password,false);
+                //userService.LogUser(user);
+                //request.getSession().setAttribute("user", username);
+                String path = getServletContext().getContextPath() + "/homePage.html";
+                response.sendRedirect(path);
+                return;
             }
             //USER ALREADY EXISTING
             catch (PersistenceException | IllegalArgumentException | EJBException e) {
@@ -98,6 +101,7 @@ public class Login extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                     sendError(response, request, "Invalid Completion","internal server error");
                 }
+                return;
             }
         }
 
@@ -111,13 +115,12 @@ public class Login extends HttpServlet {
             User credentialCheckResultUser = userService.checkCredentials(username, password);
             userService.LogUser(credentialCheckResultUser);
             request.getSession().setAttribute("user", credentialCheckResultUser.getUsername());
-            request.getSession().setAttribute("user", credentialCheckResultUser.getUsername());
 
 
             //Admin Login
             if(credentialCheckResultUser.isAdmin()){
                 request.getSession().setAttribute("admin", credentialCheckResultUser.getUserID());
-                String path = getServletContext().getContextPath() + "/Admin/index.html";
+                String path = getServletContext().getContextPath() + "/adminHomePage.html";
                 response.sendRedirect(path);
             }
             //Casual User Login
@@ -127,8 +130,9 @@ public class Login extends HttpServlet {
             }
         }
         catch (InvalidParameterException | EJBException f) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                sendError(response, request, "Invalid Completion", f.getCause().getMessage());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            sendError(response, request, "Invalid Completion", "login error");
+            return;
         }
     }
 

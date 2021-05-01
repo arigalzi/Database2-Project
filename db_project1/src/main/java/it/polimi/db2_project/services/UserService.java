@@ -119,7 +119,7 @@ public class UserService {
         else{
 
             List<Answer> ans = em.createNamedQuery("Answer.getUserAnswers", Answer.class)
-                    .setParameter(1, user.getUserID()).setParameter(2, product.getProductId()).getResultList();
+                    .setParameter(1, user.getUsername()).setParameter(2, product.getProductId()).getResultList();
             if (ans == null || ans.isEmpty()) {
                 return UserStatus.NOT_COMPLETED;
             }
@@ -140,7 +140,6 @@ public class UserService {
         log.setUser(user);
         log.setUserId(user.getUserID());
         log.setDate(new Timestamp(System.currentTimeMillis()));
-        log.setFormCancelled(false);
         em.persist(log);
     }
 
