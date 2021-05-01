@@ -180,7 +180,6 @@ window.addEventListener('load', () => {
         else {
             switch (request.status) {
                 case 400: // bad request
-                    console.log("In 400")
                     showNoForms();
                     showMessage("error_message","Error: Questionnaire already completed \n Go back to HomePage");
                     break;

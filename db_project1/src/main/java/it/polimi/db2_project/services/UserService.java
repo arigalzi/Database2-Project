@@ -143,7 +143,6 @@ public class UserService {
         log.setUser(user);
         log.setUserId(user.getUserID());
         log.setDate(new Timestamp(System.currentTimeMillis()));
-        log.setFormCancelled(false);
         em.persist(log);
     }
 

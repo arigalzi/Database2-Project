@@ -118,7 +118,7 @@ public class Login extends HttpServlet {
                 //Admin Login
                 if(credentialCheckResultUser.isAdmin()){
                     request.getSession().setAttribute("admin", credentialCheckResultUser.getUserID());
-                    String path = getServletContext().getContextPath() + "/Admin/index.html";
+                    String path = getServletContext().getContextPath() + "/adminHomePage.html";
                     response.sendRedirect(path);
                 }
                 //Casual User Login
