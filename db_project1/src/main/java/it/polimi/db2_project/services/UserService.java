@@ -1,6 +1,7 @@
 package it.polimi.db2_project.services;
 
 //import it.polimi.db2_project.auxiliary.UserStatus;
+import it.polimi.db2_project.auxiliary.UserStatus;
 import it.polimi.db2_project.entities.Answer;
 import it.polimi.db2_project.entities.Log;
 import it.polimi.db2_project.entities.Product;
@@ -8,8 +9,14 @@ import it.polimi.db2_project.entities.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.metamodel.Metamodel;
 import javax.validation.constraints.*;
 import java.util.*;
+import javax.persistence.EntityManager;
 
 import java.security.InvalidParameterException;
 import java.sql.Timestamp;
@@ -20,7 +27,7 @@ import java.util.List;
 
 public class UserService {
     @PersistenceContext(unitName = "db2_app")
-    private EntityManager em;
+    private EntityManager em ;
 
     public UserService() {
     }
@@ -104,33 +111,23 @@ public class UserService {
      * @param productService utility to make query
      * @return userstatus of the user
      * @throws InvalidParameterException if there is a problem with the query execution
-
+     **/
     public UserStatus checkUserStatus(User user, Product product, ProductService productService) throws InvalidParameterException{
         if(user.isBanned()){
             return UserStatus.BANNED;
         }
         else{
+
             List<Answer> ans = em.createNamedQuery("Answer.getUserAnswers", Answer.class)
-                    .setParameter(1, user.getUsername()).setParameter(2, product.getProductId()).getResultList();
+                    .setParameter(1, user.getUserID()).setParameter(2, product.getProductId()).getResultList();
             if (ans == null || ans.isEmpty()) {
-                List<User> cancelled = productService.getProductUsers(product, false);
-                ArrayList<String> ids = new ArrayList<>();
-                for(User u :cancelled){
-                    ids.add(u.getUsername());
-                }
-                if(ids.contains(user.getUsername())){
-                    return UserStatus.DELETED;
-                }
-                else {
-                    return UserStatus.NOT_COMPLETED;
-                }
+                return UserStatus.NOT_COMPLETED;
             }
             else {
                 return UserStatus.COMPLETED;
             }
         }
     }
-     */
 
     /**
      * method to insert the log of the user in the DB

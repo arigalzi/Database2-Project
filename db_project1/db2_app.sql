@@ -95,6 +95,24 @@ FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`) ON DELETE CASCADE O
 );
 
 
+LOCK TABLES  `db2_app`.`User` WRITE;
+/*!40000 ALTER TABLE `db2_app`.`User` DISABLE KEYS */;
+INSERT INTO `db2_app`.`User` VALUES (1,'leog','leo','leonardo.giusti@mail.polimi.com',0,0), (2,'frag','fra','fra.gov@mail.polimi.com',0,1), (3, 'ari','arig','galzi.ari@mail.polimi.com',1,0), (4,'anon','none','anon.none@mail.polimi.com',1,1);
+/*!40000 ALTER TABLE `db2_app`.`User` ENABLE KEYS */;
+UNLOCK TABLES;
+
+LOCK TABLES  `db2_app`.`Product` WRITE;
+/*!40000 ALTER TABLE `db2_app`.`Product` DISABLE KEYS */;
+INSERT INTO `db2_app`.`Product` VALUES (1,'2021/05/01','iphone','','Last phone of Apple'), (2,'2021/05/02','Samsung','','Last phone of Samsung'), (3,'2021/05/03','iphone','','Last phone of Motorola');
+/*!40000 ALTER TABLE `db2_app`.`Product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+LOCK TABLES  `db2_app`.`Review` WRITE;
+/*!40000 ALTER TABLE `db2_app`.`Review` DISABLE KEYS */;
+INSERT INTO `db2_app`.`Review` VALUES (1,'Incredidible',1), (2,'WOW',1), (3,'NICEEEE',1);
+/*!40000 ALTER TABLE `db2_app`.`Review` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 -- queries necessarie: tot punti di un utente per un questionario ; tot punti di utenti su un questionario ; prodotto del giorno;
 -- verifica se in una answer c'e una offensive;

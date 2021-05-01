@@ -23,6 +23,7 @@ public class Product implements Serializable {
     private String name;
 
     private String description;
+
     @Lob
     private byte[] image;
 

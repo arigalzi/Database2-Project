@@ -8,6 +8,7 @@ import java.io.*;
 @Entity
 
 @Table(name = "review",schema = "db2_app")
+@NamedQuery(name = "Review.getReview",query = "SELECT r FROM Review r WHERE r.reviewedProduct.productId = ?1 ")
 public class Review implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -17,7 +18,7 @@ public class Review implements Serializable {
 
     @ManyToOne
     @MapsId("productId")
-    @PrimaryKeyJoinColumn(name="productID", referencedColumnName="productID")
+    @JoinColumn(name="productID", referencedColumnName="productID")
     private Product reviewedProduct;
 
     private String text;

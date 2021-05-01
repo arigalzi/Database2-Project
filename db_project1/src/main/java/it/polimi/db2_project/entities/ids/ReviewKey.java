@@ -15,7 +15,7 @@ public class ReviewKey implements Serializable {
     @Column(name = "reviewID")
     private int reviewId;
 
-    @Column(name = "productID")
+    @Column(name = "productId")
     private int productId;
 
     public ReviewKey() {

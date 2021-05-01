@@ -5,6 +5,7 @@ import it.polimi.db2_project.entities.*;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +25,17 @@ public class ProductService {
 
     public Product getProductOfTheDay(){
         Date date = java.sql.Date.valueOf(LocalDate.now());
-        return em.createNamedQuery("Product.getProductOfTheDay",Product.class).setParameter(1,date).getSingleResult();
+        List<Product> products = em.createNamedQuery("Product.getProductOfTheDay", Product.class).setParameter(1, date).getResultList();
+        if (products == null || products.isEmpty()) {
+            throw new InvalidParameterException("No product of the Day");
+
+        }
+        else if(products.size()==1) {
+            return products.get(0);
+        }
+        else {
+            throw new InvalidParameterException("internal database error");
+        }
     }
 
     public HashMap<Integer,Integer> convertToHash(List<Evaluation> evaluations){
