@@ -109,7 +109,7 @@ UNLOCK TABLES;
 
 LOCK TABLES  `db2_app`.`Review` WRITE;
 /*!40000 ALTER TABLE `db2_app`.`Review` DISABLE KEYS */;
-INSERT INTO `db2_app`.`Review` VALUES (1,'Incredidible',1), (2,'WOW',1), (3,'NICEEEE',1);
+INSERT INTO `db2_app`.`Review` VALUES (1,'Incredidible',1), (2,'WOW',1), (3,'NICE',1),(4,'Incredidible',2), (5,'WOW',2), (6,'NICEEEE',3);
 /*!40000 ALTER TABLE `db2_app`.`Review` ENABLE KEYS */;
 UNLOCK TABLES;
 
