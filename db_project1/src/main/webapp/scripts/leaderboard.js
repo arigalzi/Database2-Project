@@ -23,6 +23,9 @@ function makeCall(method, url, formElement, cback, reset = true) {
 
 
 window.addEventListener("load", () => {
+    let username = localStorage.getItem("username");
+    let isAdmin = localStorage.getItem("isAdmin");
+    showUsername(isAdmin,username);
     makeCall("GET", "./Leaderboard", null,
         function(req) {
             if (req.readyState === 4) {
@@ -57,4 +60,19 @@ window.addEventListener("load", () => {
 
 });
 
+function showUsername(admin,username) {
+    console.log("In leaderboard: ", admin, username);
+    if (String(admin) === "false") {
+        document.getElementById("var_username").innerText = "Logged in: @" + username;
+    }
+    else{
+        document.getElementById("var_username").innerText = "Logged as Admin: @" + username;
+    }
+}
+
+
+function clearLocalStorage(){
+    localStorage.clear();
+    console.log("LocStorage cleared..");
+}
 

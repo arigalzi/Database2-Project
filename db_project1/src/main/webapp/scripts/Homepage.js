@@ -24,7 +24,10 @@ window.addEventListener("load", () => {
                 var message = req.responseText;
                 if (req.status === 200) {
                     var con = JSON.parse(message);
-                    document.getElementById("var_username").innerText = "Logged in: @" + con.username;
+                    localStorage.setItem("username",con.username);
+                    localStorage.setItem("isAdmin",con.admin);
+                    console.log(con.username,con.admin);
+                    showUsername(con.admin,con.username);
                     if(con.userStatus === "NOT_AVAILABLE"){
                         document.getElementById("id_product_title").innerText = "No Product";
                         document.getElementById("id_product_image").innerHTML = "";
@@ -76,3 +79,19 @@ window.addEventListener("load", () => {
         }
     );
 });
+
+function showUsername(admin,username) {
+    console.log("In Homepage: ", admin, username);
+    if (admin === false) {
+        document.getElementById("var_username").innerText = "Logged in: @" + username;
+    }
+    else{
+        document.getElementById("var_username").innerText = "Logged as Admin: @" + username;
+    }
+}
+
+
+function clearLocalStorage(){
+    localStorage.clear();
+    console.log("LocStorage cleared..");
+}

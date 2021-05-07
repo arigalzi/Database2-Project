@@ -99,7 +99,7 @@ public class GoToHomePage extends HttpServlet {
 
         if (prodOfTheDay.getImage()!= null) encoded = Base64.getEncoder().encodeToString(prodOfTheDay.getImage());
 
-        HomepageContent homepageContent = new HomepageContent(username, false,
+        HomepageContent homepageContent = new HomepageContent(username, userService.getUser(username).isAdmin(),
                 prodOfTheDay.getName(), prodOfTheDay.getDescription(), encoded, reviews, userStatus);
         String jsonHomepage = new Gson().toJson(homepageContent);
         out.write(jsonHomepage);

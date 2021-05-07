@@ -1,5 +1,6 @@
 package it.polimi.db2_project.servlets;
 
+import com.google.gson.Gson;
 import it.polimi.db2_project.entities.User;
 import it.polimi.db2_project.services.AdminService;
 import it.polimi.db2_project.services.UserService;
@@ -16,6 +17,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.InvalidParameterException;
 
 
@@ -137,6 +139,9 @@ public class Login extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = (String)request.getSession().getAttribute("user");
+        PrintWriter out = response.getWriter();
+        out.print((new Gson()).toJson(username));
     }
 }
 /*TODO Va gestito il messaggio di errore se uno fa login senza essere registrato*/

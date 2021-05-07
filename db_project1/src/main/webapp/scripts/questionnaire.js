@@ -1,3 +1,5 @@
+
+
 /**
  * method is GET or POST, url: the server (file) location
  * The file can be any kind of file, like .txt and .xml, or server scripting files
@@ -22,16 +24,13 @@ function manageRequest(method,url,element,requestName,responseFunc) {
     var submission;
 
     if(requestName == null) {
-        console.log(requestName);
-        console.log("No of the two")
         if (element == null) {
             request.send();
-        } else
-            console.log((new FormData(element)).values());
-        request.send(new FormData(element));
+        } else {
+            request.send(new FormData(element));
+        }
     }
     else if(requestName.trim() === 'Cancel') {
-        console.log("in cancel");
         submission = false;
         if (element == null) {
             request.send();
@@ -40,16 +39,13 @@ function manageRequest(method,url,element,requestName,responseFunc) {
         request.send(new FormData(element));
     }
     else if(requestName.trim() === 'Submit') {
-        console.log("in submit");
         submission = true;
         if (element == null) {
             request.send();
-        } else
+        } else {
             request.setRequestHeader("submitted", submission)
-        for (var pair of new FormData(element).entries()) {
-            console.log(pair[0]+ ', ' + pair[1]);
+            request.send(new FormData(element));
         }
-        request.send(new FormData(element));
     }
 
 
@@ -168,6 +164,9 @@ function manageForms(button_type){
 
 
 window.addEventListener('load', () => {
+    let username = localStorage.getItem("username");
+    let isAdmin = localStorage.getItem("isAdmin");
+    showUsername(isAdmin,username);
     initForms();
     console.log('page is fully loaded');
     manageRequest("GET","./QuestionnaireData",null,null,function(request){
@@ -194,7 +193,21 @@ window.addEventListener('load', () => {
     });
 });
 
-
+function showUsername(admin,username) {
+    console.log("In questionnaire: ", admin, username);
+    if (String(admin) === "false") {
+        document.getElementById("var_username").innerText = "Logged in: @" + username;
+    }
+    else{
+        document.getElementById("var_username").innerText = "Logged as Admin: @" + username;
+    }
+}
 
 
 //We need to handle when the user inserts the input
+
+
+function clearLocalStorage(){
+    localStorage.clear();
+    console.log("LocStorage cleared..");
+}

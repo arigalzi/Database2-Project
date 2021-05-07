@@ -33,13 +33,14 @@ public class Product implements Serializable {
     private Date date;
 
     public Product(){
-
+         questions = new ArrayList<>();
+         reviews = new ArrayList<>();
     }
-    @OneToMany(mappedBy = "product") //amount of questions is limited
-    private List<Question> questions;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST) //amount of questions is limited
+    private final List<Question> questions;
 
-    @OneToMany(mappedBy = "reviewedProduct")  // Nel mappedBy metto il nome dell'attributo nella classe che ha relazione
-    private List<Review> reviews;
+    @OneToMany(mappedBy = "reviewedProduct", cascade = CascadeType.PERSIST)  // Nel mappedBy metto il nome dell'attributo nella classe che ha relazione
+    private final List<Review> reviews;
 
 
     public Date getDate() {
@@ -84,6 +85,14 @@ public class Product implements Serializable {
 
     public void removeQuestion(Question q){
         questions.remove(q);
+    }
+
+    public void addReview(Review r){
+        reviews.add(r);
+    }
+
+    public void removeReview(Review r){
+        reviews.remove(r);
     }
 
     public void setImage(byte[] image) {

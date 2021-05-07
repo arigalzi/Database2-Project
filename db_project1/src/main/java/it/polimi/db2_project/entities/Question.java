@@ -17,7 +17,7 @@ public class Question implements Serializable{
     @EmbeddedId
     private QuestionKey id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @MapsId("productId")
     @JoinColumn(name = "productID")
     private Product product;
