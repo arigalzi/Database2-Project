@@ -81,7 +81,6 @@ window.addEventListener("load", () => {
 });
 
 function showUsername(admin,username) {
-    console.log("In Homepage: ", admin, username);
     if (admin === false) {
         document.getElementById("var_username").innerText = "Logged in: @" + username;
     }

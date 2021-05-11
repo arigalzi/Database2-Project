@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -76,27 +77,40 @@ public class CreationData extends HttpServlet {
         System.out.println(fileContent);
         System.out.println(productReviews);
 
-        Date date =null;
-        try {
-            date =new SimpleDateFormat("yyyy-MM-dd").parse(productDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Date " + date);
+        if(checkPostValidity(productName,productDate,productDescription)) {
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(productDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Date " + date);
 
-        byte[] image = ProductService.readImage(fileContent);
+            byte[] image = ProductService.readImage(fileContent);
 
-        if(productService.checkDateAvailability(date) == null) {
-            productService.createNewProduct(productName, productDescription, date, productQuestions, image,productReviews);
+            if (productService.checkDateAvailability(date) == null) {
+                productService.createNewProduct(productName, productDescription, date, productQuestions, image, productReviews);
+                response.setStatus(200);
+            } else {
+                //Conflict date already existing
+                response.setStatus(409);
+            }
+
+            System.out.println("Request managed by CreationData");
         }
         else{
+            //Bad request input is empty
             response.setStatus(400);
+            System.out.println("One of the required fields was not filled...Request was not managed");
         }
-
-        System.out.println("Request managed by CreationData");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    }
+
+
+    private boolean checkPostValidity(String productName,String date,String description){
+        return !productName.equals("") && !date.equals("") && !description.equals("");
     }
 }
 

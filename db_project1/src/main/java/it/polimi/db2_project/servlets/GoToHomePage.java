@@ -74,7 +74,7 @@ public class GoToHomePage extends HttpServlet {
         catch (InvalidParameterException | EJBException e){
             System.out.println(e.getMessage());
             if(e.getCause().getMessage().equals("No product of the Day")){
-                HomepageContent homepageContent = new HomepageContent(username, false,
+                HomepageContent homepageContent = new HomepageContent(username, userService.getUser(username).isAdmin(),
                         null, null, null,
                         null, UserStatus.NOT_AVAILABLE);
                 String jsonHomepage = new Gson().toJson(homepageContent);
@@ -102,6 +102,7 @@ public class GoToHomePage extends HttpServlet {
         HomepageContent homepageContent = new HomepageContent(username, userService.getUser(username).isAdmin(),
                 prodOfTheDay.getName(), prodOfTheDay.getDescription(), encoded, reviews, userStatus);
         String jsonHomepage = new Gson().toJson(homepageContent);
+        System.out.println(jsonHomepage);
         out.write(jsonHomepage);
     }
 }
