@@ -1,5 +1,5 @@
-let questionCounter = 0;
-let reviewCounter = 0;
+let questionCounter = 1;
+let reviewCounter = 1;
 
 /**
  * method is GET or POST, url: the server (file) location
@@ -52,16 +52,18 @@ function manageCreationForm(){
             if (request.readyState === 4 && request.status === 200) {
                 window.location.assign("../db_project1_war_exploded/adminGreetings.html");
             }
-            else if(request.status === 400){
+            else if(request.status === 409){
                 showMessage("error_message", "Error: Product of the day already assigned for this date")
+            }
+            else if(request.status === 400){
+                showMessage("error_message", "Please fill in the form correctly")
+                checkFields();
             }
             else {
                 showMessage("error_message", "Error in creating the product")
             }
 
         });
-//TODO GESTIRE COME BAD REQUEST ANCHE INPUT VUOTI ANCHE PER QUESTIONARIo
-//TODO Gli ID se la tabella è vuota continuano ad incrementarsi e non ripartono da 1
 
 }
 
@@ -100,3 +102,69 @@ function addReview(){
     reviewCounter = reviewCounter + 1;
 
 }
+
+function deleteReview(){
+    let container = document.getElementById("review-container");
+    container.lastChild.remove();
+    reviewCounter = reviewCounter -1;
+
+}
+
+function deleteProductQuestion(){
+    let container = document.getElementById("productQuestion-container");
+    container.lastChild.remove();
+
+    questionCounter = questionCounter -1;
+
+}
+
+function checkFields(){
+    let nameField = document.getElementsByName("productName");
+    let dateField = document.getElementsByName("productDate");
+    let descriptionField = document.getElementsByName("productDescription");
+    console.log(nameField);
+    let inputs = [nameField[0],dateField[0],descriptionField[0]];
+    for (let i = 0; i <inputs.length ; i++) {
+        console.log(inputs[i].name)
+        if(inputs[i].value === "")
+            showFieldsFeedback(inputs[i].name)
+        else
+            hideFieldsFeedback(inputs[i].name)
+
+    }
+}
+
+function showFieldsFeedback(inputField){
+
+    switch (inputField){
+        case "productName": document.getElementById("invalid_productName").style.display = "block";
+            break;
+        case "productDate": document.getElementById("invalid_productDate").style.display = "block";
+            break;
+        case "productDescription": document.getElementById("invalid_productDescription").style.display = "block";
+            break;
+    }
+
+}
+
+function hideFieldsFeedback(inputField){
+
+    switch (inputField){
+        case "productName": document.getElementById("invalid_productName").style.display = "none";
+            break;
+        case "productDate": document.getElementById("invalid_productDate").style.display = "none";
+            break;
+        case "productDescription": document.getElementById("invalid_productDescription").style.display = "none";
+            break;
+    }
+
+}
+
+window.addEventListener('load',() =>{
+    let username = localStorage.getItem("username");
+    document.getElementById("var_username").innerText = "Logged as Admin: @" + username;
+    document.getElementById("invalid_productName").style.display = "none";
+    document.getElementById("invalid_productDate").style.display = "none";
+    document.getElementById("invalid_productDescription").style.display = "none";
+})
+
