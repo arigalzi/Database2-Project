@@ -8,6 +8,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Stateless
@@ -34,5 +36,24 @@ public class EvaluationService {
         } else {
             return leaderboard;
         }
+    }
+
+    public List<String> convertToString(List<Evaluation> evaluations){
+        ArrayList<String> texts = new ArrayList<>();
+        for (Evaluation e : evaluations) {
+            texts.add(String.valueOf(e.getUser().getUserID()));
+            texts.add(String.valueOf(e.getTotalPoints()));
+        }
+        return (List<String>)texts;
+
+    }
+
+    public HashMap<Integer,Integer> convertToHash(List<Evaluation> evaluations){
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        for (Evaluation e : evaluations) {
+            hm.put(e.getUser().getUserID(), e.getTotalPoints());
+        }
+        return hm;
+
     }
 }

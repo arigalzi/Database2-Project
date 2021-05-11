@@ -41,6 +41,11 @@ window.addEventListener("load", () => {
                             let score = row.insertCell(1);
                             score.innerHTML = k;
                         })
+                        con.forEach((k) => {
+                            let row = table.insertRow();
+                            let username = row.insertCell(0);
+                            username.innerHTML = k;
+                        })
                     }
                     else{
                         document.getElementById("id_Leaderboard_Table").innerHTML =
