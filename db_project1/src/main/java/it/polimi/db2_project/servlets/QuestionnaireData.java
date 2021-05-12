@@ -8,8 +8,10 @@ import it.polimi.db2_project.services.ProductService;
 import it.polimi.db2_project.services.QuestionnaireService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.InvalidParameterException;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +39,22 @@ public class QuestionnaireData extends HttpServlet {
     //Questionnaire is filled only if User has not completed it already
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = (String)request.getSession().getAttribute("user");
-        Product productOfDay = productService.getProductOfTheDay();
+        Product productOfDay;
+        try {
+            productOfDay = productService.getProductOfTheDay();
+        }catch (InvalidParameterException | EJBException e){
+            if(e.getCause().getMessage().equals("No product of the Day")) {
+                System.out.println("No product of the day");
+            }
+            productOfDay = null;
+        }
+        //There is no product of the day so unacceptable request, thus return
+        if(productOfDay == null) {
+            response.setStatus(406); // Not acceptable request, product was not created and so no questionnaire to show
+            return;
+        }
+
+        // There is a product thus manage the request
         if(answerService.alreadyFilled(username,productOfDay)){
             response.setStatus(400);
         }
