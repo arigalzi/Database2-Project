@@ -41,8 +41,7 @@ public class EvaluationService {
     public List<String> convertToString(List<Evaluation> evaluations){
         ArrayList<String> texts = new ArrayList<>();
         for (Evaluation e : evaluations) {
-            texts.add(String.valueOf(e.getUser().getUserID()));
-            texts.add(String.valueOf(e.getTotalPoints()));
+            texts.add(String.valueOf(e.getUser().getUsername()).concat(" - ").concat(String.valueOf(e.getTotalPoints())));
         }
         return (List<String>)texts;
 

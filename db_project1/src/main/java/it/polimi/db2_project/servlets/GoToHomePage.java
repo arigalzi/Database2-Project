@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Servlet implementation class GoToHomePage
  */
-@WebServlet("/GoToHomepageData")
+@WebServlet("/GoToHomepage")
 public class GoToHomePage extends HttpServlet {
     @EJB(name = "it.polimi.db2_project.entities.services/UserService")
     private UserService userService;

@@ -116,3 +116,31 @@ UNLOCK TABLES;
 
 -- queries necessarie: tot punti di un utente per un questionario ; tot punti di utenti su un questionario ; prodotto del giorno;
 -- verifica se in una answer c'e una offensive;
+
+DROP TRIGGER IF EXISTS UpdateEvaluation;
+
+DELIMITER $$
+CREATE TRIGGER UpdateEvaluation
+    after INSERT on db2_app.Answer
+    FOR EACH row
+begin
+    declare mandatory boolean;
+    select q.isMandatory into mandatory from db2_app.answer a natural join db2_app.question q where a.userID =new.userID and a.productID = new.productID and q.questionID=new.questionID;
+
+    if(not exists (select * from db2_app.evaluation e where e.userID =new.userID and e.productID = new.productID) ) then
+		if (mandatory = true) then
+			insert into db2_app.evaluation values(new.userID, new.productID, 1);
+        elseif (mandatory = false) then
+			insert into db2_app.evaluation values(new.userID, new.productID, 2);
+end if;
+elseif( exists (select * from db2_app.evaluation where e.userID =new.userID and e.productID = new.productID) ) then
+		if (mandatory = true) then
+update db2_app.evaluation set totalPoints = totalPoints+1 where userID =new.userID and productID = new.productID ;
+elseif (mandatory = false) then
+update db2_app.evaluation set totalPoints = totalPoints+2 where userID =new.userID and productID = new.productID ;
+end if;
+end if;
+
+end$$
+
+DELIMITER ;

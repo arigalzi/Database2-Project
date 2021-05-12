@@ -3,6 +3,12 @@
  * AJAX call management
  */
 
+function displayError (errorText) {
+    let error = document.getElementById("id_quest_error");
+    error.textContent = errorText;
+    error.style.display = "block";
+}
+
 function makeCall(method, url, formElement, cback, reset = true) {
     var req = new XMLHttpRequest(); // visible by closure
     req.onreadystatechange = function() {
@@ -34,18 +40,14 @@ window.addEventListener("load", () => {
                     var con = JSON.parse(message);
                     if(con != null) {
                         const table = document.getElementById("id_tableBody");
-                        con.forEach((k) => {
+                        console.log(con);
+                        con.forEach(function (value, k) {
                             let row = table.insertRow();
-                            let username = row.insertCell(0);
-                            username.innerHTML = k;
-                            let score = row.insertCell(1);
-                            score.innerHTML = k;
-                        })
-                        con.forEach((k) => {
-                            let row = table.insertRow();
-                            let username = row.insertCell(0);
-                            username.innerHTML = k;
-                        })
+                            let position = row.insertCell(0);
+                            position.innerHTML = k+1;
+                            let usernamescore = row.insertCell(1);
+                            usernamescore.innerHTML = value;
+                        });
                     }
                     else{
                         document.getElementById("id_Leaderboard_Table").innerHTML =
@@ -58,7 +60,7 @@ window.addEventListener("load", () => {
                     }
                 }
             } else {
-                //display error
+                displayError("Something went wrong during Leaderboard creation")
             }
         }
     );
