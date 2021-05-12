@@ -44,12 +44,9 @@ public class Answer implements Serializable {
         return id;
     }
 
-
     public void setUser(User user) {
         this.user = user;
     }
-
-
 
     public User getUser() {
         return user;

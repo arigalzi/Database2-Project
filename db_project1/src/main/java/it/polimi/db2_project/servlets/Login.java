@@ -88,8 +88,8 @@ public class Login extends HttpServlet {
             //try to register a new user
             try {
                 User user = userService.addUser(username,email,password,false);
-                //userService.LogUser(user);
-                //request.getSession().setAttribute("user", username);
+                userService.LogUser(user);
+                request.getSession().setAttribute("user", username);
                 String path = getServletContext().getContextPath() + "/homePage.html";
                 response.sendRedirect(path);
                 return;

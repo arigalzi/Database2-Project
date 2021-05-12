@@ -38,13 +38,19 @@
     </div>
 </nav>
 <h2 style="text-align: center;margin-top: 2%">Fill in the daily Questionnaire</h2>
-<form id="questionnaire_form">
+<form id="questionnaire_form" class="needs-validation" novalidate>
         <div id="mandatory_form" style="margin-top: 1%">
             <div class="row">
                 <div class="col">
 
                         <div id="id_question_container" style="text-align: center">
                             <!-- filled by JS -->
+                        </div>
+                        <div class="valid-feedback">
+                              Mandatory questions responded correctly
+                        </div>
+                        <div class="invalid-feedback">
+                              Please answer to all questions.
                         </div>
                         <br>
                         <div style = "align-items: center;text-align: center">
@@ -83,7 +89,8 @@
 
                                 <div>
                                     <label><b>Expertise:</b></label>
-                                    <select style="margin-left: 9px" name="expertiseLevel">
+                                    <select style="margin-left: 9px" name="expertiseLevel" >
+                                        <option selected value="">Select level</option>
                                         <option>Low</option>
                                         <option>Medium</option>
                                         <option>High</option>
@@ -97,9 +104,9 @@
                             <div class="col">
                                 <button type="button" class="btn btn-secondary" onclick="showMandatoryForm()">Back
                                 </button>
-                                <button type="button" id="id_cancel_questionnaire" class="btn btn-secondary" onclick="manageForms(this)">Cancel
+                                <button style="margin-left: 30px;" type="button" id="id_cancel_questionnaire" class="btn btn-danger" onclick="manageForms(this)">Cancel
                                 </button>
-                                <button type="button" id="id_submit_questionnaire" class="btn btn-secondary" onclick="manageForms(this)">Submit
+                                <button style="margin-left: 30px;" type="button" id="id_submit_questionnaire" class="btn btn-success" onclick="manageForms(this)">Submit
                                 </button>
                             </div>
                         </div>

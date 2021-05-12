@@ -10,34 +10,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e88e7fe-ffd1-46ac-96fa-11ecaba631de" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/be19fb16-f071-4598-8ac9-14255efdcfca.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/be19fb16-f071-4598-8ac9-14255efdcfca.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_04_2021_21_09__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_04_2021_21_09__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/be19fb16-f071-4598-8ac9-14255efdcfca/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/be19fb16-f071-4598-8ac9-14255efdcfca/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_04_2021_21_09_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_04_2021_21_09__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Answer.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Answer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Log.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Question.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Question.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/Review.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/ids/AnswerKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/ids/AnswerKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/ids/QuestionKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/ids/QuestionKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/ids/ReviewKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/ids/ReviewKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/entities/ids/RewardKey.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/servlets/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/classes/it/polimi/db2_project/servlets/Login.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Answer.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Answer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Log.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Question.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Question.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/Review.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/ids/AnswerKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/ids/AnswerKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/ids/QuestionKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/ids/QuestionKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/ids/ReviewKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/entities/ids/ReviewKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/servlets/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/classes/it/polimi/db2_project/servlets/Login.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/target/db_project1-1.0-SNAPSHOT/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/db2_app.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/db2_app.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/db_project1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/db_project1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Answer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Log.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/services/AnswerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/services/AnswerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/services/EvaluationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/services/EvaluationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/services/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/AnswerData.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/AnswerData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/CreationData.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/CreationData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/GoToHomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/GoToHomePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/Leaderboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/QuestionnaireData.java" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/java/it/polimi/db2_project/servlets/QuestionnaireData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/adminHomePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/adminHomePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/creationPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/creationPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/deletionPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/deletionPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/inspectionPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/inspectionPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/leaderboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/leaderboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/questionnaire.html" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/questionnaire.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/Homepage.js" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/Homepage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/adminCreation.js" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/adminCreation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/leaderboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/leaderboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/questionnaire.js" beforeDir="false" afterPath="$PROJECT_DIR$/db_project1/src/main/webapp/scripts/questionnaire.js" afterDir="false" />
     </list>
     <list id="44970d16-80b5-4ae5-ac46-004433a68509" name="Correction push" comment="" />
     <list id="24d85439-93de-4b3e-9f87-f9be27415979" name="Uncommitted changes before Update at 09/04/2021 21:09 [Default Changelist]" comment="" />
@@ -58,6 +63,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -67,7 +73,9 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectId" id="1qsPLR0QpRDlTiVEOir4z20nft0" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -83,6 +91,12 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/db_project1/src/main/webapp/scripts" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
@@ -286,6 +300,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Database Script.db2_app.sql" />
+      <item itemvalue="JavaScript Debug.index.html" />
+      <item itemvalue="TomEE Server.TomEE 8.0.3" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Database Script.db2_app.sql" />
@@ -382,7 +401,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

@@ -39,8 +39,6 @@ public class Log implements Serializable {
         isFormCancelled = formCancelled;
     }
 
-
-
     public int getLogId() {
         return logId;
     }

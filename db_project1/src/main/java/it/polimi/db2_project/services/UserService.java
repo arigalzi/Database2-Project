@@ -149,5 +149,34 @@ public class UserService {
         current_log.setFormCancelled(true);
         em.merge(current_log);
     }
+
+    public List<String> getUsersWhoCanceled(Product product) {
+
+        List<String> usersSubString= new ArrayList<>();
+
+        List<User> usersSub = em.createNamedQuery("User.getUsersSubmits", User.class).setParameter(1, product.getDate()).getResultList();
+
+        if (usersSub == null || usersSub.isEmpty()) {
+            return null;
+        }
+
+        usersSub.stream().forEach(q->usersSubString.add(q.getUsername()));
+        return usersSubString;
+
+    }
+
+    public List<String> getUsersWhoSubmits(Product product) {
+
+        List<String> userCancString= new ArrayList<>();
+        List<User> userCanc = em.createNamedQuery("User.getUsersSubmits", User.class).setParameter(1, product).getResultList();
+
+        if (userCanc == null || userCanc.isEmpty()) {
+            return null;
+        }
+
+        userCanc.stream().forEach(q->userCancString.add(q.getUsername()));
+        return userCancString;
+
+    }
 }
 

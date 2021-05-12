@@ -40,22 +40,24 @@
     </div>
 </nav>
 
-<form id="creation_form" enctype='multipart/form-data'>
+<form id="creation_form" name = "creation_form" enctype='multipart/form-data' accept-charset="UTF-8" novalidate>
     <div class="row">
         <div class="col">
             <div class="card text-white bg-secondary mb-3" style="max-width: 18rem; margin: 30px auto auto;">
                 <div class="card-header">Create a Product Questionnaire</div>
                 <div class="card-body">
                     <p class="card-text">You can add a product, some details and some mandatory questions which
-                    are going to be shown in the fixed date</p>
+                        are going to be shown in selected date.
+                        </p>
                 </div>
             </div>
             <div style="text-align: center">
                 <div style="margin-left: -100px">
                     <label style="margin-left: -80px">Product name:</label>
                     <br>
-                    <input type="text" name="productName">
+                    <input type="text" name="productName" required>  <p style="margin-left: -50px" class="text-danger" id="invalid_productName">Please fill the name</p>
                 </div>
+
                 <div style="margin-top: 30px">
                     <label style="margin-left: -195px" for="img">Select image:</label>
                     <br>
@@ -64,40 +66,49 @@
                 <div style="margin-top: 30px;margin-left: -125px">
                     <label style="margin-left: -20px">Date for the product:</label>
                     <br>
-                    <input type="date" name="productDate">
+                    <input type="date" name="productDate" required> <p style="margin-left: -40px" class="text-danger" id="invalid_productDate">Please fill the date</p>
                 </div>
                 <div style="margin-top: 30px;margin-left: -100px">
                     <label style="margin-left: -75px">Brief description:</label>
                     <br>
-                    <textarea style="margin-left: 200px;width: 400px;height: 100px" name="productDescription"></textarea>
+                    <textarea style="margin-left: 200px;width: 400px;height: 100px" name="productDescription" required></textarea>
+                    <p style="margin-left: -25px" class="text-danger" id="invalid_productDescription">Please fill the description</p>
                 </div>
 
                 <div style = "margin-top: 30px">
-                    <label style="margin-left: -220px">Add review:</label>
+                    <label style="margin-left: -190px">Product reviews:</label>
                     <br>
                     <div  id="review-container">
                         <!-- dynamically inserted -->
                     </div>
-                    <button style="margin-left: -200px;margin-top: 20px" type="button" name="productQuestion" class="btn btn-secondary" onclick="addReview()">Add Review
-                    </button>
+                    <div>
+                        <button style="margin-left:-170px;margin-top: 20px" type="button" name="productQuestion" class="btn btn-info" onclick="addReview()">Add
+                        </button>
+                        <button style="margin-left: 0px;margin-top: 20px" type="button" name="productQuestion" class="btn btn-secondary" onclick="deleteReview()">Delete
+                        </button>
+                    </div>
 
                 </div>
 
 
                 <div style = "margin-top: 30px">
-                    <label style="margin-left: -140px">Add product question:</label>
+                    <label style="margin-left: -170px">Product questions:</label>
                     <br>
                     <div  id="productQuestion-container">
-                          <!-- dynamically inserted -->
+                        <!-- dynamically inserted -->
                     </div>
-                    <button style="margin-left: -180px;margin-top: 20px" type="button" name="productQuestion" class="btn btn-secondary" onclick="addProductQuestion()">Add Question
-                    </button>
+                    <div>
+                        <button style="margin-left:-170px;margin-top: 20px" type="button" name="productQuestion" class="btn btn-info" onclick="addProductQuestion()">Add
+                        </button>
+                        <button style="margin-left: 0px;margin-top: 20px" type="button" name="productQuestion" class="btn btn-secondary" onclick="deleteProductQuestion()">Delete
+                        </button>
+                    </div>
 
                 </div>
-                <button style="margin-top: 30px;margin-left: -220px" type="button" id="id_submit_creation" class="btn btn-secondary" onclick="manageCreationForm()">Submit
+                <button style="margin-top: 35px;margin-left: -225px" type="button" id="id_submit_creation" class="btn btn-success" onclick="manageCreationForm()">Submit
                 </button>
                 <p id="error_message" style="margin-top: -30px;margin-left: 280px"></p>
-           </div>
+            </div>
 
         </div>
 

@@ -86,7 +86,7 @@ public class Leaderboard extends HttpServlet {
         System.out.println((new Gson()).toJson(textResponse));
         out.print((new Gson()).toJson(textResponse));
         }*/
-        List<String> textResponse = productService.convertToString(leaderboard); //TODO sposta a evaluationServices
+        List<String> textResponse = evaluationService.convertToString(leaderboard);
         String jsonLeaderboard = new Gson().toJson(textResponse);
         out.write(jsonLeaderboard);
     }

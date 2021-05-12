@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "product", schema = "db2_app")
@@ -103,4 +104,13 @@ public class Product implements Serializable {
         return image;
     }
 
+    public List<String> getQuestionsText() {
+
+        questions.stream()
+                .sorted(Comparator.comparing(n->n.getQuestionNumber()))
+                .collect(Collectors.toList());
+        List<String> results = new ArrayList<String>();
+        questions.stream().forEach(q -> results.add(q.getText()));
+        return results;
+    }
 }

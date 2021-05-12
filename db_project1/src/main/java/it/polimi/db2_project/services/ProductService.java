@@ -27,19 +27,18 @@ public class ProductService {
     }
 
 
-    public Product getProductOfTheDay(){
-        Date date = java.sql.Date.valueOf(LocalDate.now());
-        List<Product> products = em.createNamedQuery("Product.getProductOfTheDay", Product.class).setParameter(1, date).getResultList();
-        if (products == null || products.isEmpty()) {
-            throw new InvalidParameterException("No product of the Day");
+    public Product getProductOfTheDay() throws InvalidParameterException{
 
-        }
-        else if(products.size()==1) {
-            return products.get(0);
-        }
-        else {
-            throw new InvalidParameterException("internal database error");
-        }
+            Date date = java.sql.Date.valueOf(LocalDate.now());
+            List<Product> products = em.createNamedQuery("Product.getProductOfTheDay", Product.class).setParameter(1, date).getResultList();
+            if (products == null || products.isEmpty()) {
+                throw new InvalidParameterException("No product of the Day");
+
+            } else if (products.size() == 1) {
+                return products.get(0);
+            } else {
+                throw new InvalidParameterException("internal database error");
+            }
     }
 
     public Product checkDateAvailability(Date date){
@@ -51,27 +50,6 @@ public class ProductService {
             product = null;
         }
         return product;
-    }
-
-
-
-    public HashMap<Integer,Integer> convertToHash(List<Evaluation> evaluations){
-        HashMap<Integer,Integer> hm = new HashMap<>();
-        for (Evaluation e : evaluations) {
-            hm.put(e.getUser().getUserID(), e.getTotalPoints());
-        }
-        return hm;
-
-    }
-
-    public List<String> convertToString(List<Evaluation> evaluations){
-        ArrayList<String> texts = new ArrayList<>();
-        for (Evaluation e : evaluations) {
-            texts.add(String.valueOf(e.getUser().getUserID()));
-            texts.add(String.valueOf(e.getTotalPoints()));
-        }
-        return (List<String>)texts;
-
     }
 
     public void createNewProduct(String name,String description,Date date,List<String> questions,byte[] image,List<String> productReviews){
@@ -92,7 +70,7 @@ public class ProductService {
         }
 
         //ADD OPTIONAL QUESTIONS FOR THE PRODUCT
-        String optional[] = {"Age","Gender","ExpertiseLevel"};
+        String[] optional = {"Age","Gender","ExpertiseLevel"};
         for (int i = 0; i <3 ; i++) {
             Question q = new Question();
             q.setMandatory(false);
@@ -127,5 +105,6 @@ public class ProductService {
             throw e;
         }
     }
+
 
 }

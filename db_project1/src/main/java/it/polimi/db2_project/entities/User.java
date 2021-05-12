@@ -15,6 +15,9 @@ import java.util.List;
 @Table(name = "user", schema = "db2_app")
 @NamedQuery(name = "User.checkCredentials", query = "SELECT r FROM User r  WHERE r.username = ?1 and r.password = ?2")
 @NamedQuery(name = "User.getUser", query = "SELECT r FROM User r  WHERE r.username = ?1")
+@NamedQuery(name = "User.getUsersSubmits", query = "SELECT distinct r FROM User r , Answer a WHERE a.user.userID= r.userID AND a.question.product.productId = ?1")
+@NamedQuery(name = "User.getUsersCanceled", query = "SELECT distinct r FROM User r , Log l WHERE r.userID = l.userId AND l.timestamp = ?1 AND l.isFormCancelled = true")
+
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
