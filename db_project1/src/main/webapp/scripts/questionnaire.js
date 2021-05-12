@@ -98,7 +98,7 @@ function showMandatoryForm(){
 }
 
 function showNoForms(){
-    let mandatory = document.getElementById("mandatory_form");
+    let mandatory = document.getElementById("questionnaire_form_form");
     let optional = document.getElementById("optional_form");
     optional.style.display = "none"; //element is not displayed
     mandatory.style.display = "none";
@@ -181,6 +181,10 @@ window.addEventListener('load', () => {
                 case 400: // bad request
                     showNoForms();
                     showMessage("error_message","Error: Questionnaire already completed \n Go back to HomePage");
+                    break;
+                case 406: // not acceptable
+                    showNoForms();
+                    showMessage("error_message","Error: The questionnaire of the day not created yed by Admin");
                     break;
                 case 401: // unauthorized
                     showMessage("error_message","unauthorized");

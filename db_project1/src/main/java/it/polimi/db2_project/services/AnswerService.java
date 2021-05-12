@@ -47,12 +47,15 @@ public class AnswerService {
     }
 
     public void addAnswer(String response, User user, Question question){
+        if(response.equals(""))
+            return;
         Answer answer = new Answer();
         answer.setAnswer(response);
         answer.setUser(user);
         answer.setQuestion(question);
         //Points are set by the triggers
         em.persist(answer);
+
     }
 
     public boolean alreadyFilled(String username, Product product){

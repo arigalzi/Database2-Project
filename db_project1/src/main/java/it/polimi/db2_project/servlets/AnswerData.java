@@ -4,6 +4,7 @@ package it.polimi.db2_project.servlets;
 import it.polimi.db2_project.entities.Question;
 import it.polimi.db2_project.entities.User;
 import it.polimi.db2_project.services.AnswerService;
+import it.polimi.db2_project.services.ProductService;
 import it.polimi.db2_project.services.QuestionnaireService;
 import it.polimi.db2_project.services.UserService;
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class AnswerData extends HttpServlet {
 
     @EJB(name = "it.polimi.db2.entities.services/QuestionnaireService")
     private QuestionnaireService questionnaireService;
+
+
     public AnswerData() {
     }
 
@@ -92,9 +95,12 @@ public class AnswerData extends HttpServlet {
                 answerService.addAnswer(mandatory_answers[i], user, questionList.get(i));
 
             //Manage the optional responses
-            answerService.addAnswer(age, user, optionalQuestions.get(0));
-            answerService.addAnswer(sex, user, optionalQuestions.get(1));
-            answerService.addAnswer(expertiseLevel, user, optionalQuestions.get(2));
+            if(age != null)
+             answerService.addAnswer(age, user, optionalQuestions.get(0));
+            if(sex != null)
+             answerService.addAnswer(sex, user, optionalQuestions.get(1));
+            if(expertiseLevel != null)
+             answerService.addAnswer(expertiseLevel, user, optionalQuestions.get(2));
 
         }
 
