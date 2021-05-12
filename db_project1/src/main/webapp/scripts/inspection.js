@@ -105,6 +105,7 @@ buttonI.addEventListener("click", () => {
                         document.getElementById("id_product_date").innerText = con.date.split(", 12:00:00")[0];
                         document.getElementById("id_product_image").src = "data:image/png;base64," + con.encodedImg;
                         document.getElementById("id_product_description").innerText = con.prodDescription;
+                        document.getElementById("#date").setAttribute("date",con.date);
 
                         const tableHead = document.getElementById("id_tableSubHead");
                         const tableBody = document.getElementById("id_tableSubBody");
@@ -118,34 +119,27 @@ buttonI.addEventListener("click", () => {
                             "type=\"submit\">Delete</button>";
 
                     }
-                } else {
-                    document.getElementById("id_errorTypeI").innerText = con.errorType;
-                    document.getElementById("id_errorInfoI").innerText = con.errorInfo;
-
+                }
+                else if(request.status === 400){
+                        showMessage("error_message", "You can only search a past data")
                 }
             }
         );
 });
 
 buttonD.addEventListener("click", () => {
-    //var text = window.location.hash.substring(1);
     let form = document.getElementById("form-deletion");
 
-        makeCall("GET", "./Deletion", form,
-            function(req) {
-                let message = req.responseText;
-                if (req.readyState === 4) {
-                    if (req.status === 200) {
-                        let con = JSON.parse(message);
-                        let username = localStorage.getItem("username");
-                        let admin = localStorage.getItem("isAdmin");
-                        showUsername(admin,username);
-                    }
-                } else {
-                        let con = JSON.parse(message);
-                        document.getElementById("id_errorTypeD").innerText = con.errorType;
-                        document.getElementById("id_errorInfoD").innerText = con.errorInfo;
-
+        makeCall("POST", "./Deletion", form,
+            function(request) {
+                if (request.readyState === 4 && request.status === 200) {
+                    window.location.assign("../db_project1_war_exploded/cancelGreetings.html");
+                }
+                else if(request.status === 400){
+                    showMessage("error_message", "You can only cancel a past data")
+                }
+                else {
+                    showMessage("error_message", "Error in canceling the product")
                 }
             }
         );

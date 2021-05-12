@@ -41,7 +41,7 @@ public class Inspection extends HttpServlet {
     }
 
     boolean checkDate (Date date) {
-        return java.sql.Date.valueOf(LocalDate.now()).after(date);
+        return java.sql.Date.valueOf(LocalDate.now()).after(date)  || java.sql.Date.valueOf(LocalDate.now()).equals(date);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -102,7 +102,7 @@ public class Inspection extends HttpServlet {
             }
         }
         else{
-            sendError(request, response, "Insertion Error", "you must insert a past data");
+            response.setStatus(400);
         }
     }
 

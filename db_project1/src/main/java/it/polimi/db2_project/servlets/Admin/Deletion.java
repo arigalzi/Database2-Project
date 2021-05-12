@@ -5,6 +5,7 @@ import it.polimi.db2_project.entities.Product;
 import it.polimi.db2_project.services.ProductService;
 import org.apache.commons.lang.StringEscapeUtils;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -12,27 +13,64 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 @WebServlet("/Deletion")
 @MultipartConfig
 public class Deletion extends HttpServlet {
 
+    @EJB(name = "it.polimi.db2_project.entities.services/ProductService")
     private ProductService productService;
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //get the id of the product to be deleted
-        int productId = Integer.parseInt(StringEscapeUtils.escapeJava(request.getParameter("prodId")));
-        //Product product = productService.getProduct(productId);
 
-        //delete the product and delete it also from the users' list
-        //productService.deleteProduct(product);
+        String sDate = StringEscapeUtils.escapeJava(request.getParameter("date"));
 
-        response.sendRedirect("Admin/past.html?");
+        Date date= null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Product product= null;
+
+        if(checkDate(date)) {
+            try {
+                product =productService.getProductOfTheDay(date);
+                productService.deleteProduct(product);
+
+            }catch (Exception e) {
+                sendError(request, response, "Deletion Error", e.getCause().getMessage());
+            }
+        }
+        else {
+            response.setStatus(400);
+        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request,response);
+    }
 
+    boolean checkDate (Date date) {
+        return java.sql.Date.valueOf(LocalDate.now()).after(date);
+    }
+
+
+    protected void sendError(HttpServletRequest request, HttpServletResponse response, String errorType, String errorInfo) throws IOException {
+        request.getSession().setAttribute ("errorType", errorType);
+        request.getSession().setAttribute ("errorInfo", errorInfo);
+        try {
+            getServletConfig().getServletContext().getRequestDispatcher("/error.html").forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
     }
 
 }
