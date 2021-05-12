@@ -152,30 +152,30 @@ public class UserService {
 
     public List<String> getUsersWhoCanceled(Product product) {
 
-        List<String> usersSubString= new ArrayList<>();
+        List<String> userCancString= new ArrayList<>();
 
-        List<User> usersSub = em.createNamedQuery("User.getUsersSubmits", User.class).setParameter(1, product.getDate()).getResultList();
+        List<User> usersCan = em.createNamedQuery("User.getUsersCanceled", User.class).setParameter(1, product.getDate()).getResultList();
 
-        if (usersSub == null || usersSub.isEmpty()) {
+        if (usersCan == null || usersCan.isEmpty()) {
             return null;
         }
 
-        usersSub.stream().forEach(q->usersSubString.add(q.getUsername()));
-        return usersSubString;
+        usersCan.stream().forEach(q->userCancString.add(q.getUsername()));
+        return userCancString;
 
     }
 
     public List<String> getUsersWhoSubmits(Product product) {
 
-        List<String> userCancString= new ArrayList<>();
-        List<User> userCanc = em.createNamedQuery("User.getUsersSubmits", User.class).setParameter(1, product).getResultList();
+        List<String> userSubString= new ArrayList<>();
+        List<User> userSub = em.createNamedQuery("User.getUsersSubmits", User.class).setParameter(1, product.getProductId()).getResultList();
 
-        if (userCanc == null || userCanc.isEmpty()) {
+        if (userSub == null || userSub.isEmpty()) {
             return null;
         }
 
-        userCanc.stream().forEach(q->userCancString.add(q.getUsername()));
-        return userCancString;
+        userSub.stream().forEach(q->userSubString.add(q.getUsername()));
+        return userSubString;
 
     }
 }
