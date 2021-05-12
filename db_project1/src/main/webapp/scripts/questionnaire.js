@@ -98,7 +98,7 @@ function showMandatoryForm(){
 }
 
 function showNoForms(){
-    let mandatory = document.getElementById("questionnaire_form_form");
+    let mandatory = document.getElementById("mandatory_form");
     let optional = document.getElementById("optional_form");
     optional.style.display = "none"; //element is not displayed
     mandatory.style.display = "none";

@@ -1,9 +1,9 @@
 DROP SCHEMA IF EXISTS `db2_app`;
-CREATE SCHEMA IF NOT EXISTS `db2_app` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `db2_app` DEFAULT CHARACTER SET utf8mb4 ;
 USE `db2_app` ;
 
 -- Table `User`
-DROP TABLE IF EXISTS `db2_app.User` ;
+DROP TABLE IF EXISTS `db2_app.User`;
 CREATE TABLE IF NOT EXISTS `db2_app`.`User` (
 `userID` INT NOT NULL AUTO_INCREMENT,
 `username` VARCHAR(50) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`User` (
 `isBanned` BOOLEAN DEFAULT 0,
 `isAdmin` BOOLEAN DEFAULT 0,
 PRIMARY KEY (`userID`)
-);
+) CHARSET=utf8mb4;
 
 -- Table `Product`
 DROP TABLE IF EXISTS `db2_app.Product` ;
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`Product`(
 `image` longblob,
 `description` VARCHAR(256),
 PRIMARY KEY (`productID`)
-);
+) CHARSET=utf8mb4;
 
 -- Table `Question`
 DROP TABLE IF EXISTS `db2_app.Question` ;
@@ -37,7 +37,7 @@ PRIMARY KEY ( `questionID` ,`productID`),
 FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`)
 
 
-);
+) CHARSET=utf8mb4;
 
 
 DROP TABLE IF EXISTS `db2_app.Answer` ;
@@ -50,7 +50,7 @@ PRIMARY KEY (`userID`, `questionID`,`productID`),
 FOREIGN KEY (`questionID`) REFERENCES `Question` (`questionID`) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (`productID`) REFERENCES `Question` (`productID`) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (`userID`) REFERENCES `User` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
-);
+) CHARSET=utf8mb4;
 
 -- Table `DirtyWord`
 DROP TABLE IF EXISTS `db2_app.DirtyWord` ;
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`DirtyWord`(
 `dirtyID` INT NOT NULL AUTO_INCREMENT,
 `text` VARCHAR(50) NOT NULL,
 PRIMARY KEY (`dirtyID`)
-);
+) CHARSET=utf8mb4;
 
 -- Table `Log`
 DROP TABLE IF EXISTS `db2_app.Log` ;
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`Review`(
 `productID` INT NOT NULL,
 PRIMARY KEY (`reviewID`, `productID`),
 FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`) ON DELETE CASCADE ON UPDATE CASCADE
-);
+) CHARSET=utf8mb4;
 
 
 DROP TABLE IF EXISTS `db2_app.Evaluation` ;
@@ -133,7 +133,7 @@ begin
         elseif (mandatory = false) then
 			insert into db2_app.evaluation values(new.userID, new.productID, 2);
 end if;
-elseif( exists (select * from db2_app.evaluation where e.userID =new.userID and e.productID = new.productID) ) then
+elseif( exists (select * from db2_app.evaluation e where e.userID =new.userID and e.productID = new.productID) ) then
 		if (mandatory = true) then
 update db2_app.evaluation set totalPoints = totalPoints+1 where userID =new.userID and productID = new.productID ;
 elseif (mandatory = false) then
