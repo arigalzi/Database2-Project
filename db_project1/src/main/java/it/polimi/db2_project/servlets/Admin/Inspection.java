@@ -122,7 +122,7 @@ public class Inspection extends HttpServlet {
                 isCanceled = true;
             questions = userService.getAnsweredQuestions(product, username);
             answers = answerService.getUserAnswers(product, username);
-            InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions);
+            InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions, product);
             content.add(userContent);
 
         }

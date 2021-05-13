@@ -35,10 +35,7 @@ CREATE TABLE IF NOT EXISTS `db2_app`.`Question`(
 `productID` int not null,
 PRIMARY KEY ( `questionID` ,`productID`),
 FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`)
-
-
 );
-
 
 DROP TABLE IF EXISTS `db2_app.Answer` ;
 CREATE TABLE IF NOT EXISTS `db2_app`.`Answer`(
@@ -106,6 +103,20 @@ LOCK TABLES  `db2_app`.`Product` WRITE;
 INSERT INTO `db2_app`.`Product` VALUES (1,'2021/05/01','iphone','','Last phone of Apple'), (2,'2021/05/02','Samsung','','Last phone of Samsung'), (3,'2021/05/03','iphone','','Last phone of Motorola');
 /*!40000 ALTER TABLE `db2_app`.`Product` ENABLE KEYS */;
 UNLOCK TABLES;
+
+LOCK TABLES  `db2_app`.`Question` WRITE;
+/*!40000 ALTER TABLE `db2_app`.`Question` DISABLE KEYS */;
+INSERT INTO `db2_app`.`Question` VALUES (1,0,'is it useful?',1, 2), (2,0,'how much?',2, 2), (3,0,'why?',3, 2), (4,0,'is it useful?',1, 3), (5,0,'how much?',2, 3), (6,0,'why?',3, 3), (7,0,'is it useful?',1, 1), (8,0,'how much?',2, 1), (9,0,'why?',3, 1);
+/*!40000 ALTER TABLE `db2_app`.`Question` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+LOCK TABLES  `db2_app`.`Answer` WRITE;
+/*!40000 ALTER TABLE `db2_app`.`Answer` DISABLE KEYS */;
+INSERT INTO `db2_app`.`Answer` VALUES (1,2,1,'AAAA' ), (1,2,2,'BBB' ),(2,2,1,'ccc' ),(3,2,1,'ccc' ) ;
+/*!40000 ALTER TABLE `db2_app`.`Answer` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 LOCK TABLES  `db2_app`.`Review` WRITE;
 /*!40000 ALTER TABLE `db2_app`.`Review` DISABLE KEYS */;
