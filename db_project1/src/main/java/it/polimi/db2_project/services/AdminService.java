@@ -1,6 +1,7 @@
 package it.polimi.db2_project.services;
 
 
+import it.polimi.db2_project.auxiliary.jsonContent.InspectionPageUserContent;
 import it.polimi.db2_project.entities.User;
 import it.polimi.db2_project.entities.Product;
 import javax.ejb.Stateless;

@@ -22,101 +22,96 @@ function makeCall(method, url, formElement, cback, reset = true) {
 }
 
 function insertQuestionsAnswers(con, tableBody, tableHead){
-    if(con.completed.length!==0){
-        let row = tableHead.insertRow();
-        let answers = row.insertCell(0);
-        answers.innerText = "Question";
-        let i = 1;
-        Object.keys(con.answers).forEach(function (k) {
-            answers = row.insertCell(i);
-            answers.innerText = "Answer of " + answers[k];
-            i++;
-        })
-
-        Object.keys(con.questions).forEach(function (k) {
-            let row = tableBody.insertRow();
-            let answers = row.insertCell(0);
-            answers.innerText = con.questions[k];
-            let i = 1;
-            Object.keys(con.answers).forEach(function (k) {
-                answers = row.insertCell(i);
-                answers.innerText = con.answers[k].getAttribute();
-                i++;
-            })
-        })
+    let numberOfRows = 0;
+    console.log(con);
+    if(con.length!==0) {
+        for (let i = 0; i < con.length; i++) {
+            let user = con[i].username;
+            let question = con[i].questions;
+            let answers = con[i].answers;
+            let isCanceled = con[i].canceled;
+            if (isCanceled === false) {
+                numberOfRows = numberOfRows + 1;
+            for (let k = 0; k < question.length; k++) {
+                let row = tableHead.insertRow();
+                for (let j = 0; j < 3; j++) {
+                    let fillText = row.insertCell(j);
+                    if (j === 0) fillText.innerText = user;
+                    if (j === 1) fillText.innerText = question[k];
+                    if (j === 2) fillText.innerText = answers[k];
+                }
+              }
+            }
+        }
     }
-    else{
+    if(numberOfRows === 0){
         let row = tableSubHead.insertRow();
-        let noFilled = row.insertCell(-1);
-        noFilled.innerText = "Nobody submitted this questionnaire";
+        let notFilled = row.insertCell(-1);
+        notFilled.innerText = "Sorry but nobody filled this questionnaire";
     }
 }
 
 function insertCancelledUsers(con,tableCancHead, tableCancBody){
-    if(con.canceled.length!==0){
-        let row = tableCancHead.insertRow();
-        let users = row.insertCell(0);
-        users.innerText = "User Have Canceled Questionnaire";
-
-        Object.keys(con.canceled).forEach(function (k) {
-            let row = tableCancBody.insertRow();
-            users = row.insertCell(0);
-            users.innerText = con.canceled[k];
-        })
-
+    let numberOfCanceled = 0;
+    if(con.length!==0){
+        for (let i = 0; i <con.length ; i++) {
+            let user = con[i].username;
+            let isCanceled = con[i].canceled;
+            if(isCanceled === true){
+                numberOfCanceled = numberOfCanceled + 1;
+                let row = tableCancBody.insertRow();
+                cell = row.insertCell(0);
+                cell.innerText = user;
+            }
+        }
     }
-    else{
-        let row = tableSubHead.insertRow();
+    if(numberOfCanceled === 0){
+        let row = tableCancHead.insertRow();
         let noFilled = row.insertCell(-1);
-        noFilled.innerText = "Nobody cancelled this questionnaire";
+        noFilled.innerText = "Sorry but nobody cancelled this questionnaire";
     }
 
 }
 
 function populateTable(con,tableSubHead, tableSubBody, tableCancHead, tableCancBody){
-    if (con.completed.length===0 && con.canceled.length===0) {
-        let row = tableSubHead.insertRow();
-        let noFilled = row.insertCell(-1);
-        noFilled.innerText = "Sorry but nobody filled or cancelled this questionnaire";
-    }
-    else{
-            insertQuestionsAnswers(con, tableSubBody, tableSubHead);
-
-            insertCancelledUsers(con, tableCancBody, tableCancHead);
-    }
+    console.log(con);
+    insertQuestionsAnswers(con, tableSubBody, tableSubHead);
+    insertCancelledUsers(con, tableCancBody, tableCancHead);
 }
 
-buttonI.addEventListener("click", () => {
+function manageSearch()
+{
     let form = document.getElementById("form-inspection");
+    makeCall("POST", "./Inspection", form,
+        function (req) {
+            if (req.readyState === 4) {
+                let message = req.responseText;
+                let con = JSON.parse(message);
+                if (req.status === 200) {
+                    let username = localStorage.getItem("username");
+                    let admin = localStorage.getItem("isAdmin");
+                    showUsername(admin, username);
 
-        makeCall("POST", "./Inspection", form,
-            function(req) {
-                if (req.readyState === 4) {
-                    let message = req.responseText;
-                    if (req.status === 200) {
-                        let con = JSON.parse(message);
-                        let username = localStorage.getItem("username");
-                        let admin = localStorage.getItem("isAdmin");
-                        showUsername(admin,username);
+                    const tableHead = document.getElementById("id_Inspection_Head");
+                    const tableBody = document.getElementById("id_Inspection_tableBody");
+                    const tableCancHead = document.getElementById("id_Cancel_Head");
+                    const tableCancBody = document.getElementById("id_Cancel_tableBody");
+                    populateTable(con, tableHead, tableBody, tableCancHead, tableCancBody);
 
-                        document.getElementById("id_product_title").innerText="Title\n";
-                        document.getElementById("id_product_description").innerText="Description\n";
-                        document.getElementById("id_product_title").innerText = con.prodName;
-                        document.getElementById("id_product_date").innerText = con.date.split(", 12:00:00")[0];
-                        document.getElementById("id_product_image").src = "data:image/png;base64," + con.encodedImg;
-                        document.getElementById("id_product_description").innerText = con.prodDescription;
-                        document.getElementById("#date").setAttribute("date",con.date);
+                    document.getElementById("id_product_title").innerText="Title\n";
+                    document.getElementById("id_product_description").innerText="Description\n";
+                    document.getElementById("id_product_title").innerText = con.prodName;
+                    document.getElementById("id_product_date").innerText = con.date.split(", 12:00:00")[0];
+                    document.getElementById("id_product_image").src = "data:image/png;base64," + con.encodedImg;
+                    document.getElementById("id_product_description").innerText = con.prodDescription;
+                    document.getElementById("#date").setAttribute("date",con.date);
 
-                        const tableHead = document.getElementById("id_tableSubHead");
-                        const tableBody = document.getElementById("id_tableSubBody");
-                        const tableCancHead = document.getElementById("id_tableCancHead");
-                        const tableCancBody = document.getElementById("id_tableCancBody");
 
-                        populateTable(con,tableHead, tableBody, tableCancHead, tableCancBody);
 
-                        document.getElementById("deletion").innerHTML =
-                            "<button id=\"#buttonDeletion\" className=\"btn btn-secondary\" style=\"margin-left: -40px\"\n" +
-                            "type=\"submit\">Delete</button>";
+
+                    document.getElementById("deletion").innerHTML =
+                        "<button id=\"#buttonDeletion\" class=\"btn btn-secondary\" style=\"margin-left: -40px\"\n" +
+                        "type=\"button\">Delete Questionnaire Data</button>";
 
                     }
                 }
@@ -125,7 +120,7 @@ buttonI.addEventListener("click", () => {
                 }
             }
         );
-});
+}
 
 buttonD.addEventListener("click", () => {
     let form = document.getElementById("form-deletion");
