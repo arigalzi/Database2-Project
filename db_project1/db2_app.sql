@@ -133,7 +133,7 @@ begin
         elseif (mandatory = false) then
 			insert into db2_app.evaluation values(new.userID, new.productID, 2);
 end if;
-elseif( exists (select * from db2_app.evaluation where e.userID =new.userID and e.productID = new.productID) ) then
+elseif( exists (select * from db2_app.evaluation e where e.userID =new.userID and e.productID = new.productID) ) then
 		if (mandatory = true) then
 update db2_app.evaluation set totalPoints = totalPoints+1 where userID =new.userID and productID = new.productID ;
 elseif (mandatory = false) then
