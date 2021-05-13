@@ -22,6 +22,8 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
     let numberOfRows = 0;
     console.log(con);
     if(con.length!==0) {
+        let newRow = document.getElementById("No_Question_info_available");
+        newRow.innerHTML="";
         for (let i = 0; i < con.length; i++) {
             let user = con[i].username;
             let question = con[i].questions;
@@ -30,7 +32,7 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
             if (isCanceled === false) {
                 numberOfRows = numberOfRows + 1;
             for (let k = 0; k < question.length; k++) {
-                let row = tableHead.insertRow();
+                let row = tableBody.insertRow();
                 for (let j = 0; j < 3; j++) {
                     let fillText = row.insertCell(j);
                     if (j === 0) fillText.innerText = user;
@@ -42,15 +44,16 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
         }
     }
     if(numberOfRows === 0){
-        let row = tableSubHead.insertRow();
-        let notFilled = row.insertCell(-1);
-        notFilled.innerText = "Sorry but nobody filled this questionnaire";
+        let newRow = document.getElementById("No_Question_info_available");
+        newRow.innerHTML = "<th colSpan=\"3\" style=\"width:100%;font-weight:normal\">Sorry but nobody filled this questionnaire</th>"
     }
 }
 
 function insertCancelledUsers(con,tableCancHead, tableCancBody){
     let numberOfCanceled = 0;
     if(con.length!==0){
+        let newRow = document.getElementById("No_Cancel_info_available");
+        newRow.innerHTML="";
         for (let i = 0; i <con.length ; i++) {
             let user = con[i].username;
             let isCanceled = con[i].canceled;
@@ -63,9 +66,8 @@ function insertCancelledUsers(con,tableCancHead, tableCancBody){
         }
     }
     if(numberOfCanceled === 0){
-        let row = tableCancHead.insertRow();
-        let noFilled = row.insertCell(-1);
-        noFilled.innerText = "Sorry but nobody cancelled this questionnaire";
+        let newRow = document.getElementById("No_Cancel_info_available");
+        newRow.innerHTML = "<th colSpan=\"3\" style=\"width:100%;font-weight:normal\">Sorry but nobody cancelled this questionnaire</th>"
     }
 
 }
@@ -94,8 +96,14 @@ function manageSearch()
 
                     const tableHead = document.getElementById("id_Inspection_Head");
                     const tableBody = document.getElementById("id_Inspection_tableBody");
+
                     const tableCancHead = document.getElementById("id_Cancel_Head");
                     const tableCancBody = document.getElementById("id_Cancel_tableBody");
+
+                    //Remove old values if existing
+                    tableBody.innerHTML="";
+                    tableCancBody.innerHTML="";
+
 
                     populateTable(con, tableHead, tableBody, tableCancHead, tableCancBody);
 
