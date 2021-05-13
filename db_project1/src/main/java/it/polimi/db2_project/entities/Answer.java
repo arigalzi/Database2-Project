@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "answer", schema = "db2_app")
 @NamedQuery(name = "Answer.getUserFill", query = "SELECT distinct a.user FROM Answer a WHERE a.id.questionKey.productId = ?1")
+@NamedQuery(name = "Answer.getAnsweredQuestions", query = "SELECT a.question FROM Answer a WHERE a.id.questionKey.productId = ?1 AND a.user.username = ?2")
 @NamedQuery(name = "Answer.getUserAnswers", query = "SELECT a FROM Answer a WHERE a.user.username = ?1 AND a.id.questionKey.productId = ?2")
 @NamedQuery(name = "Answer.getSpecificAnswer", query = "SELECT a FROM Answer a WHERE a.user.userID = ?1 AND a.question.id.questionId = ?2 AND a.question.product.productId = ?3")
 public class Answer implements Serializable {

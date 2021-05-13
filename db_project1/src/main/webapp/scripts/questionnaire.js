@@ -184,7 +184,7 @@ window.addEventListener('load', () => {
                     break;
                 case 406: // not acceptable
                     showNoForms();
-                    showMessage("error_message","Error: The questionnaire of the day not created yed by Admin");
+                    showMessage("error_message","Error: The questionnaire of the day not created yet by Admin");
                     break;
                 case 401: // unauthorized
                     showMessage("error_message","unauthorized");

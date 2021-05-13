@@ -1,12 +1,12 @@
 
-/*window.addEventListener("load", () => {
+window.addEventListener("load", () => {
           let admin = localStorage.getItem("isAdmin");
           let username = localStorage.getItem("username");
           showAdminUsername(admin,username);
 
         }
 
-);*/
+);
 
 function makeCall(method, url, formElement, cback, reset = true) {
     var req = new XMLHttpRequest(); // visible by closure

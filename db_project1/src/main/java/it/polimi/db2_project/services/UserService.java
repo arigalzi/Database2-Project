@@ -2,10 +2,7 @@ package it.polimi.db2_project.services;
 
 //import it.polimi.db2_project.auxiliary.UserStatus;
 import it.polimi.db2_project.auxiliary.UserStatus;
-import it.polimi.db2_project.entities.Answer;
-import it.polimi.db2_project.entities.Log;
-import it.polimi.db2_project.entities.Product;
-import it.polimi.db2_project.entities.User;
+import it.polimi.db2_project.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -22,6 +19,7 @@ import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 
@@ -177,6 +175,16 @@ public class UserService {
         userSub.stream().forEach(q->userSubString.add(q.getUsername()));
         return userSubString;
 
+    }
+
+    public List<String> getAnsweredQuestions(Product product,String username) {
+        List<Question> questions = em.createNamedQuery("Answer.getAnsweredQuestions",Question.class).setParameter(1, product.getProductId()).setParameter(2,username).getResultList();
+        questions.stream()
+                .sorted(Comparator.comparing(n->n.getQuestionNumber()))
+                .collect(Collectors.toList());
+        List<String> results = new ArrayList<String>();
+        questions.stream().forEach(q -> results.add(q.getText()));
+        return results;
     }
 }
 

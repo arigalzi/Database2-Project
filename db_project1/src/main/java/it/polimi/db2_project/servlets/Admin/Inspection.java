@@ -1,7 +1,7 @@
 package it.polimi.db2_project.servlets.Admin;
 
 import com.google.gson.Gson;
-import it.polimi.db2_project.auxiliary.jsonContent.InspectionPageContent;
+import it.polimi.db2_project.auxiliary.jsonContent.InspectionPageUserContent;
 import it.polimi.db2_project.entities.Answer;
 import it.polimi.db2_project.entities.Product;
 import it.polimi.db2_project.services.AnswerService;
@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @WebServlet("/Inspection")
+@MultipartConfig
 public class Inspection extends HttpServlet {
     @EJB(name = "it.polimi.db2_project.entities.services/ProductService")
     private ProductService productService;
@@ -45,8 +47,9 @@ public class Inspection extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String sDate = StringEscapeUtils.escapeJava(request.getParameter("date"));
-
+        String sDate = request.getParameter("date");
+        if(sDate.equals(""))
+            return;
         Date date= null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
@@ -61,43 +64,26 @@ public class Inspection extends HttpServlet {
 
                 Product product;
                 List<String> usersWhoSubmitted, usersWhoCanceled;
-                Map<String, List<String>> answersForEachUser = new HashMap<>();
-                List <Answer> answersFromUser;
-
-                usersWhoSubmitted = new LinkedList<>();
-                usersWhoCanceled = new LinkedList<>();
-                List<String> questions = null;
-                String encoded = null;
-
+                List<InspectionPageUserContent> content = new ArrayList<>();
                 product = productService.checkDateAvailability(date);
 
-                if(product!= null){
-                    questions = product.getQuestionsText();
+                if (product != null) {
+                    usersWhoSubmitted = userService.getUsersWhoSubmits(product);
                     usersWhoCanceled = userService.getUsersWhoCanceled(product);
 
-                    usersWhoSubmitted = userService.getUsersWhoSubmits(product);
-                    if(!(usersWhoSubmitted== null || usersWhoSubmitted.isEmpty() )){
-                        for (String s : usersWhoSubmitted) {
-                            answersFromUser = answerService.getUserAnswers(product, s);
-                            answersForEachUser.put(s, answerService.getAnswerText(answersFromUser));
-                        }
+                    if (!(usersWhoSubmitted == null || usersWhoSubmitted.isEmpty())) {
+                        content = createContent(usersWhoSubmitted,usersWhoCanceled,product);
                     }
-                    if (product.getImage()!= null) encoded = Base64.getEncoder().encodeToString(product.getImage());
+
+                    String jsonResponse = new Gson().toJson(content);
+                    PrintWriter out = response.getWriter();
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    out.write(jsonResponse);
+
                 }
-
-                InspectionPageContent content;
-                content = new InspectionPageContent(usersWhoSubmitted, usersWhoCanceled, answersForEachUser, questions,
-                        product.getName(), product.getDescription(), encoded, product.getDate());
-
-                String jsonResponse = new Gson().toJson(content);
-
-                PrintWriter out = response.getWriter();
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                response.setStatus(HttpServletResponse.SC_OK);
-
-                out.write(jsonResponse);
-            } catch (Exception e) {
+            }catch (Exception e) {
                 sendError(request, response, "Inspection Error", e.getCause().getMessage());
             }
         }
@@ -122,5 +108,22 @@ public class Inspection extends HttpServlet {
         } catch (ServletException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<InspectionPageUserContent> createContent(List<String> usersWhoSubmitted,List<String> usersWhoCanceled,Product product){
+        List<InspectionPageUserContent> content = new ArrayList<>();
+        List<String> questions;
+        List<Answer> answers;
+        boolean isCanceled = false;
+        for (String username : usersWhoSubmitted) {
+            if (usersWhoCanceled !=null && usersWhoCanceled.contains(username))
+                isCanceled = true;
+            questions = userService.getAnsweredQuestions(product, username);
+            answers = answerService.getUserAnswers(product, username);
+            InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions);
+            content.add(userContent);
+
+        }
+        return content;
     }
 }
