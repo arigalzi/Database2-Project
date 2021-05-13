@@ -75,14 +75,16 @@ public class Inspection extends HttpServlet {
                         content = createContent(usersWhoSubmitted,usersWhoCanceled,product);
                     }
 
-                    String jsonResponse = new Gson().toJson(content);
-                    PrintWriter out = response.getWriter();
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    out.write(jsonResponse);
+
 
                 }
+                String jsonResponse = new Gson().toJson(content);
+                PrintWriter out = response.getWriter();
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.setStatus(HttpServletResponse.SC_OK);
+                out.write(jsonResponse);
+
             }catch (Exception e) {
                 sendError(request, response, "Inspection Error", e.getCause().getMessage());
             }
