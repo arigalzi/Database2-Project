@@ -19,10 +19,10 @@ public class HomepageContent implements Serializable {
     public HomepageContent(String username, boolean admin, String prodName, String prodDescription, String encodedImg, ArrayList<String> reviews, UserStatus userStatus) {
         this.username = username;
         this.admin = admin;
+        this.reviews = reviews;
+        this.userStatus = userStatus;
+        this.encodedImg = encodedImg;
         this.prodName = prodName;
         this.prodDescription = prodDescription;
-        this.reviews = reviews;
-        this.encodedImg = encodedImg;
-        this.userStatus = userStatus;
     }
 }

@@ -1,7 +1,4 @@
-
-let buttonI = document.querySelector('#buttonInspection');
-let buttonD = document.querySelector('#buttonDeletion');
-
+let date;
 
 function makeCall(method, url, formElement, cback, reset = true) {
     var req = new XMLHttpRequest(); // visible by closure
@@ -79,9 +76,12 @@ function populateTable(con,tableSubHead, tableSubBody, tableCancHead, tableCancB
     insertCancelledUsers(con, tableCancBody, tableCancHead);
 }
 
+
 function manageSearch()
 {
     let form = document.getElementById("form-inspection");
+    date = document.getElementById("date").getAttribute("date");
+    console.log(date +"  -> first");
     makeCall("POST", "./Inspection", form,
         function (req) {
             if (req.readyState === 4) {
@@ -96,50 +96,47 @@ function manageSearch()
                     const tableBody = document.getElementById("id_Inspection_tableBody");
                     const tableCancHead = document.getElementById("id_Cancel_Head");
                     const tableCancBody = document.getElementById("id_Cancel_tableBody");
+
                     populateTable(con, tableHead, tableBody, tableCancHead, tableCancBody);
 
-                    document.getElementById("id_product_title").innerText="Title\n";
-                    document.getElementById("id_product_description").innerText="Description\n";
-                    document.getElementById("id_product_title").innerText = con.prodName;
-                    document.getElementById("id_product_date").innerText = con.date.split(", 12:00:00")[0];
-                    document.getElementById("id_product_image").src = "data:image/png;base64," + con.encodedImg;
-                    document.getElementById("id_product_description").innerText = con.prodDescription;
-                    document.getElementById("#date").setAttribute("date",con.date);
-
-
-
+                    date = con[1].prodDate.split(", 12:00:00");
+                    console.log(date +"  -> second");
 
                     document.getElementById("deletion").innerHTML =
                         "<button id=\"#buttonDeletion\" class=\"btn btn-secondary\" style=\"margin-left: -40px\"\n" +
-                        "type=\"button\">Delete Questionnaire Data</button>";
-
-                    }
+                        "type=\"button\" onclick=\"manageDelete()\">" + "Delete Questionnaire Data </button>";
                 }
-                else if(request.status === 400){
-                        showMessage("error_message", "You can only search a past data")
+
+                }
+                else if(req.status === 400){
+                        showMessage("I_error_message", "You can only search a past data")
                 }
             }
         );
 }
 
-buttonD.addEventListener("click", () => {
-    let form = document.getElementById("form-deletion");
+function manageDelete()
+{
+    console.log(date+"  -> third ");
 
-        makeCall("POST", "./Deletion", form,
-            function(request) {
-                if (request.readyState === 4 && request.status === 200) {
-                    window.location.assign("../db_project1_war_exploded/cancelGreetings.html");
-                }
-                else if(request.status === 400){
-                    showMessage("error_message", "You can only cancel a past data")
-                }
-                else {
-                    showMessage("error_message", "Error in canceling the product")
-                }
+    makeCall("GET", "./Deletion?date="+ date, null,
+        function(request) {
+            if (request.readyState === 4 && request.status === 200) {
+                window.location.assign("../db_project1_war_exploded/cancelGreetings.html");
             }
-        );
+            else if(request.status === 400){
+                showMessage("D_error_message", "You can only cancel a past data")
+            }
+        }
+    );
+}
 
-});
+function showMessage(html_id, message){
+    let element = document.getElementById(html_id);
+    element.innerText = message;
+}
+
+
 
 function showUsername(admin,username) {
     if (admin === false) {

@@ -50,6 +50,7 @@
                 <input type="date" name="date" id="date" required>
                 <button style="margin-left: 10px;margin-top: -5px" id="#buttonInspection" class="btn btn-secondary" style="margin-left: -40px" type="button" onclick="manageSearch()">Search</button>
             </div>
+            <p id="I_error_message" style="margin-top: -30px;margin-left: 280px"></p>
         </form>
     </div>
 
@@ -62,7 +63,7 @@
                     <h4 style="text-align: center;margin-top: 2%">User questions & answers</h4>
                     <thead  id="id_Inspection_Head" style="margin-left: 300px">
                     <tr>
-                        <th>Username</th>
+                        <th>Username </th>
                         <th>Question</th>
                         <th>Answer</th>
                     </tr>
@@ -97,14 +98,13 @@
     </div>
 
     <div>
-        <form style="text-align: center;margin-top: 4%" action="Deletion" method="POST" id="form-deletion">
+        <form style="text-align: center;margin-top: 4%" id="form-deletion">
             <div id="deletion">
-
-                <div>
-                    <input id="#date" hidden>
-                </div>
+                <input id="#date" hidden>
             </div>
+            <p id="D_error_message" style="margin-top: -30px;margin-left: 280px"></p>
         </form>
+
     </div>
 </div>
 </body>
