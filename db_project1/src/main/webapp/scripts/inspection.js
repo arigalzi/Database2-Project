@@ -107,8 +107,13 @@ function manageSearch()
 
                     populateTable(con, tableHead, tableBody, tableCancHead, tableCancBody);
 
-                    date = con[1].prodDate.split(", 12:00:00");
-                    console.log(date +"  -> second");
+                    if(con[0] !== undefined)
+                        date = con[0].prodDate;
+                    if(date !== null){
+                        date.split(", 12:00:00");
+                        console.log(date +"  -> second");
+                    }
+
 
                     document.getElementById("deletion").innerHTML =
                         "<button id=\"#buttonDeletion\" class=\"btn btn-secondary\" style=\"margin-left: -40px\"\n" +
@@ -119,6 +124,9 @@ function manageSearch()
                 else if(req.status === 400){
                         showMessage("I_error_message", "You can only search a past data")
                 }
+            else if(req.status === 401){
+                showMessage("I_error_message", "Date problems")
+            }
             }
         );
 }
@@ -126,14 +134,22 @@ function manageSearch()
 function manageDelete()
 {
     console.log(date+"  -> third ");
-
-    makeCall("GET", "./Deletion?date="+ date, null,
+    if(date === null || date === undefined){
+        date=null;
+    }
+    makeCall("GET", "./Deletion?date="+date, null,
         function(request) {
             if (request.readyState === 4 && request.status === 200) {
                 window.location.assign("../db_project1_war_exploded/cancelGreetings.html");
             }
             else if(request.status === 400){
                 showMessage("D_error_message", "You can only cancel a past data")
+            }
+            else if(request.status === 401){
+                showMessage("D_error_message", "Error of data insertion")
+            }
+            else if(request.status === 500){
+                showMessage("D_error_message", "No product to cancel")
             }
         }
     );

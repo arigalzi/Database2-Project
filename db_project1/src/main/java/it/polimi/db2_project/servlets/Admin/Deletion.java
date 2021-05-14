@@ -29,14 +29,17 @@ public class Deletion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String sDate = request.getParameter("date");
-        if(sDate.equals(""))
+        System.out.println(sDate);
+        if(sDate.equals("") || sDate.isEmpty()){
+            response.setStatus(500);
             return;
+        }
         Date date= null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
         } catch (ParseException e) {
-            e.printStackTrace();
-            response.setStatus(400);
+            response.setStatus(401);
+            return;
         }
 
         Product product= null;
@@ -44,7 +47,8 @@ public class Deletion extends HttpServlet {
         if(checkDate(date)) {
             try {
                 product =productService.getProductOfTheDay(date);
-                productService.deleteProduct(product);
+                if(product!= null)
+                    productService.deleteProduct(product);
 
             }catch (Exception e) {
                 sendError(request, response, "Deletion Error", e.getCause().getMessage());
@@ -52,6 +56,7 @@ public class Deletion extends HttpServlet {
         }
         else {
             response.setStatus(400);
+            return;
         }
 
     }

@@ -48,8 +48,10 @@ public class Inspection extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sDate = request.getParameter("date");
-        if(sDate.equals(""))
+        if(sDate.equals("")|| sDate.isEmpty()){
+            response.setStatus(401);
             return;
+        }
         Date date= null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
@@ -83,6 +85,7 @@ public class Inspection extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 response.setStatus(HttpServletResponse.SC_OK);
+
                 out.write(jsonResponse);
 
             }catch (Exception e) {
@@ -117,15 +120,19 @@ public class Inspection extends HttpServlet {
         List<String> questions;
         List<Answer> answers;
         boolean isCanceled = false;
+
         for (String username : usersWhoSubmitted) {
             if (usersWhoCanceled !=null && usersWhoCanceled.contains(username))
                 isCanceled = true;
+
             questions = userService.getAnsweredQuestions(product, username);
             answers = answerService.getUserAnswers(product, username);
+
             InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions, product);
             content.add(userContent);
 
         }
+
         return content;
     }
 }

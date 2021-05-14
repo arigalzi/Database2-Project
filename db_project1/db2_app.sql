@@ -100,7 +100,7 @@ UNLOCK TABLES;
 
 LOCK TABLES  `db2_app`.`Product` WRITE;
 /*!40000 ALTER TABLE `db2_app`.`Product` DISABLE KEYS */;
-INSERT INTO `db2_app`.`Product` VALUES (1,'2021/05/01','iphone','','Last phone of Apple'), (2,'2021/05/02','Samsung','','Last phone of Samsung'), (3,'2021/05/03','iphone','','Last phone of Motorola');
+INSERT INTO `db2_app`.`Product` VALUES (1,'2021/05/01','iphone','','Last phone of Apple'), (2,'2021/05/02','Samsung','','Last phone of Samsung'), (3,'2021/05/03','iphone','','Last phone of Motorola'), (4,'2021/05/13','LG','','Last phone of LG');
 /*!40000 ALTER TABLE `db2_app`.`Product` ENABLE KEYS */;
 UNLOCK TABLES;
 

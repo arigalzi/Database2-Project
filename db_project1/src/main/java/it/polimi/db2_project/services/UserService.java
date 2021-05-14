@@ -106,18 +106,20 @@ public class UserService {
      * Method to check the status of the user, in relationship with the product
      * @param user user to check
      * @param product product to compare with
-     * @param productService utility to make query
      * @return userstatus of the user
      * @throws InvalidParameterException if there is a problem with the query execution
      **/
-    public UserStatus checkUserStatus(User user, Product product, ProductService productService) throws InvalidParameterException{
+    public UserStatus checkUserStatus(User user, Product product) throws InvalidParameterException{
         if(user.isBanned()){
             return UserStatus.BANNED;
         }
         else{
+            List<Answer> ans = em
+                    .createNamedQuery("Answer.getUserAnswers", Answer.class)
+                    .setParameter(1, user.getUsername())
+                    .setParameter(2, product.getProductId())
+                    .getResultList();
 
-            List<Answer> ans = em.createNamedQuery("Answer.getUserAnswers", Answer.class)
-                    .setParameter(1, user.getUsername()).setParameter(2, product.getProductId()).getResultList();
             if (ans == null || ans.isEmpty()) {
                 return UserStatus.NOT_COMPLETED;
             }

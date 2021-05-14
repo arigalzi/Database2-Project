@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import it.polimi.db2_project.auxiliary.UserStatus;
 import it.polimi.db2_project.auxiliary.jsonContent.HomepageContent;
 import it.polimi.db2_project.entities.Product;
+import it.polimi.db2_project.entities.User;
 import it.polimi.db2_project.services.ProductService;
 import it.polimi.db2_project.services.ReviewService;
 import it.polimi.db2_project.services.UserService;
@@ -63,31 +64,31 @@ public class GoToHomePage extends HttpServlet {
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpServletResponse.SC_OK);
+
         String username = (String) request.getSession().getAttribute("user");
+        User user = userService.getUser(username);
 
+        UserStatus userStatus = null;
         Product prodOfTheDay = null;
-        try {
 
+        try {
             prodOfTheDay = productService.getProductOfTheDay();
         }
         catch (InvalidParameterException | EJBException e){
-            System.out.println(e.getMessage());
-            if(e.getCause().getMessage().equals("No product of the Day")){
-                HomepageContent homepageContent = new HomepageContent(username, userService.getUser(username).isAdmin(),
-                        null, null, null,
-                        null, UserStatus.NOT_AVAILABLE);
-                String jsonHomepage = new Gson().toJson(homepageContent);
-                out.write(jsonHomepage);
-                return;
-            }
-            else{
-                sendError(request, response, "Database Error", e.getMessage());
-                return;
-            }
+            userStatus = userService.checkUserStatus(user, prodOfTheDay);
+            HomepageContent homepageContent = new HomepageContent(username, user.isAdmin(),
+                    null, null, null,
+                    null, userStatus);
+            String jsonHomepage = new Gson().toJson(homepageContent);
+            out.write(jsonHomepage);
+            return;
+
         }
-        UserStatus userStatus = userService.checkUserStatus(userService.getUser(username), prodOfTheDay, productService);
+
+
         ArrayList<String> reviews = null;
+        userStatus = userService.checkUserStatus(user, prodOfTheDay);
+
         try {
             if(prodOfTheDay!= null)
                 reviews = reviewService.getReviews(prodOfTheDay.getProductId());
@@ -99,10 +100,13 @@ public class GoToHomePage extends HttpServlet {
 
         if (prodOfTheDay.getImage()!= null) encoded = Base64.getEncoder().encodeToString(prodOfTheDay.getImage());
 
-        HomepageContent homepageContent = new HomepageContent(username, userService.getUser(username).isAdmin(),
+        HomepageContent homepageContent = new HomepageContent(username, user.isAdmin(),
                 prodOfTheDay.getName(), prodOfTheDay.getDescription(), encoded, reviews, userStatus);
         String jsonHomepage = new Gson().toJson(homepageContent);
         System.out.println(jsonHomepage);
         out.write(jsonHomepage);
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setStatus(200);
+        return;
     }
 }
