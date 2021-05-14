@@ -1,11 +1,14 @@
 package it.polimi.db2_project.servlets;
 
 import com.google.gson.Gson;
+import it.polimi.db2_project.auxiliary.UserStatus;
 import it.polimi.db2_project.entities.Product;
 import it.polimi.db2_project.entities.Question;
 import it.polimi.db2_project.services.AnswerService;
 import it.polimi.db2_project.services.ProductService;
 import it.polimi.db2_project.services.QuestionnaireService;
+import it.polimi.db2_project.services.UserService;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.InvalidParameterException;
@@ -28,6 +31,9 @@ public class QuestionnaireData extends HttpServlet {
 
     @EJB(name = "it.polimi.db2.entities.services/AnswerService")
     private AnswerService answerService;
+
+    @EJB(name = "it.polimi.db2.entities.services/UserService")
+    private UserService userService;
 
     public QuestionnaireData() {
     }
@@ -58,16 +64,21 @@ public class QuestionnaireData extends HttpServlet {
         if(answerService.alreadyFilled(username,productOfDay)){
             response.setStatus(400);
         }
+        else if (userService.checkUserStatus(userService.getUser(username), productOfDay)== UserStatus.BANNED){
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+
+        }
         else {
-            PrintWriter out = response.getWriter();
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.setStatus(200);
-            List<Question> questionList = questionnaireService.getQuestionsOfTheDay();
-            List<String> textResponse = questionnaireService.convertToString(questionList);
-            String var = (new Gson()).toJson(textResponse);
-            System.out.println((new Gson()).toJson(textResponse));
-            out.print((new Gson()).toJson(textResponse));
+                PrintWriter out = response.getWriter();
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.setStatus(200);
+                List<Question> questionList = questionnaireService.getQuestionsOfTheDay();
+                List<String> textResponse = questionnaireService.convertToString(questionList);
+                String var = (new Gson()).toJson(textResponse);
+                System.out.println((new Gson()).toJson(textResponse));
+                out.print((new Gson()).toJson(textResponse));
+
         }
 
     }

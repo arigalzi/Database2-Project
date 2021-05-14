@@ -98,7 +98,7 @@ function showMandatoryForm(){
 }
 
 function showNoForms(){
-    let mandatory = document.getElementById("questionnaire_form_form");
+    let mandatory = document.getElementById("mandatory_form");
     let optional = document.getElementById("optional_form");
     optional.style.display = "none"; //element is not displayed
     mandatory.style.display = "none";
@@ -150,8 +150,8 @@ function manageForms(button_type){
               if (request.readyState === 4) {
                   if (request.status === 200) {
                       window.location.assign("../db_project1_war_exploded/greetings.html");
-                  } else if (request.status === 400) {
-                      window.location.assign("../banned.html");
+                  } else if (request.status === 403) {
+                      window.location.assign("../db_project1_war_exploded/banned.html");
                   }
               }
           }
@@ -188,6 +188,10 @@ window.addEventListener('load', () => {
                     break;
                 case 401: // unauthorized
                     showMessage("error_message","unauthorized");
+                    break;
+                case 403: // banned
+                    showNoForms();
+                    showMessage("error_message","Unable to process your request you have been BANNED");
                     break;
                 case 500: // server error
                     showMessage("error_message","internal server error");

@@ -86,7 +86,7 @@ public class GoToHomePage extends HttpServlet {
                 return;
             }
         }
-        UserStatus userStatus = userService.checkUserStatus(userService.getUser(username), prodOfTheDay, productService);
+        UserStatus userStatus = userService.checkUserStatus(userService.getUser(username), prodOfTheDay);
         ArrayList<String> reviews = null;
         try {
             if(prodOfTheDay!= null)

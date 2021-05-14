@@ -97,20 +97,19 @@ public class UserService {
      * @throws IllegalArgumentException if the user does not exist
     **/
     public void banUser(String username) throws PersistenceException, IllegalArgumentException{
-        User user = getUser(username);
-        user.setBanned(true);
-        em.merge(user);
+        User userToBan = getUser(username);
+        userToBan.setBanned(true);
+        em.merge(userToBan);
     }
 
     /**
      * Method to check the status of the user, in relationship with the product
      * @param user user to check
      * @param product product to compare with
-     * @param productService utility to make query
      * @return userstatus of the user
      * @throws InvalidParameterException if there is a problem with the query execution
      **/
-    public UserStatus checkUserStatus(User user, Product product, ProductService productService) throws InvalidParameterException{
+    public UserStatus checkUserStatus(User user, Product product) throws InvalidParameterException{
         if(user.isBanned()){
             return UserStatus.BANNED;
         }
