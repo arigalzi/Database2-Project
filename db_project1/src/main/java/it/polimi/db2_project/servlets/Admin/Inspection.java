@@ -43,7 +43,7 @@ public class Inspection extends HttpServlet {
     }
 
     boolean checkDate (Date date) {
-        return java.sql.Date.valueOf(LocalDate.now()).after(date);
+        return java.sql.Date.valueOf(LocalDate.now()).after(date)  || java.sql.Date.valueOf(LocalDate.now()).equals(date);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,20 +75,22 @@ public class Inspection extends HttpServlet {
                         content = createContent(usersWhoSubmitted,usersWhoCanceled,product);
                     }
 
-                    String jsonResponse = new Gson().toJson(content);
-                    PrintWriter out = response.getWriter();
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    out.write(jsonResponse);
+
 
                 }
+                String jsonResponse = new Gson().toJson(content);
+                PrintWriter out = response.getWriter();
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.setStatus(HttpServletResponse.SC_OK);
+                out.write(jsonResponse);
+
             }catch (Exception e) {
                 sendError(request, response, "Inspection Error", e.getCause().getMessage());
             }
         }
         else{
-            sendError(request, response, "Insertion Error", "you must insert a past data");
+            response.setStatus(400);
         }
     }
 
@@ -120,7 +122,7 @@ public class Inspection extends HttpServlet {
                 isCanceled = true;
             questions = userService.getAnsweredQuestions(product, username);
             answers = answerService.getUserAnswers(product, username);
-            InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions);
+            InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions, product);
             content.add(userContent);
 
         }

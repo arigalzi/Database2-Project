@@ -153,6 +153,9 @@ function manageForms(button_type){
                   } else if (request.status === 403) {
                       window.location.assign("../db_project1_war_exploded/banned.html");
                   }
+                  else if (request.status === 406) { // Not acceptable request
+                      showMessage("error_mandatory", "Please respond to the mandatory questions to proceed")
+                  }
               }
           }
 

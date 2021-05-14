@@ -37,10 +37,10 @@ public class Product implements Serializable {
          questions = new ArrayList<>();
          reviews = new ArrayList<>();
     }
-    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST) //amount of questions is limited
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}) //amount of questions is limited
     private final List<Question> questions;
 
-    @OneToMany(mappedBy = "reviewedProduct", cascade = CascadeType.PERSIST)  // Nel mappedBy metto il nome dell'attributo nella classe che ha relazione
+    @OneToMany(mappedBy = "reviewedProduct", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})  // Nel mappedBy metto il nome dell'attributo nella classe che ha relazione
     private final List<Review> reviews;
 
 

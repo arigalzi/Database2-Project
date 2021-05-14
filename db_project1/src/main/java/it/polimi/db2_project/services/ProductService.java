@@ -27,6 +27,19 @@ public class ProductService {
     }
 
 
+    public Product getProductOfTheDay(Date date) throws InvalidParameterException{
+
+        List<Product> products = em.createNamedQuery("Product.getProductOfTheDay", Product.class).setParameter(1, date).getResultList();
+        if (products == null || products.isEmpty()) {
+            throw new InvalidParameterException("No product of the Day");
+
+        } else if (products.size() == 1) {
+            return products.get(0);
+        } else {
+            throw new InvalidParameterException("internal database error");
+        }
+    }
+
     public Product getProductOfTheDay() throws InvalidParameterException{
 
             Date date = java.sql.Date.valueOf(LocalDate.now());
@@ -90,7 +103,6 @@ public class ProductService {
         em.persist(createdProduct);
     }
 
-
     public static byte[] readImage(InputStream imageInputStream) throws IOException {
         int FILE_SIZE = 2000 * 2000 * 3; // Images of size max 12MB (RGB has 3 bytes per pixel)
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -106,5 +118,10 @@ public class ProductService {
         }
     }
 
-
+    public void deleteProduct(Product product) {
+        if (!em.contains(product)) {
+            product = em.merge(product);
+        }
+        em.remove(product);
+    }
 }

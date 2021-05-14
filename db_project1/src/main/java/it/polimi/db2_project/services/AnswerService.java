@@ -87,4 +87,14 @@ public class AnswerService {
         answersFromUser.stream().forEach(q -> results.add(q.getAnswer()));
         return results;
     }
+
+
+    public boolean checkMandatoryOK(String[] mandatory_answers){
+
+        for (String mandatory_answer : mandatory_answers) {
+            if (mandatory_answer.equals(""))
+                return false;
+        }
+        return true;
+    }
 }

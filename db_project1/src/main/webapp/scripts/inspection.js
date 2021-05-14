@@ -1,7 +1,4 @@
-
-let buttonI = document.querySelector('#buttonInspection');
-let buttonD = document.querySelector('#buttonDeletion');
-
+let date;
 
 function makeCall(method, url, formElement, cback, reset = true) {
     var req = new XMLHttpRequest(); // visible by closure
@@ -25,6 +22,8 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
     let numberOfRows = 0;
     console.log(con);
     if(con.length!==0) {
+        let newRow = document.getElementById("No_Question_info_available");
+        newRow.innerHTML="";
         for (let i = 0; i < con.length; i++) {
             let user = con[i].username;
             let question = con[i].questions;
@@ -33,7 +32,7 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
             if (isCanceled === false) {
                 numberOfRows = numberOfRows + 1;
             for (let k = 0; k < question.length; k++) {
-                let row = tableHead.insertRow();
+                let row = tableBody.insertRow();
                 for (let j = 0; j < 3; j++) {
                     let fillText = row.insertCell(j);
                     if (j === 0) fillText.innerText = user;
@@ -45,15 +44,16 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
         }
     }
     if(numberOfRows === 0){
-        let row = tableSubHead.insertRow();
-        let notFilled = row.insertCell(-1);
-        notFilled.innerText = "Sorry but nobody filled this questionnaire";
+        let newRow = document.getElementById("No_Question_info_available");
+        newRow.innerHTML = "<th colSpan=\"3\" style=\"width:100%;font-weight:normal\">Sorry but nobody filled this questionnaire</th>"
     }
 }
 
 function insertCancelledUsers(con,tableCancHead, tableCancBody){
     let numberOfCanceled = 0;
     if(con.length!==0){
+        let newRow = document.getElementById("No_Cancel_info_available");
+        newRow.innerHTML="";
         for (let i = 0; i <con.length ; i++) {
             let user = con[i].username;
             let isCanceled = con[i].canceled;
@@ -66,10 +66,10 @@ function insertCancelledUsers(con,tableCancHead, tableCancBody){
         }
     }
     if(numberOfCanceled === 0){
-        let row = tableCancHead.insertRow();
-        let noFilled = row.insertCell(-1);
-        noFilled.innerText = "Sorry but nobody cancelled this questionnaire";
+        let newRow = document.getElementById("No_Cancel_info_available");
+        newRow.innerHTML = "<th colSpan=\"3\" style=\"width:100%;font-weight:normal\">Sorry but nobody cancelled this questionnaire</th>"
     }
+
 }
 
 function populateTable(con,tableSubHead, tableSubBody, tableCancHead, tableCancBody){
@@ -78,9 +78,14 @@ function populateTable(con,tableSubHead, tableSubBody, tableCancHead, tableCancB
     insertCancelledUsers(con, tableCancBody, tableCancHead);
 }
 
+
 function manageSearch()
 {
     let form = document.getElementById("form-inspection");
+    date = document.getElementById("date").getAttribute("date");
+    console.log(date +"  -> first");
+    let error_message = document.getElementById("I_error_message");
+    error_message.innerText="";
     makeCall("POST", "./Inspection", form,
         function (req) {
             if (req.readyState === 4) {
@@ -93,51 +98,55 @@ function manageSearch()
 
                     const tableHead = document.getElementById("id_Inspection_Head");
                     const tableBody = document.getElementById("id_Inspection_tableBody");
+
                     const tableCancHead = document.getElementById("id_Cancel_Head");
                     const tableCancBody = document.getElementById("id_Cancel_tableBody");
 
+                    //Remove old values if existing
+                    tableBody.innerHTML="";
+                    tableCancBody.innerHTML="";
+
+
                     populateTable(con, tableHead, tableBody, tableCancHead, tableCancBody);
 
+                    date = con[0].prodDate;//.split(", 12:00:00");
+                    console.log(date +"  -> second");
 
                     document.getElementById("deletion").innerHTML =
                         "<button id=\"#buttonDeletion\" class=\"btn btn-secondary\" style=\"margin-left: -40px\"\n" +
-                        "type=\"button\">Delete Questionnaire Data</button>";
+                        "type=\"button\" onclick=\"manageDelete()\">" + "Delete Questionnaire Data </button>";
+                }
 
                 }
-                else {
-                    document.getElementById("id_errorTypeI").innerText = con.errorType;
-                    document.getElementById("id_errorInfoI").innerText = con.errorInfo;
+                else if(req.status === 400){
+                        showMessage("I_error_message", "You can only search a past data")
+                }
             }
+        );
+}
 
+function manageDelete()
+{
+    console.log(date+"  -> third ");
+
+    makeCall("GET", "./Deletion?date="+ date, null,
+        function(request) {
+            if (request.readyState === 4 && request.status === 200) {
+                window.location.assign("../db_project1_war_exploded/cancelGreetings.html");
+            }
+            else if(request.status === 400){
+                showMessage("D_error_message", "You can only cancel a past data")
             }
         }
     );
 }
 
-/*buttonD.addEventListener("click", () => {
-    //var text = window.location.hash.substring(1);
-    let form = document.getElementById("form-deletion");
+function showMessage(html_id, message){
+    let element = document.getElementById(html_id);
+    element.innerText = message;
+}
 
-        makeCall("GET", "./Deletion", form,
-            function(req) {
-                let message = req.responseText;
-                if (req.readyState === 4) {
-                    if (req.status === 200) {
-                        let con = JSON.parse(message);
-                        let username = localStorage.getItem("username");
-                        let admin = localStorage.getItem("isAdmin");
-                        showUsername(admin,username);
-                    }
-                } else {
-                        let con = JSON.parse(message);
-                        document.getElementById("id_errorTypeD").innerText = con.errorType;
-                        document.getElementById("id_errorInfoD").innerText = con.errorInfo;
 
-                }
-            }
-        );
-
-});*/
 
 function showUsername(admin,username) {
     if (admin === false) {

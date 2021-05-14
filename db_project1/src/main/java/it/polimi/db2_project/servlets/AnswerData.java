@@ -83,30 +83,30 @@ public class AnswerData extends HttpServlet {
 
 
 
+
+
+
         //Manage cancelled FORM
         if(request.getHeader("submitted").equals("false")){
             //No respondes are stored but we set the current Log with questionnaireCancelled a true
             userService.cancelForm(user);
 
         }
+
         //Manage submitted FORM
         else {
-         if(!user.isBanned()) {
-             //Manage the mandatory responses
-             for (int i = 0; i < mandatory_answers.length; i++)
-                 answerService.addAnswer(mandatory_answers[i], user, questionList.get(i));
+            //Manage the mandatory responses
+            for (int i = 0; i < mandatory_answers.length; i++)
+                answerService.addAnswer(mandatory_answers[i], user, questionList.get(i));
 
-             //Manage the optional responses
-             if (age != null)
-                 answerService.addAnswer(age, user, optionalQuestions.get(0));
-             if (sex != null)
-                 answerService.addAnswer(sex, user, optionalQuestions.get(1));
-             if (expertiseLevel != null)
-                 answerService.addAnswer(expertiseLevel, user, optionalQuestions.get(2));
-         }
-         else{
-             displayYouHaveBeenBanned(response);
-         }
+            //Manage the optional responses
+            if(age != null)
+             answerService.addAnswer(age, user, optionalQuestions.get(0));
+            if(sex != null)
+             answerService.addAnswer(sex, user, optionalQuestions.get(1));
+            if(expertiseLevel != null)
+             answerService.addAnswer(expertiseLevel, user, optionalQuestions.get(2));
+
         }
 
         System.out.println("Request managed by AnswerData");
@@ -115,12 +115,6 @@ public class AnswerData extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
-
-    private void displayYouHaveBeenBanned(HttpServletResponse response) throws IOException {
-        response.setContentType("text/plain");
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        response.getWriter().println("You have been banned. Unable to process your request");
     }
 }
 
