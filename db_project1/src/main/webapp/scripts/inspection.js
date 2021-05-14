@@ -84,6 +84,8 @@ function manageSearch()
     let form = document.getElementById("form-inspection");
     date = document.getElementById("date").getAttribute("date");
     console.log(date +"  -> first");
+    let error_message = document.getElementById("I_error_message");
+    error_message.innerText="";
     makeCall("POST", "./Inspection", form,
         function (req) {
             if (req.readyState === 4) {
@@ -107,7 +109,7 @@ function manageSearch()
 
                     populateTable(con, tableHead, tableBody, tableCancHead, tableCancBody);
 
-                    date = con[1].prodDate.split(", 12:00:00");
+                    date = con[0].prodDate;//.split(", 12:00:00");
                     console.log(date +"  -> second");
 
                     document.getElementById("deletion").innerHTML =

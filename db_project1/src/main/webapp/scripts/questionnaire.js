@@ -98,7 +98,7 @@ function showMandatoryForm(){
 }
 
 function showNoForms(){
-    let mandatory = document.getElementById("questionnaire_form_form");
+    let mandatory = document.getElementById("mandatory_form");
     let optional = document.getElementById("optional_form");
     optional.style.display = "none"; //element is not displayed
     mandatory.style.display = "none";
@@ -151,7 +151,10 @@ function manageForms(button_type){
                   if (request.status === 200) {
                       window.location.assign("../db_project1_war_exploded/greetings.html");
                   } else if (request.status === 400) {
-                      window.location.assign("../banned.html");
+                      window.location.assign("../db_project1_war_exploded/banned.html");
+                  }
+                  else if (request.status === 406) { // Not acceptable request
+                      showMessage("error_mandatory", "Please respond to the mandatory questions to proceed")
                   }
               }
           }

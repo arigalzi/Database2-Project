@@ -52,7 +52,7 @@ function manageCreationForm(){
             if (request.readyState === 4 && request.status === 200) {
                 window.location.assign("../db_project1_war_exploded/adminGreetings.html");
             }
-            else if(request.status === 409){
+            else if(request.status === 409){ // Conflict request
                 showMessage("error_message", "Error: Product of the day already assigned for this date")
             }
             else if(request.status === 400){
@@ -167,4 +167,3 @@ window.addEventListener('load',() =>{
     document.getElementById("invalid_productDate").style.display = "none";
     document.getElementById("invalid_productDescription").style.display = "none";
 })
-

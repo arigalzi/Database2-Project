@@ -74,10 +74,22 @@ public class AnswerData extends HttpServlet {
             System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
         }
 
+        //Check if USER must reDo the Form because Mandatory questions are not filled
+        if(!answerService.checkMandatoryOK(answerService.correctAnswerFormat(mandatory_answers))){
+            response.setStatus(406);
+            return;
+
+        }
+
         //Check if USER needs to be banned
         if (answerService.hasDirtyWord(answerService.correctAnswerFormat(mandatory_answers))) {
             this.userService.banUser(username);
+            response.setStatus(400);
+            return;
         }
+
+
+
 
 
 
