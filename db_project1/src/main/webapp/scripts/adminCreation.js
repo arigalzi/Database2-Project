@@ -59,8 +59,8 @@ function manageCreationForm(){
                 showMessage("error_message", "Please fill in the form correctly")
                 checkFields();
             }
-            else {
-                showMessage("error_message", "Error in creating the product")
+            else{
+                //other errors
             }
 
         });

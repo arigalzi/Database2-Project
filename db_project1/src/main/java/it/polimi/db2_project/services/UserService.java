@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.metamodel.Metamodel;
 import javax.validation.constraints.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.persistence.EntityManager;
 
@@ -20,6 +21,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 @Stateless
 
@@ -136,7 +139,9 @@ public class UserService {
         Log log = new Log();
         log.setUser(user);
         log.setUserId(user.getUserID());
-        log.setDate(new Timestamp(System.currentTimeMillis()));
+        //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        //Date date = new Date(System.currentTimeMillis());
+        log.setDate(new Date(System.currentTimeMillis()));
         em.persist(log);
     }
 
@@ -151,7 +156,24 @@ public class UserService {
 
         List<String> userCancString= new ArrayList<>();
 
-        List<User> usersCan = em.createNamedQuery("User.getUsersCanceled", User.class).setParameter(1, product.getDate()).getResultList();
+        Calendar morningTime = Calendar.getInstance();
+        morningTime.setTime(product.getDate());
+        morningTime.set(Calendar.HOUR_OF_DAY, 0); // <-- here
+        morningTime.set(Calendar.MINUTE, 0);
+        morningTime.set(Calendar.SECOND, 1);
+        SimpleDateFormat morningDate= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        morningDate.setCalendar(morningTime);
+
+        Calendar nightTime = Calendar.getInstance();
+        nightTime.setTime(product.getDate());
+        nightTime.set(Calendar.HOUR_OF_DAY, 23); // <-- here
+        nightTime.set(Calendar.MINUTE, 59);
+        nightTime.set(Calendar.SECOND, 59);
+        SimpleDateFormat nightDate= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        nightDate.setCalendar(nightTime);
+
+
+        List<User> usersCan = em.createNamedQuery("User.getUsersCanceled", User.class).setParameter(1, morningDate).setParameter( 2, nightDate).getResultList();
 
         if (usersCan == null || usersCan.isEmpty()) {
             return null;

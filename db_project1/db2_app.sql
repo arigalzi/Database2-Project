@@ -61,7 +61,7 @@ PRIMARY KEY (`dirtyID`)
 DROP TABLE IF EXISTS `db2_app.Log` ;
 CREATE TABLE IF NOT EXISTS `db2_app`.`Log`(
 `logID` INT NOT NULL AUTO_INCREMENT,
-`timestamp` TIME ,
+`timestamp` TIMESTAMP ,
 `userID` INT NOT NULL,
 `formCancelled` BOOLEAN DEFAULT 0,
 PRIMARY KEY (`logID`),
