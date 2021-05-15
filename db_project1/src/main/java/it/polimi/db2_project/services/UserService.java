@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.metamodel.Metamodel;
 import javax.validation.constraints.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.persistence.EntityManager;
@@ -139,9 +140,9 @@ public class UserService {
         Log log = new Log();
         log.setUser(user);
         log.setUserId(user.getUserID());
-        //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        //Date date = new Date(System.currentTimeMillis());
-        log.setDate(new Date(System.currentTimeMillis()));
+        //Set the current date
+        Date currentDate = getCorrectFormatDate(LocalDateTime.now());
+        log.setDate(currentDate);
         em.persist(log);
     }
 
@@ -161,16 +162,34 @@ public class UserService {
         morningTime.set(Calendar.HOUR_OF_DAY, 0); // <-- here
         morningTime.set(Calendar.MINUTE, 0);
         morningTime.set(Calendar.SECOND, 1);
-        SimpleDateFormat morningDate= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-        morningDate.setCalendar(morningTime);
+        Date morningToFormat = morningTime.getTime();
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date1 = dateFormat.format(morningToFormat);
+        Date morningDate = null;
+
+        try {
+
+            morningDate = dateFormat.parse(date1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(morningDate);
 
         Calendar nightTime = Calendar.getInstance();
         nightTime.setTime(product.getDate());
         nightTime.set(Calendar.HOUR_OF_DAY, 23); // <-- here
         nightTime.set(Calendar.MINUTE, 59);
         nightTime.set(Calendar.SECOND, 59);
-        SimpleDateFormat nightDate= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-        nightDate.setCalendar(nightTime);
+        Date nightToFormat = morningTime.getTime();
+        String date2 = dateFormat.format(nightToFormat);
+        Date nightDate = null;
+        try {
+
+            nightDate = dateFormat.parse(date2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(nightDate);
 
 
         List<User> usersCan = em.createNamedQuery("User.getUsersCanceled", User.class).setParameter(1, morningDate).setParameter( 2, nightDate).getResultList();
@@ -206,6 +225,23 @@ public class UserService {
         List<String> results = new ArrayList<String>();
         questions.stream().forEach(q -> results.add(q.getText()));
         return results;
+    }
+
+
+    public Date getCorrectFormatDate(LocalDateTime now){
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedNow = dtf.format(now);
+        System.out.println(formattedNow);
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date date =null;
+        try {
+            date = dateFormat.parse(formattedNow);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 }
 
