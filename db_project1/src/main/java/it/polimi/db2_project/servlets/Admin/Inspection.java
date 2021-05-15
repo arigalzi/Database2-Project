@@ -71,7 +71,7 @@ public class Inspection extends HttpServlet {
                     usersWhoSubmitted = userService.getUsersWhoSubmits(product);
                     usersWhoCanceled = userService.getUsersWhoCanceled(product);
 
-                    if (!(usersWhoSubmitted == null || usersWhoSubmitted.isEmpty())) {
+                    if (!(usersWhoSubmitted == null && usersWhoCanceled==null )) { //TODO gestire casi null
                         content = createContent(usersWhoSubmitted,usersWhoCanceled,product);
                     }
 
@@ -124,6 +124,7 @@ public class Inspection extends HttpServlet {
             answers = answerService.getUserAnswers(product, username);
             InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions, product);
             content.add(userContent);
+            isCanceled = false;
 
         }
         return content;

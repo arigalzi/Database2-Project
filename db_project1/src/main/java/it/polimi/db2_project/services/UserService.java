@@ -180,7 +180,7 @@ public class UserService {
         nightTime.set(Calendar.HOUR_OF_DAY, 23); // <-- here
         nightTime.set(Calendar.MINUTE, 59);
         nightTime.set(Calendar.SECOND, 59);
-        Date nightToFormat = morningTime.getTime();
+        Date nightToFormat = nightTime.getTime();
         String date2 = dateFormat.format(nightToFormat);
         Date nightDate = null;
         try {
@@ -198,7 +198,7 @@ public class UserService {
             return null;
         }
 
-        usersCan.stream().forEach(q->userCancString.add(q.getUsername()));
+        usersCan.forEach(q->userCancString.add(q.getUsername()));
         return userCancString;
 
     }
