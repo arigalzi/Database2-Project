@@ -49,7 +49,7 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
     }
 }
 
-function insertCancelledUsers(con,tableCancHead, tableCancBody){
+function insertCancelledUsers(con,tableCancBody){
     let numberOfCanceled = 0;
     if(con.length!==0){
         let newRow = document.getElementById("No_Cancel_info_available");
@@ -75,17 +75,20 @@ function insertCancelledUsers(con,tableCancHead, tableCancBody){
 function populateTable(con,tableSubHead, tableSubBody, tableCancHead, tableCancBody){
     console.log(con);
     insertQuestionsAnswers(con, tableSubBody, tableSubHead);
-    insertCancelledUsers(con, tableCancBody, tableCancHead);
+    insertCancelledUsers(con, tableCancBody);
 }
 
 
 function manageSearch()
 {
+    //FREE ALL OLD VALUES OF ELEMENTS
+    let error_message = document.getElementById("I_error_message");
+
+    error_message.innerText="";
     let form = document.getElementById("form-inspection");
     date = document.getElementById("date").getAttribute("date");
     console.log(date +"  -> first");
-    let error_message = document.getElementById("I_error_message");
-    error_message.innerText="";
+
     makeCall("POST", "./Inspection", form,
         function (req) {
             if (req.readyState === 4) {
@@ -121,6 +124,9 @@ function manageSearch()
                 else if(req.status === 400){
                         showMessage("I_error_message", "You can only search a past data")
                 }
+                else if(req.status === 403){
+                        showMessage("I_error_message", "Please select a valid date")
+            }
             }
         );
 }

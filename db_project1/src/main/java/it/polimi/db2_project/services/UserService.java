@@ -232,7 +232,6 @@ public class UserService {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedNow = dtf.format(now);
-        System.out.println(formattedNow);
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date date =null;

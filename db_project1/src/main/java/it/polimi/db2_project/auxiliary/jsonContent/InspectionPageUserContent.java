@@ -23,8 +23,15 @@ public class InspectionPageUserContent implements Serializable{
         this.answers = answers;
         this.questions = questions;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        this.prodDate = formatter.format(product.getDate());
-        this.prodName = product.getName();
-        this.prodDescription = product.getDescription();
+        if(product!=null) {
+            this.prodDate = formatter.format(product.getDate());
+            this.prodName = product.getName();
+            this.prodDescription = product.getDescription();
+        }
+        else{
+            this.prodDate = null;
+            this.prodName = null;
+            this.prodDescription = null;
+        }
     }
 }

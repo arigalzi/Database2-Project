@@ -48,8 +48,10 @@ public class Inspection extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sDate = request.getParameter("date");
-        if(sDate.equals(""))
+        if(sDate.equals("")) {
+            response.setStatus(403);
             return;
+        }
         Date date= null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
@@ -117,15 +119,23 @@ public class Inspection extends HttpServlet {
         List<String> questions;
         List<Answer> answers;
         boolean isCanceled = false;
-        for (String username : usersWhoSubmitted) {
-            if (usersWhoCanceled !=null && usersWhoCanceled.contains(username))
-                isCanceled = true;
-            questions = userService.getAnsweredQuestions(product, username);
-            answers = answerService.getUserAnswers(product, username);
-            InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions, product);
-            content.add(userContent);
-            isCanceled = false;
+        if (usersWhoSubmitted != null) {
+            for (String username : usersWhoSubmitted) {
+                if (usersWhoCanceled != null && usersWhoCanceled.contains(username))
+                    isCanceled = true;
+                questions = userService.getAnsweredQuestions(product, username);
+                answers = answerService.getUserAnswers(product, username);
+                InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions, product);
+                content.add(userContent);
+                isCanceled = false;
 
+            }
+        }
+        else if(usersWhoCanceled!=null) {
+            for (String username : usersWhoCanceled) {
+                InspectionPageUserContent userContent = new InspectionPageUserContent(username, true, null, null, null);
+                content.add(userContent);
+            }
         }
         return content;
     }
