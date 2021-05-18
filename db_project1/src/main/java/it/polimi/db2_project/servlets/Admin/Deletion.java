@@ -29,8 +29,9 @@ public class Deletion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String sDate = request.getParameter("date");
-        if(sDate.equals(""))
+        if(sDate.equals("")) {
             return;
+        }
         Date date= null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
