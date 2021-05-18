@@ -2,7 +2,6 @@ package it.polimi.db2_project.servlets;
 
 import com.google.gson.Gson;
 import it.polimi.db2_project.entities.User;
-import it.polimi.db2_project.services.AdminService;
 import it.polimi.db2_project.services.UserService;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -78,6 +77,7 @@ public class Login extends HttpServlet {
         //SIGNUP OR LOGIN
 
         if (isSignUp != null && isSignUp.equals("true")) {
+
             //SIGNUP
             if (!(isEmailValid(email) && isUsernameValid(username) && isPasswordValid(password))) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -85,6 +85,7 @@ public class Login extends HttpServlet {
                 sendError(response, request,"Invalid Completion","invalid username, email or password format");
                 return;
             }
+
             //try to register a new user
             try {
                 User user = userService.addUser(username,email,password,false);
@@ -94,6 +95,7 @@ public class Login extends HttpServlet {
                 response.sendRedirect(path);
                 return;
             }
+
             //USER ALREADY EXISTING
             catch (PersistenceException | IllegalArgumentException | EJBException e) {
                 if (e.getCause().getCause().getMessage().contains("Duplicate entry")) {
@@ -103,38 +105,36 @@ public class Login extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                     sendError(response, request, "Invalid Completion","internal server error");
                 }
-                return;
             }
         }
+        // LOGIN
+        else{
+            try {
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
 
-    // LOGIN
+                User credentialCheckResultUser = userService.checkCredentials(username, password);
+                userService.LogUser(credentialCheckResultUser);
 
-        //login
-        try {
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            User credentialCheckResultUser = userService.checkCredentials(username, password);
-            userService.LogUser(credentialCheckResultUser);
-            request.getSession().setAttribute("user", credentialCheckResultUser.getUsername());
+                request.getSession().setAttribute("user", credentialCheckResultUser.getUsername());
 
-
-            //Admin Login
-            if(credentialCheckResultUser.isAdmin()){
-                request.getSession().setAttribute("admin", credentialCheckResultUser.getUserID());
-                String path = getServletContext().getContextPath() + "/adminHomePage.html";
-                response.sendRedirect(path);
+                //Admin Login
+                if(credentialCheckResultUser.isAdmin()){
+                    request.getSession().setAttribute("admin", credentialCheckResultUser.getUserID());
+                    String path = getServletContext().getContextPath() + "/adminHomePage.html";
+                    response.sendRedirect(path);
+                }
+                //Casual User Login
+                else{
+                    String path = getServletContext().getContextPath() + "/homePage.html";
+                    response.sendRedirect(path);
+                }
             }
-            //Casual User Login
-            else{
-                String path = getServletContext().getContextPath() + "/homePage.html";
-                response.sendRedirect(path);
+            catch (InvalidParameterException | EJBException f) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                sendError(response, request, "Invalid Completion", "login error");
             }
-        }
-        catch (InvalidParameterException | EJBException f) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            sendError(response, request, "Invalid Completion", "login error");
-            return;
         }
     }
 

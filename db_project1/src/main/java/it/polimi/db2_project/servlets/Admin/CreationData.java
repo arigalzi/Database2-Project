@@ -32,12 +32,9 @@ public class CreationData extends HttpServlet {
 
     @EJB(name = "it.polimi.db2.entities.services/QuestionnaireService")
     private QuestionnaireService questionnaireService;
+
     public CreationData() {
     }
-
-
-
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Enumeration<String> headerNames = request.getHeaderNames();
