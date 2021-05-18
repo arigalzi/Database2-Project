@@ -1,4 +1,4 @@
-package it.polimi.db2_project.servlets;
+package it.polimi.db2_project.servlets.Admin;
 
 import it.polimi.db2_project.entities.Question;
 import it.polimi.db2_project.entities.User;

@@ -24,7 +24,7 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
     if(con.length!==0) {
         let newRow = document.getElementById("No_Question_info_available");
         newRow.innerHTML="";
-        for (let i = 0; i < con.length; i++) {
+        for (let i = 0; i < con.length-1; i++) {
             let user = con[i].username;
             let question = con[i].questions;
             let answers = con[i].answers;
@@ -54,7 +54,7 @@ function insertCancelledUsers(con,tableCancBody){
     if(con.length!==0){
         let newRow = document.getElementById("No_Cancel_info_available");
         newRow.innerHTML="";
-        for (let i = 0; i <con.length ; i++) {
+        for (let i = 0; i <con.length-1; i++) {
             let user = con[i].username;
             let isCanceled = con[i].canceled;
             if(isCanceled === true){
@@ -81,7 +81,7 @@ function populateTable(con,tableSubHead, tableSubBody, tableCancHead, tableCancB
 
 function manageSearch()
 {
-    //FREE ALL OLD VALUES OF ELEMENTS
+    //FREE ALL THE OLD VALUES OF ELEMENTS
     let error_message = document.getElementById("I_error_message");
 
     error_message.innerText="";
@@ -106,18 +106,24 @@ function manageSearch()
                     const tableCancBody = document.getElementById("id_Cancel_tableBody");
 
                     //Remove old values if existing
-                    tableBody.innerHTML="";
-                    tableCancBody.innerHTML="";
+                    tableBody.innerHTML = "";
+                    tableCancBody.innerHTML = "";
 
 
                     populateTable(con, tableHead, tableBody, tableCancHead, tableCancBody);
 
-                    date = con[0].prodDate;//.split(", 12:00:00");
-                    console.log(date +"  -> second");
 
-                    document.getElementById("deletion").innerHTML =
-                        "<button id=\"#buttonDeletion\" class=\"btn btn-secondary\" style=\"margin-left: -40px\"\n" +
-                        "type=\"button\" onclick=\"manageDelete()\">" + "Delete Questionnaire Data </button>";
+                    if (con.length === 0) {
+                        document.getElementById("deletion").innerHTML = "";
+                    } else {
+                        date = con[con.length - 1].prodDate;//.split(", 12:00:00");
+                        let productName = con[con.length - 1].prodName;
+                        console.log(date + "  -> second");
+
+                        document.getElementById("deletion").innerHTML =
+                            "<button id=\"#buttonDeletion\" class=\"btn btn-secondary\" style=\"margin-left: -40px\"\n" +
+                            "type=\"button\" onclick=\"manageDelete()\">" + "Delete Data for the product: " + productName + " of the " + date + " </button>";
+                    }
                 }
 
                 }

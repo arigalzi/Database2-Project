@@ -144,4 +144,3 @@ public class Login extends HttpServlet {
         out.print((new Gson()).toJson(username));
     }
 }
-/*TODO Va gestito il messaggio di errore se uno fa login senza essere registrato*/

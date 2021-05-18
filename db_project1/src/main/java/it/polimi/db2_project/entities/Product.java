@@ -104,5 +104,8 @@ public class Product implements Serializable {
         return image;
     }
 
+    public void setAllAttributes(){
+
+    }
 
 }

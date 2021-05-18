@@ -73,19 +73,23 @@ public class Inspection extends HttpServlet {
                     usersWhoSubmitted = userService.getUsersWhoSubmits(product);
                     usersWhoCanceled = userService.getUsersWhoCanceled(product);
 
-                    if (!(usersWhoSubmitted == null && usersWhoCanceled==null )) { //TODO gestire casi null
+                    if (!(usersWhoSubmitted == null && usersWhoCanceled==null )) {
                         content = createContent(usersWhoSubmitted,usersWhoCanceled,product);
                     }
+                    // As a last element we send the product
+                    content.add(new InspectionPageUserContent(null,null,null,null,product));
+                    response.setStatus(HttpServletResponse.SC_OK);
 
-
-
+                }
+                else{
+                    response.setStatus(403);
                 }
                 String jsonResponse = new Gson().toJson(content);
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.setStatus(HttpServletResponse.SC_OK);
                 out.write(jsonResponse);
+
 
             }catch (Exception e) {
                 sendError(request, response, "Inspection Error", e.getCause().getMessage());
@@ -125,7 +129,7 @@ public class Inspection extends HttpServlet {
                     isCanceled = true;
                 questions = userService.getAnsweredQuestions(product, username);
                 answers = answerService.getUserAnswers(product, username);
-                InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions, product);
+                InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions,null);
                 content.add(userContent);
                 isCanceled = false;
 
