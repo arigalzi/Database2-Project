@@ -12,6 +12,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.metamodel.Metamodel;
 import javax.validation.constraints.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.persistence.EntityManager;
 
@@ -20,6 +22,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 @Stateless
 
@@ -97,9 +101,9 @@ public class UserService {
      * @throws IllegalArgumentException if the user does not exist
     **/
     public void banUser(String username) throws PersistenceException, IllegalArgumentException{
-        User user = getUser(username);
-        user.setBanned(true);
-        em.merge(user);
+        User userToBan = getUser(username);
+        userToBan.setBanned(true);
+        em.merge(userToBan);
     }
 
     /**
@@ -139,7 +143,9 @@ public class UserService {
         Log log = new Log();
         log.setUser(user);
         log.setUserId(user.getUserID());
-        log.setDate(new Timestamp(System.currentTimeMillis()));
+        //Set the current date
+        Date currentDate = getCorrectFormatDate(LocalDateTime.now());
+        log.setDate(currentDate);
         em.persist(log);
     }
 
@@ -154,13 +160,48 @@ public class UserService {
 
         List<String> userCancString= new ArrayList<>();
 
-        List<User> usersCan = em.createNamedQuery("User.getUsersCanceled", User.class).setParameter(1, product.getDate()).getResultList();
+        Calendar morningTime = Calendar.getInstance();
+        morningTime.setTime(product.getDate());
+        morningTime.set(Calendar.HOUR_OF_DAY, 0); // <-- here
+        morningTime.set(Calendar.MINUTE, 0);
+        morningTime.set(Calendar.SECOND, 1);
+        Date morningToFormat = morningTime.getTime();
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date1 = dateFormat.format(morningToFormat);
+        Date morningDate = null;
+
+        try {
+
+            morningDate = dateFormat.parse(date1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(morningDate);
+
+        Calendar nightTime = Calendar.getInstance();
+        nightTime.setTime(product.getDate());
+        nightTime.set(Calendar.HOUR_OF_DAY, 23); // <-- here
+        nightTime.set(Calendar.MINUTE, 59);
+        nightTime.set(Calendar.SECOND, 59);
+        Date nightToFormat = nightTime.getTime();
+        String date2 = dateFormat.format(nightToFormat);
+        Date nightDate = null;
+        try {
+
+            nightDate = dateFormat.parse(date2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(nightDate);
+
+
+        List<User> usersCan = em.createNamedQuery("User.getUsersCanceled", User.class).setParameter(1, morningDate).setParameter( 2, nightDate).getResultList();
 
         if (usersCan == null || usersCan.isEmpty()) {
             return null;
         }
 
-        usersCan.stream().forEach(q->userCancString.add(q.getUsername()));
+        usersCan.forEach(q->userCancString.add(q.getUsername()));
         return userCancString;
 
     }
@@ -187,6 +228,22 @@ public class UserService {
         List<String> results = new ArrayList<String>();
         questions.stream().forEach(q -> results.add(q.getText()));
         return results;
+    }
+
+
+    public Date getCorrectFormatDate(LocalDateTime now){
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedNow = dtf.format(now);
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date date =null;
+        try {
+            date = dateFormat.parse(formattedNow);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 }
 

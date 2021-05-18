@@ -29,17 +29,15 @@ public class Deletion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String sDate = request.getParameter("date");
-        System.out.println(sDate);
-        if(sDate.equals("") || sDate.isEmpty()){
-            response.setStatus(500);
+        if(sDate.equals("")) {
             return;
         }
         Date date= null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
         } catch (ParseException e) {
-            response.setStatus(401);
-            return;
+            e.printStackTrace();
+            response.setStatus(400);
         }
 
         Product product= null;

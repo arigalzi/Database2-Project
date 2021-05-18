@@ -72,6 +72,7 @@ public class GoToHomePage extends HttpServlet {
         Product prodOfTheDay = null;
 
         try {
+
             prodOfTheDay = productService.getProductOfTheDay();
         }
         catch (InvalidParameterException | EJBException e){

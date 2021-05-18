@@ -74,19 +74,28 @@ public class AnswerData extends HttpServlet {
             System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
         }
 
-        //Check if USER needs to be banned
-        if (answerService.hasDirtyWord(answerService.correctAnswerFormat(mandatory_answers))) {
-            this.userService.banUser(username);
-        }
-
-
-
         //Manage cancelled FORM
         if(request.getHeader("submitted").equals("false")){
             //No respondes are stored but we set the current Log with questionnaireCancelled a true
             userService.cancelForm(user);
+            return;
 
         }
+
+        //Check if USER must reDo the Form because Mandatory questions are not filled
+        if(!answerService.checkMandatoryOK(answerService.correctAnswerFormat(mandatory_answers))){
+            response.setStatus(406);
+            return;
+
+        }
+
+        //Check if USER needs to be banned
+        if (answerService.hasDirtyWord(answerService.correctAnswerFormat(mandatory_answers))) {
+            this.userService.banUser(username);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
+
 
         //Manage submitted FORM
         else {

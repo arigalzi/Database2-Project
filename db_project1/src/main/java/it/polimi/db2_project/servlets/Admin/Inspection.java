@@ -48,8 +48,8 @@ public class Inspection extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sDate = request.getParameter("date");
-        if(sDate.equals("")|| sDate.isEmpty()){
-            response.setStatus(401);
+        if(sDate.equals("")) {
+            response.setStatus(403);
             return;
         }
         Date date= null;
@@ -73,20 +73,23 @@ public class Inspection extends HttpServlet {
                     usersWhoSubmitted = userService.getUsersWhoSubmits(product);
                     usersWhoCanceled = userService.getUsersWhoCanceled(product);
 
-                    if (!(usersWhoSubmitted == null || usersWhoSubmitted.isEmpty())) {
+                    if (!(usersWhoSubmitted == null && usersWhoCanceled==null )) {
                         content = createContent(usersWhoSubmitted,usersWhoCanceled,product);
                     }
+                    // As a last element we send the product
+                    content.add(new InspectionPageUserContent(null,null,null,null,product));
+                    response.setStatus(HttpServletResponse.SC_OK);
 
-
-
+                }
+                else{
+                    response.setStatus(403);
                 }
                 String jsonResponse = new Gson().toJson(content);
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.setStatus(HttpServletResponse.SC_OK);
-
                 out.write(jsonResponse);
+
 
             }catch (Exception e) {
                 sendError(request, response, "Inspection Error", e.getCause().getMessage());
@@ -120,19 +123,24 @@ public class Inspection extends HttpServlet {
         List<String> questions;
         List<Answer> answers;
         boolean isCanceled = false;
+        if (usersWhoSubmitted != null) {
+            for (String username : usersWhoSubmitted) {
+                if (usersWhoCanceled != null && usersWhoCanceled.contains(username))
+                    isCanceled = true;
+                questions = userService.getAnsweredQuestions(product, username);
+                answers = answerService.getUserAnswers(product, username);
+                InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions,null);
+                content.add(userContent);
+                isCanceled = false;
 
-        for (String username : usersWhoSubmitted) {
-            if (usersWhoCanceled !=null && usersWhoCanceled.contains(username))
-                isCanceled = true;
-
-            questions = userService.getAnsweredQuestions(product, username);
-            answers = answerService.getUserAnswers(product, username);
-
-            InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions, product);
-            content.add(userContent);
-
+            }
         }
-
+        else if(usersWhoCanceled!=null) {
+            for (String username : usersWhoCanceled) {
+                InspectionPageUserContent userContent = new InspectionPageUserContent(username, true, null, null, null);
+                content.add(userContent);
+            }
+        }
         return content;
     }
 }

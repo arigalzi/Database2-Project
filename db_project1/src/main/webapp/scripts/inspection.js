@@ -24,7 +24,7 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
     if(con.length!==0) {
         let newRow = document.getElementById("No_Question_info_available");
         newRow.innerHTML="";
-        for (let i = 0; i < con.length; i++) {
+        for (let i = 0; i < con.length-1; i++) {
             let user = con[i].username;
             let question = con[i].questions;
             let answers = con[i].answers;
@@ -49,12 +49,12 @@ function insertQuestionsAnswers(con, tableBody, tableHead){
     }
 }
 
-function insertCancelledUsers(con,tableCancHead, tableCancBody){
+function insertCancelledUsers(con,tableCancBody){
     let numberOfCanceled = 0;
     if(con.length!==0){
         let newRow = document.getElementById("No_Cancel_info_available");
         newRow.innerHTML="";
-        for (let i = 0; i <con.length ; i++) {
+        for (let i = 0; i <con.length-1; i++) {
             let user = con[i].username;
             let isCanceled = con[i].canceled;
             if(isCanceled === true){
@@ -75,15 +75,20 @@ function insertCancelledUsers(con,tableCancHead, tableCancBody){
 function populateTable(con,tableSubHead, tableSubBody, tableCancHead, tableCancBody){
     console.log(con);
     insertQuestionsAnswers(con, tableSubBody, tableSubHead);
-    insertCancelledUsers(con, tableCancBody, tableCancHead);
+    insertCancelledUsers(con, tableCancBody);
 }
 
 
 function manageSearch()
 {
+    //FREE ALL THE OLD VALUES OF ELEMENTS
+    let error_message = document.getElementById("I_error_message");
+
+    error_message.innerText="";
     let form = document.getElementById("form-inspection");
     date = document.getElementById("date").getAttribute("date");
     console.log(date +"  -> first");
+
     makeCall("POST", "./Inspection", form,
         function (req) {
             if (req.readyState === 4) {
@@ -101,31 +106,32 @@ function manageSearch()
                     const tableCancBody = document.getElementById("id_Cancel_tableBody");
 
                     //Remove old values if existing
-                    tableBody.innerHTML="";
-                    tableCancBody.innerHTML="";
+                    tableBody.innerHTML = "";
+                    tableCancBody.innerHTML = "";
 
 
                     populateTable(con, tableHead, tableBody, tableCancHead, tableCancBody);
 
-                    if(con[0] !== undefined)
-                        date = con[0].prodDate;
-                    if(date !== null){
-                        date.split(", 12:00:00");
-                        console.log(date +"  -> second");
+
+                    if (con.length === 0) {
+                        document.getElementById("deletion").innerHTML = "";
+                    } else {
+                        date = con[con.length - 1].prodDate;//.split(", 12:00:00");
+                        let productName = con[con.length - 1].prodName;
+                        console.log(date + "  -> second");
+
+                        document.getElementById("deletion").innerHTML =
+                            "<button id=\"#buttonDeletion\" class=\"btn btn-secondary\" style=\"margin-left: -40px\"\n" +
+                            "type=\"button\" onclick=\"manageDelete()\">" + "Delete Data for the product: " + productName + " of the " + date + " </button>";
                     }
-
-
-                    document.getElementById("deletion").innerHTML =
-                        "<button id=\"#buttonDeletion\" class=\"btn btn-secondary\" style=\"margin-left: -40px\"\n" +
-                        "type=\"button\" onclick=\"manageDelete()\">" + "Delete Questionnaire Data </button>";
                 }
 
                 }
                 else if(req.status === 400){
                         showMessage("I_error_message", "You can only search a past data")
                 }
-            else if(req.status === 401){
-                showMessage("I_error_message", "Date problems")
+                else if(req.status === 403){
+                        showMessage("I_error_message", "Please select a valid date")
             }
             }
         );
@@ -134,22 +140,14 @@ function manageSearch()
 function manageDelete()
 {
     console.log(date+"  -> third ");
-    if(date === null || date === undefined){
-        date=null;
-    }
-    makeCall("GET", "./Deletion?date="+date, null,
+
+    makeCall("GET", "./Deletion?date="+ date, null,
         function(request) {
             if (request.readyState === 4 && request.status === 200) {
                 window.location.assign("../db_project1_war_exploded/cancelGreetings.html");
             }
             else if(request.status === 400){
                 showMessage("D_error_message", "You can only cancel a past data")
-            }
-            else if(request.status === 401){
-                showMessage("D_error_message", "Error of data insertion")
-            }
-            else if(request.status === 500){
-                showMessage("D_error_message", "No product to cancel")
             }
         }
     );
