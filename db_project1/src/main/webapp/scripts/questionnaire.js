@@ -76,18 +76,10 @@ function addQuestions(questionList){
         container.appendChild(questionBox);
     });
 }
-function showError(){
-
-}
 
 function showMessage(html_id, message){
     let element = document.getElementById(html_id);
     element.innerText = message;
-}
-
-function hideMessage(html_id){
-    let element = document.getElementById(html_id);
-    element.innerText = "";
 }
 
 function showMandatoryForm(){

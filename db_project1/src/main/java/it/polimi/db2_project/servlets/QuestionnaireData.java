@@ -38,14 +38,16 @@ public class QuestionnaireData extends HttpServlet {
     public QuestionnaireData() {
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response){
 
     }
 
-    //Questionnaire is filled only if User has not completed it already
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         String username = (String)request.getSession().getAttribute("user");
         Product productOfDay;
+
         try {
             productOfDay = productService.getProductOfTheDay();
         }catch (InvalidParameterException | EJBException e){
@@ -54,20 +56,23 @@ public class QuestionnaireData extends HttpServlet {
             }
             productOfDay = null;
         }
+
         //There is no product of the day so unacceptable request, thus return
         if(productOfDay == null) {
             response.setStatus(406); // Not acceptable request, product was not created and so no questionnaire to show
             return;
         }
 
-        // There is a product thus manage the request
+        // There is a product, but questionnaire was already filled by the user, thus bad request status
         if(answerService.alreadyFilled(username,productOfDay)){
             response.setStatus(400);
         }
+        // There is a product, but check user status
         else if (userService.checkUserStatus(userService.getUser(username), productOfDay)== UserStatus.BANNED){
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
         }
+        // There is a product, manage the correct request
         else {
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");

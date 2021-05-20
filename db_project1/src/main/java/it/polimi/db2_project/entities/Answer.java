@@ -69,4 +69,10 @@ public class Answer implements Serializable {
         this.question = question;
     }
 
+    public void setAttributes(User user,String answer,Question question){
+        setQuestion(question);
+        setAnswer(answer);
+        setUser(user);
+    }
+
 }

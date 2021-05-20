@@ -21,21 +21,8 @@ public class QuestionKey implements Serializable {
 
     }
 
-    public QuestionKey(int questionId,int productId) {
-        this.productId = productId;
-       this.questionId = questionId;
-    }
-
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
-    }
-
     public void setProductId(int productId) {
         this.productId = productId;
-    }
-
-    public int getQuestionId() {
-        return questionId;
     }
 
     public int getProductId() {

@@ -34,10 +34,6 @@ public class Evaluation implements Serializable {
         return totalPoints;
     }
 
-    public void setTotalPoints(int totalPoints) {
-        this.totalPoints = totalPoints;
-    }
-
     public User getUser() {
         return user;
     }
