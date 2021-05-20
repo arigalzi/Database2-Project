@@ -28,21 +28,19 @@ window.addEventListener("load", () => {
                     localStorage.setItem("isAdmin",con.admin);
                     console.log(con.username,con.admin);
                     showUsername(con.admin,con.username);
+
+                    console.log(con.userStatus);
+
                     if(con.userStatus === "NOT_AVAILABLE"){
-                        document.getElementById("id_product_title").innerText = "No Product";
+                        document.getElementById("id_product_title").innerHTML = "No Product";
                         document.getElementById("id_product_image").innerHTML = "";
-                        document.getElementById("id_product_description").innerText = "";
-                        document.getElementById("id_Review_Table").innerHTML = "";
-                        document.getElementById("id_action_row").innerHTML=
-                            "<div id=\"bannedStuff\" >\n" +
-                            " <form id=\"bannedButton\" >\n" +
-                            "  <button type=\"button\" class=\"btn btn-warning\" disabled>No Product Available</button>\n" +
-                            " </form>\n" +
-                            " <blockquote class=\"blockquote text-center\">\n" +
-                            "  <p class=\"mb-0\">Sorry no product for today, we will be back soon!</p>\n" +
-                            "  <footer class=\"blockquote-footer\">Staff </footer>\n" +
-                            " </blockquote>\n" +
-                            "</div>";
+                        document.getElementById("id_product_description").innerHTML = "";
+                        let newRow = document.getElementById("No_Review_info_available");
+                        newRow.innerHTML = "<th colSpan=\"3\" style=\"width:100%;font-weight:normal\">No reviews present for this Product</th>"
+                    }
+                    else if (con.userStatus === "BANNED") {
+                        document.getElementById("prod_block").innerHTML =
+                            "  <p class=\"mb-0\">You've been banned due to \"inappropriate language during the questionnaire submission\"</p>\n";
                     }
                     else {
                         document.getElementById("id_product_title").innerText = con.prodName;
@@ -57,20 +55,10 @@ window.addEventListener("load", () => {
                             })
                         }
                         else{
-                            table.innerText = "No reviews present for this Product"
+                            let newRow = document.getElementById("No_Review_info_available");
+                            newRow.innerHTML = "<th colSpan=\"3\" style=\"width:100%;font-weight:normal\">No reviews present for this Product</th>"
                         }
-                        if (con.userStatus === "BANNED") {
-                            document.getElementById("id_action_row").innerHTML =
-                                "<div id=\"bannedStuff\" >\n" +
-                                " <form id=\"bannedButton\" >\n" +
-                                "  <button type=\"button\" class=\"btn btn-danger\" disabled>Banned</button>\n" +
-                                " </form>\n" +
-                                " <blockquote class=\"blockquote text-center\">\n" +
-                                "  <p class=\"mb-0\">You've been banned due to \"inappropriate language during the questionnaire submission\"</p>\n" +
-                                "  <footer class=\"blockquote-footer\">Staff </footer>\n" +
-                                " </blockquote>\n" +
-                                "</div>";
-                        }
+
                     }
                 }
             } else {

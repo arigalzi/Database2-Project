@@ -1,24 +1,16 @@
 package it.polimi.db2_project.services;
 
-//import it.polimi.db2_project.auxiliary.UserStatus;
 import it.polimi.db2_project.auxiliary.UserStatus;
 import it.polimi.db2_project.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.metamodel.Metamodel;
-import javax.validation.constraints.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.persistence.EntityManager;
 
 import java.security.InvalidParameterException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,13 +47,14 @@ public class UserService {
     }
 
     /**
-     * Method to get a specific user
+     * Method to get a specific user from username
      * @param username username of the User to retrieve
      * @return the user requested
      * @throws InvalidParameterException if the user does not exist
      */
     public User getUser(String username) throws InvalidParameterException {
         List<User> usersFromDB = em.createNamedQuery("User.getUser", User.class).setParameter(1, username).getResultList();
+
         if (usersFromDB == null || usersFromDB.isEmpty()) {
             throw new InvalidParameterException("No User with this username");
         }
@@ -81,8 +74,11 @@ public class UserService {
      * @throws InvalidParameterException if the user does not exist
      */
     public User checkCredentials(String username, String password) throws InvalidParameterException {
-        List<User> usersFromDB = em.createNamedQuery("User.checkCredentials", User.class).setParameter(1, username).setParameter(2, password)
+        List<User> usersFromDB = em.createNamedQuery("User.checkCredentials", User.class)
+                .setParameter(1, username)
+                .setParameter(2, password)
                 .getResultList();
+
         if (usersFromDB == null || usersFromDB.isEmpty()) {
             throw new InvalidParameterException("Provided username or password is wrong");
         }
@@ -107,10 +103,10 @@ public class UserService {
     }
 
     /**
-     * Method to check the status of the user, in relationship with the product
+     * Method to check and to assign the status of the user, in relationship with the product
      * @param user user to check
      * @param product product to compare with
-     * @return userstatus of the user
+     * @return UserStatus of the user
      * @throws InvalidParameterException if there is a problem with the query execution
      **/
     public UserStatus checkUserStatus(User user, Product product) throws InvalidParameterException{
@@ -118,21 +114,27 @@ public class UserService {
             return UserStatus.BANNED;
         }
         else{
+            List<Answer> ans = em
+                    .createNamedQuery("Answer.getUserAnswers", Answer.class)
+                    .setParameter(1, user.getUsername())
+                    .setParameter(2, product.getProductId())
+                    .getResultList();
 
-            List<Answer> ans = em.createNamedQuery("Answer.getUserAnswers", Answer.class)
-                    .setParameter(1, user.getUsername()).setParameter(2, product.getProductId()).getResultList();
             if (ans == null || ans.isEmpty()) {
                 return UserStatus.NOT_COMPLETED;
             }
-            else {
+            else if (ans.size()>1){
                 return UserStatus.COMPLETED;
+            }
+            else {
+                throw new InvalidParameterException("internal database error");
             }
         }
     }
 
     /**
-     * method to insert the log of the user in the DB
-     * @param user user to log in
+     * Method to insert the log of the user in the DB
+     * @param user to log in
      * @throws PersistenceException if there is a problem managing the entity
      * @throws IllegalArgumentException if the user is not present in the DB
      */
@@ -140,19 +142,34 @@ public class UserService {
         Log log = new Log();
         log.setUser(user);
         log.setUserId(user.getUserID());
-        //Set the current date
+
         Date currentDate = getCorrectFormatDate(LocalDateTime.now());
         log.setDate(currentDate);
         em.persist(log);
     }
 
-
-    public void cancelForm(User user){
+    /**
+     * Method to cancel a user's form in the DB
+     * @param user 's log
+     * @throws IllegalArgumentException if the user's log is not present in the DB
+     */
+    public void cancelForm(User user) throws PersistenceException{
         Log current_log = em.createNamedQuery("Log.getCurrentLogOfUser", Log.class).setParameter(1,user).getSingleResult();
-        current_log.setFormCancelled(true);
+
+        if(current_log!=null)
+            current_log.setFormCancelled(true);
+        else{
+            throw new InvalidParameterException("internal database error");
+        }
+
         em.merge(current_log);
     }
 
+    /**
+     * Method to get the list of users that have canceled the questionnaire of a specific product
+     * @param product of a specific questionnaire
+     * @return list of username that have canceled the questionnaire
+     */
     public List<String> getUsersWhoCanceled(Product product) {
 
         List<String> userCancString= new ArrayList<>();
@@ -168,12 +185,10 @@ public class UserService {
         Date morningDate = null;
 
         try {
-
             morningDate = dateFormat.parse(date1);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(morningDate);
 
         Calendar nightTime = Calendar.getInstance();
         nightTime.setTime(product.getDate());
@@ -184,15 +199,15 @@ public class UserService {
         String date2 = dateFormat.format(nightToFormat);
         Date nightDate = null;
         try {
-
             nightDate = dateFormat.parse(date2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(nightDate);
 
-
-        List<User> usersCan = em.createNamedQuery("User.getUsersCanceled", User.class).setParameter(1, morningDate).setParameter( 2, nightDate).getResultList();
+        List<User> usersCan = em.createNamedQuery("User.getUsersCanceled", User.class)
+                .setParameter(1, morningDate)
+                .setParameter( 2, nightDate)
+                .getResultList();
 
         if (usersCan == null || usersCan.isEmpty()) {
             return null;
@@ -203,6 +218,11 @@ public class UserService {
 
     }
 
+    /**
+     * Method to get the list of username that have submitted the questionnaire
+     * @param product of a specific questionnaire to search
+     * @return list of Username of users
+     */
     public List<String> getUsersWhoSubmits(Product product) {
 
         List<String> userSubString= new ArrayList<>();
@@ -214,20 +234,35 @@ public class UserService {
 
         userSub.stream().forEach(q->userSubString.add(q.getUsername()));
         return userSubString;
-
     }
 
+    /**
+     * Method to get questions text ordered by num of the questions
+     * @param product to compare with
+     * @param username of the user
+     * @return list of questions text
+     */
     public List<String> getAnsweredQuestions(Product product,String username) {
-        List<Question> questions = em.createNamedQuery("Answer.getAnsweredQuestions",Question.class).setParameter(1, product.getProductId()).setParameter(2,username).getResultList();
+        List<String> results = new ArrayList<String>();
+
+        List<Question> questions = em.createNamedQuery("Answer.getAnsweredQuestions",Question.class)
+                .setParameter(1, product.getProductId())
+                .setParameter(2,username)
+                .getResultList();
+
         questions.stream()
                 .sorted(Comparator.comparing(n->n.getQuestionNumber()))
                 .collect(Collectors.toList());
-        List<String> results = new ArrayList<String>();
+
         questions.stream().forEach(q -> results.add(q.getText()));
         return results;
     }
 
-
+    /**
+     * Method to create the correct format date
+     * @param now localDate Time
+     * @return correct format date
+     */
     public Date getCorrectFormatDate(LocalDateTime now){
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -242,5 +277,6 @@ public class UserService {
         }
         return date;
     }
+
 }
 

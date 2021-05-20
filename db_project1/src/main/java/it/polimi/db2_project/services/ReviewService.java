@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Stateless
 public class ReviewService {
@@ -20,9 +19,10 @@ public class ReviewService {
     }
 
     /**
-     * Method to get a fixed number of random reviews
+     * Method to get reviews of a specific product
+     * @param productID specific id of a product
      * @return list of reviews
-     * @throws InvalidParameterException if there are no review with the argument number
+     * @throws InvalidParameterException if there are no review
      */
     public ArrayList<String> getReviews(int productID) throws InvalidParameterException {
         ArrayList<String> result = new ArrayList<>();
@@ -30,15 +30,18 @@ public class ReviewService {
         int i=0;
 
         reviews = em.createNamedQuery("Review.getReview", Review.class).setParameter(1, productID).getResultList();
+
         if(reviews.size() == 0 || reviews.isEmpty()){
             throw new InvalidParameterException("No review for this Product");
         }
         else {
+
             while (i < reviews.size()) {
                 result.add(reviews.get(i).getText());
                 i++;
             }
             return result;
+
         }
     }
 

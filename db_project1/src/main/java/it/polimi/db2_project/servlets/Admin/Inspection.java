@@ -7,7 +7,6 @@ import it.polimi.db2_project.entities.Product;
 import it.polimi.db2_project.services.AnswerService;
 import it.polimi.db2_project.services.ProductService;
 import it.polimi.db2_project.services.UserService;
-import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -42,31 +41,26 @@ public class Inspection extends HttpServlet {
         doGet(request,response);
     }
 
-    boolean checkDate (Date date) {
-        return java.sql.Date.valueOf(LocalDate.now()).after(date)  || java.sql.Date.valueOf(LocalDate.now()).equals(date);
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String sDate = request.getParameter("date");
+        Date date = null;
+        Product product;
+        List<String> usersWhoSubmitted, usersWhoCanceled;
+        List<InspectionPageUserContent> content = new ArrayList<>();
+
         if(sDate.equals("")) {
             response.setStatus(403);
             return;
         }
-        Date date= null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-
-
         if(checkDate(date)) {
             try {
-
-                Product product;
-                List<String> usersWhoSubmitted, usersWhoCanceled;
-                List<InspectionPageUserContent> content = new ArrayList<>();
                 product = productService.checkDateAvailability(date);
 
                 if (product != null) {
@@ -79,17 +73,16 @@ public class Inspection extends HttpServlet {
                     // As a last element we send the product
                     content.add(new InspectionPageUserContent(null,null,null,null,product));
                     response.setStatus(HttpServletResponse.SC_OK);
-
                 }
                 else{
                     response.setStatus(403);
                 }
+
                 String jsonResponse = new Gson().toJson(content);
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 out.write(jsonResponse);
-
 
             }catch (Exception e) {
                 sendError(request, response, "Inspection Error", e.getCause().getMessage());
@@ -98,6 +91,15 @@ public class Inspection extends HttpServlet {
         else{
             response.setStatus(400);
         }
+    }
+
+    /**
+     * Method to check date validity
+     * @param date of a specific day
+     * @return true if date is posterior, false otherwise
+     */
+    boolean checkDate (Date date) {
+        return java.sql.Date.valueOf(LocalDate.now()).after(date)  || java.sql.Date.valueOf(LocalDate.now()).equals(date);
     }
 
     /**
@@ -118,24 +120,33 @@ public class Inspection extends HttpServlet {
         }
     }
 
+    /**
+     * Method to create the content to show in Inspection page
+     * @param usersWhoSubmitted list of users that have submitted the questionnaire
+     * @param usersWhoCanceled list of users that have canceled the questionnaire
+     * @param product of a specific questionnaire
+     * @return list of usersWhoSubmitted, usersWhoCanceled and their answers to show; the last record is the product
+     */
     public List<InspectionPageUserContent> createContent(List<String> usersWhoSubmitted,List<String> usersWhoCanceled,Product product){
         List<InspectionPageUserContent> content = new ArrayList<>();
         List<String> questions;
         List<Answer> answers;
         boolean isCanceled = false;
+
         if (usersWhoSubmitted != null) {
             for (String username : usersWhoSubmitted) {
                 if (usersWhoCanceled != null && usersWhoCanceled.contains(username))
                     isCanceled = true;
                 questions = userService.getAnsweredQuestions(product, username);
                 answers = answerService.getUserAnswers(product, username);
+
                 InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions,null);
                 content.add(userContent);
                 isCanceled = false;
 
             }
         }
-        else if(usersWhoCanceled!=null) {
+        if(usersWhoCanceled!=null) {
             for (String username : usersWhoCanceled) {
                 InspectionPageUserContent userContent = new InspectionPageUserContent(username, true, null, null, null);
                 content.add(userContent);
@@ -143,4 +154,5 @@ public class Inspection extends HttpServlet {
         }
         return content;
     }
+
 }

@@ -45,30 +45,27 @@
 <div class="container">
   <div  style="margin-left: -42%;" class="row justify-content-md-center">
     <div class="col-sm-8">
-      <div class="row">
-        <h4   id="id_product_title">Title</h4>
-      </div>
-      <!--div class="row"><img id="id_product_image" alt="error: image not found"/></div!-->
-      <div class="row">
-        <img id="id_product_image" width="321" height="321"/>
-      </div>
-      <div class="row">
-        <div id="id_product_description"> this is the product description, you should buy it</div>
+      <div id="prod_block">
+        <div class="row">
+          <h4   id="id_product_title">Title</h4>
+        </div>
+        <div class="row">
+          <img id="id_product_image" width="321" height="321"/>
+        </div>
+        <div class="row">
+          <div id="id_product_description"> this is the product description, you should buy it</div>
+        </div>
       </div>
 
       <hr>
       <div class="row">
-        <table id="id_Review_Table"  style="width:40%">
-
-          <thead>
-          <tr>
-            <th>Reviews</th>
-          </tr>
+        <table  class="table table-striped table-bordered table-hover" id="id_Review_Table"  style="text-align:center;width:100%">
+          <h4 style="text-align: center;margin-top: 2%">Reviews</h4>
+          <thead id="id_Review_Head">
+          <tr id="No_Review_info_available" style="background-color: #cbcaca"></tr>
           </thead>
-          <tbody id="id_ReviewBody"></tbody>
+          <tbody id="id_Review_Body"></tbody>
         </table>
-
-
       </div>
     </div>
   </div>
