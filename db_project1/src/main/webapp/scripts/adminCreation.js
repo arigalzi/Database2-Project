@@ -50,6 +50,9 @@ function manageCreationForm(){
                 showMessage("error_message", "Please fill in the form correctly")
                 checkFields();
             }
+            else if(request.status === 403){
+                showMessage("error_message", "You cannot set a past date")
+            }
             else{
                 //other errors
             }

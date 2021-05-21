@@ -1,9 +1,93 @@
 Bisogna fare una DeletionPage o solo delete + messaggio?
 
-The product reviews by other users (BY THE ADMIN) ???
+The product reviews by other users (OR BY THE ADMIN) ???
 
 // DA GESTIRE: Inserting the product of the day for the current date or for a posterior date
 
 
-//
+//ELIMINARE DELETIONPAGE
+
+
+//No method or persistent instance variables of the entity
+  class may be final. (Entity constraint)
+  ES. ProductEntity
+
+//ADMINSERVICE CHECK
+
+//TODO In answer non abbiamo JoinTable ma solo JoinColumns ( Answer table è una Join Table)
+
+//TODO In Answer abbiamo Answer.getAnsweredQuestions che sono uguali leggermente
+                         Answer.getUserAnswers
+
+//TODO Non permettere di creare un prodotto per una data passata
+
+//TODO Visto che le questions sono weak dobbiamo prima eliminare il prodotto e poi in cascata
+
+
+
+==================================================================================
+
+NOTE: Consider lazy loading as the most appropriate mode for all
+relationships, because if an entity as many single-valued relationships that
+are not all used by applications, the default eager mode may incur
+performance penalties
+
+
+NOTE: When method with query ends the transaction created finished(Committed)
+
+
+NOTE: An Entity Manager is associated with a persistence context,
+      which tracks changes to entities
+      • Changes must be synchronized to the database
+      • Who synchronizes the changes?
+      • Answer: a transaction
+(A transaction is the only channel to reflect the changes in
+ the Persistence Context to the database)
+
+NOTE: Transactions are created by the container looking for transactions performed by EM which applies changes to DB.
+
+
+NOTE: The Persistence Context associated with the EM is
+      terminated by the container when the transaction used to
+      synchronize the Persistence Context with the database
+      commits
+
+
+
+NOTE: Sequence of Container managed Transaction Scoped EM (OUR CASE), NOT EXTENDED (It is just for Stateful EJB),which
+generate when new instance is created and till it is removed.
+
+When the first find() method is called, the
+container checks for a transaction. By default in
+CM EMs, the container must ensure that a
+transaction is active when a session bean method
+starts, so the EM will find one
+• It then checks for a Persistence Context. This is
+the first time any EM call has occurred, so no
+persistence context exists yet. The EM creates a
+new one and uses it to find the project.
+
+(There are 2 find() in the same method in this case)
+
+When the EM is used to search for the
+employee, it checks the transaction
+again and this time finds the one it
+created when searching for the project
+and reuses its Persistence Context to
+find the employee
+• At this point, employee and project are
+both managed. The employee is added
+to the project, updating both the
+employee and project entities
+• When the method call ends, the
+transaction is committed. Because the
+employee and project instances are
+managed, the Persistence Context can
+detect any state changes in them and
+updates the database during the
+transaction commit
+• When the transaction is over, the
+persistence context goes away
+• The next method call creates a new
+transaction & persistence context pair
 

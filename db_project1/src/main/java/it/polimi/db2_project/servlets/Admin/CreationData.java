@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @WebServlet("/CreationData")
@@ -73,6 +74,11 @@ public class CreationData extends HttpServlet {
 
             byte[] image = ProductService.readImage(fileContent);
 
+            //Check whether the date is present or posterior
+            if(date.before(java.sql.Date.valueOf(LocalDate.now()))) {
+                response.setStatus(403); // FORBIDDEN INPUT DATE
+                return;
+            }
             if (productService.checkDateAvailability(date) == null) {
                 productService.createNewProduct(productName, productDescription, date, productQuestions, image, productReviews);
                 response.setStatus(200);

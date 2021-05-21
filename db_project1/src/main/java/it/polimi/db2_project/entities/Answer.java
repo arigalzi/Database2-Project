@@ -29,6 +29,8 @@ public class Answer implements Serializable {
     @JoinColumn(name = "userID")
     private User user;
 
+
+    //TODO Fare cascade
     @ManyToOne
     @MapsId("questionKey")
     @JoinColumns(
