@@ -135,15 +135,11 @@ public class Inspection extends HttpServlet {
 
         if (usersWhoSubmitted != null) {
             for (String username : usersWhoSubmitted) {
-                if (usersWhoCanceled != null && usersWhoCanceled.contains(username))
-                    isCanceled = true;
                 questions = userService.getAnsweredQuestions(product, username);
                 answers = answerService.getUserAnswers(product, username);
 
-                InspectionPageUserContent userContent = new InspectionPageUserContent(username, isCanceled, answerService.getAnswerText(answers), questions,null);
+                InspectionPageUserContent userContent = new InspectionPageUserContent(username, false, answerService.getAnswerText(answers), questions,null);
                 content.add(userContent);
-                isCanceled = false;
-
             }
         }
         if(usersWhoCanceled!=null) {
