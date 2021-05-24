@@ -14,23 +14,6 @@ public class AnswerKey implements Serializable {
 
     private QuestionKey questionKey;
 
-
-    public QuestionKey getQuestionKey() {
-        return questionKey;
-    }
-
-    public void setQuestionKey(QuestionKey questionKey) {
-        this.questionKey = questionKey;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

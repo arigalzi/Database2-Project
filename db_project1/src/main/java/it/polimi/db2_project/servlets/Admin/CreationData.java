@@ -1,11 +1,5 @@
 package it.polimi.db2_project.servlets.Admin;
-
-import it.polimi.db2_project.entities.Question;
-import it.polimi.db2_project.entities.User;
-import it.polimi.db2_project.services.AnswerService;
 import it.polimi.db2_project.services.ProductService;
-import it.polimi.db2_project.services.QuestionnaireService;
-import it.polimi.db2_project.services.UserService;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -17,31 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @WebServlet("/CreationData")
 @MultipartConfig
 public class CreationData extends HttpServlet {
+
     @EJB(name = "it.polimi.db2.entities.services/ProductService")
     private ProductService productService;
-    @EJB(name = "it.polimi.db2.entities.services/UserService")
-    private UserService userService;
-
-    @EJB(name = "it.polimi.db2.entities.services/QuestionnaireService")
-    private QuestionnaireService questionnaireService;
 
     public CreationData() {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Enumeration<String> headerNames = request.getHeaderNames();
-        while(headerNames.hasMoreElements()) {
-            String headerName = headerNames.nextElement();
-            System.out.println("Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
-        }
+
         //Manage the responses
         String productName = null;
         String productDate = null;
@@ -64,9 +50,11 @@ public class CreationData extends HttpServlet {
             System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
         }
 
+        //Get the image
         productImage = request.getPart("productImage");
         InputStream fileContent = productImage.getInputStream();
 
+        //UTILITY PRINTS
         System.out.println(productName);
         System.out.println(productDate);
         System.out.println(productDescription);
@@ -74,6 +62,7 @@ public class CreationData extends HttpServlet {
         System.out.println(fileContent);
         System.out.println(productReviews);
 
+        //Check whether input fields are empty
         if(checkPostValidity(productName,productDate,productDescription)) {
             Date date = null;
             try {
@@ -85,27 +74,39 @@ public class CreationData extends HttpServlet {
 
             byte[] image = ProductService.readImage(fileContent);
 
+            //Check whether the date is present or posterior
+            if(date.before(java.sql.Date.valueOf(LocalDate.now()))) {
+                response.setStatus(403); // FORBIDDEN INPUT DATE
+                return;
+            }
             if (productService.checkDateAvailability(date) == null) {
                 productService.createNewProduct(productName, productDescription, date, productQuestions, image, productReviews);
                 response.setStatus(200);
             } else {
-                //Conflict date already existing
+                //Conflict, date already existing
                 response.setStatus(409);
             }
 
             System.out.println("Request managed by CreationData");
         }
         else{
-            //Bad request input is empty
+            //Bad request, input is empty
             response.setStatus(400);
             System.out.println("One of the required fields was not filled...Request was not managed");
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
     }
 
 
+    /**
+     * Utility method to check whether the mandatory fields parameters are non-empty
+     * @param productName
+     * @param date
+     * @param description
+     * @return
+     */
     private boolean checkPostValidity(String productName,String date,String description){
         return !productName.equals("") && !date.equals("") && !description.equals("");
     }

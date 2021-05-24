@@ -22,14 +22,6 @@ public class ReviewKey implements Serializable {
 
     }
 
-    public int getReviewId() {
-        return reviewId;
-    }
-
-    public void setReviewId(int reviewId) {
-        this.reviewId = reviewId;
-    }
-
     public int getProductId() {
         return productId;
     }

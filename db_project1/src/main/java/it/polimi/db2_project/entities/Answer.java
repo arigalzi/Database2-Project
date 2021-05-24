@@ -29,6 +29,8 @@ public class Answer implements Serializable {
     @JoinColumn(name = "userID")
     private User user;
 
+
+    //TODO Fare cascade
     @ManyToOne
     @MapsId("questionKey")
     @JoinColumns(
@@ -67,6 +69,12 @@ public class Answer implements Serializable {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public void setAttributes(User user,String answer,Question question){
+        setQuestion(question);
+        setAnswer(answer);
+        setUser(user);
     }
 
 }

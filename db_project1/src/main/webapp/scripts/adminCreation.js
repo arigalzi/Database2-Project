@@ -35,16 +35,7 @@ function manageRequest(method, url, formElement, responseFunc) {
  */
 function manageCreationForm(){
     let form = document.getElementById("creation_form");
-    let sendForm = new FormData(form);
-    let imageElem = document.getElementById("img");
-    for (var pair of sendForm.entries()) {
-        if(pair[0] === "productImage"){
-            console.log(pair[0]+ ', ' + pair[1])
-        }
-        console.log(pair[0]+ ', ' + pair[1]);
-    }
-    console.log(sendForm);
-    console.log(sendForm.get("productImage"));
+
     //Manage creation form
     manageRequest("POST", './CreationData', form,
         function(request){
@@ -58,6 +49,9 @@ function manageCreationForm(){
             else if(request.status === 400){
                 showMessage("error_message", "Please fill in the form correctly")
                 checkFields();
+            }
+            else if(request.status === 403){
+                showMessage("error_message", "You cannot set a past date")
             }
             else{
                 //other errors

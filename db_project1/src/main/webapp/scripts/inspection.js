@@ -18,7 +18,7 @@ function makeCall(method, url, formElement, cback, reset = true) {
     }
 }
 
-function insertQuestionsAnswers(con, tableBody, tableHead){
+function insertQuestionsAnswers(con, tableBody){
     let numberOfRows = 0;
     console.log(con);
     if(con.length!==0) {
@@ -72,9 +72,9 @@ function insertCancelledUsers(con,tableCancBody){
 
 }
 
-function populateTable(con,tableSubHead, tableSubBody, tableCancHead, tableCancBody){
+function populateTable(con,tableSubBody, tableCancBody){
     console.log(con);
-    insertQuestionsAnswers(con, tableSubBody, tableSubHead);
+    insertQuestionsAnswers(con, tableSubBody);
     insertCancelledUsers(con, tableCancBody);
 }
 
@@ -99,10 +99,8 @@ function manageSearch()
                     let admin = localStorage.getItem("isAdmin");
                     showUsername(admin, username);
 
-                    const tableHead = document.getElementById("id_Inspection_Head");
-                    const tableBody = document.getElementById("id_Inspection_tableBody");
 
-                    const tableCancHead = document.getElementById("id_Cancel_Head");
+                    const tableBody = document.getElementById("id_Inspection_tableBody");
                     const tableCancBody = document.getElementById("id_Cancel_tableBody");
 
                     //Remove old values if existing
@@ -110,7 +108,7 @@ function manageSearch()
                     tableCancBody.innerHTML = "";
 
 
-                    populateTable(con, tableHead, tableBody, tableCancHead, tableCancBody);
+                    populateTable(con,tableBody,tableCancBody);
 
 
                     if (con.length === 0) {
@@ -128,9 +126,11 @@ function manageSearch()
 
                 }
                 else if(req.status === 400){
+                        document.getElementById("deletion").innerHTML = "";
                         showMessage("I_error_message", "You can only search a past data")
                 }
                 else if(req.status === 403){
+                        document.getElementById("deletion").innerHTML = "";
                         showMessage("I_error_message", "Please select a valid date")
             }
             }
