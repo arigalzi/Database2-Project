@@ -1,9 +1,7 @@
 package it.polimi.db2_project.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.*;
-import java.util.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -17,7 +15,7 @@ public class Log implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int logId;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)//added this type on order to have the entire date including time of the day
     private Date timestamp;
 
     @ManyToOne

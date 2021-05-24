@@ -64,30 +64,23 @@ public class Leaderboard extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
 
         Product prodOfTheDay = null;
+        try {
+            prodOfTheDay = productService.getProductOfTheDay();
+            List<Evaluation> leaderboard = evaluationService.getLeaderboard(prodOfTheDay);
 
-        prodOfTheDay = productService.getProductOfTheDay();
-        List<Evaluation> leaderboard = evaluationService.getLeaderboard(prodOfTheDay);
-            /*//LeaderboardContent leaderboardContent = new LeaderboardContent(leaderboard);
-            //String jsonLeaderboard = new Gson().toJson(leaderboardContent);
+            List<String> textResponse = evaluationService.convertToString(leaderboard);
+            String jsonLeaderboard = new Gson().toJson(textResponse);
             out.write(jsonLeaderboard);
-        }catch (InvalidParameterException | EJBException e){
+        }catch (InvalidParameterException | EJBException e) {
             System.out.println(e.getMessage());
-            if(e.getCause().getMessage().equals("No product of the Day")){
-                LeaderboardContent leaderboardContent = new LeaderboardContent(null);
-                String jsonLeaderboard = new Gson().toJson(leaderboardContent);
+            if (e.getCause().getMessage().equals("No leaderboard because no one has completed the questionnaire or no product of the day")) {
+                List<String> textResponse = evaluationService.convertToString(null);
+                String jsonLeaderboard = new Gson().toJson(textResponse);
                 out.write(jsonLeaderboard);
-            }
-            else{
+            } else {
                 sendError(request, response, "Database Error", e.getMessage());
             }
         }
-        HashMap<Integer, Integer> textResponse =  productService.convertToHash(leaderboard);
-        String var = (new Gson()).toJson(textResponse);
-        System.out.println((new Gson()).toJson(textResponse));
-        out.print((new Gson()).toJson(textResponse));
-        }*/
-        List<String> textResponse = evaluationService.convertToString(leaderboard);
-        String jsonLeaderboard = new Gson().toJson(textResponse);
-        out.write(jsonLeaderboard);
     }
+
 }

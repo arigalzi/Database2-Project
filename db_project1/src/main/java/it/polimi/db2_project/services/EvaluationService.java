@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Stateless
@@ -32,7 +31,7 @@ public class EvaluationService {
     public List<Evaluation> getLeaderboard(Product product) throws InvalidParameterException {
         List<Evaluation> leaderboard = em.createNamedQuery("Evaluation.getLeaderboard", Evaluation.class).setParameter(1, product).getResultList();
         if (leaderboard == null) {
-            throw new InvalidParameterException("No questionnaires available for this product");
+            throw new InvalidParameterException("No leaderboard because no one has completed the questionnaire or no product of the day");
         } else {
             return leaderboard;
         }
@@ -40,19 +39,15 @@ public class EvaluationService {
 
     public List<String> convertToString(List<Evaluation> evaluations){
         ArrayList<String> texts = new ArrayList<>();
+        if(evaluations!=null){
         for (Evaluation e : evaluations) {
             texts.add(String.valueOf(e.getUser().getUsername()).concat(" - ").concat(String.valueOf(e.getTotalPoints())));
         }
-        return (List<String>)texts;
-
-    }
-
-    public HashMap<Integer,Integer> convertToHash(List<Evaluation> evaluations){
-        HashMap<Integer,Integer> hm = new HashMap<>();
-        for (Evaluation e : evaluations) {
-            hm.put(e.getUser().getUserID(), e.getTotalPoints());
+        }else{
+            texts.add("Leaderboard is empty!");
         }
-        return hm;
+
+        return (List<String>)texts;
 
     }
 }

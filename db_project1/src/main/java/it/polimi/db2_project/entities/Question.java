@@ -37,12 +37,9 @@ public class Question implements Serializable{
         isMandatory = mandatory;
     }
 
-
     public void setText(String text) {
         this.text = text;
     }
-
-
 
     public Product getProduct() {
         return product;
@@ -51,7 +48,6 @@ public class Question implements Serializable{
     public void setProduct(Product product) {
         this.product = product;
     }
-
 
     public QuestionKey getQuestionKey() {
         return id;
