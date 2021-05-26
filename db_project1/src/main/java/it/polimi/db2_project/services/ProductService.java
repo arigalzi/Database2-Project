@@ -11,9 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 @Stateless
@@ -26,8 +24,9 @@ public class ProductService {
 
     }
 
-
     public Product getProductOfTheDay(Date date) throws InvalidParameterException{
+        if(date==null)
+        date = java.sql.Date.valueOf(LocalDate.now());
 
         List<Product> products = em.createNamedQuery("Product.getProductOfTheDay", Product.class).setParameter(1, date).getResultList();
         if (products == null || products.isEmpty()) {
@@ -38,20 +37,6 @@ public class ProductService {
         } else {
             throw new InvalidParameterException("internal database error");
         }
-    }
-
-    public Product getProductOfTheDay() throws InvalidParameterException{
-
-            Date date = java.sql.Date.valueOf(LocalDate.now());
-            List<Product> products = em.createNamedQuery("Product.getProductOfTheDay", Product.class).setParameter(1, date).getResultList();
-            if (products == null || products.isEmpty()) {
-                throw new InvalidParameterException("No product of the Day");
-
-            } else if (products.size() == 1) {
-                return products.get(0);
-            } else {
-                throw new InvalidParameterException("internal database error");
-            }
     }
 
     public Product checkDateAvailability(Date date){

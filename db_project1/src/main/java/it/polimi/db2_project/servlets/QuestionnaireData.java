@@ -49,7 +49,7 @@ public class QuestionnaireData extends HttpServlet {
         Product productOfDay;
 
         try {
-            productOfDay = productService.getProductOfTheDay();
+            productOfDay = productService.getProductOfTheDay(null);
         }catch (InvalidParameterException | EJBException e){
             if(e.getCause().getMessage().equals("No product of the Day")) {
                 System.out.println("No product of the day");

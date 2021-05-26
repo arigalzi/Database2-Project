@@ -54,7 +54,7 @@ public class GoToHomePage extends HttpServlet {
 
         try {
             user = userService.getUser(username);
-            prodOfTheDay = productService.getProductOfTheDay();
+            prodOfTheDay = productService.getProductOfTheDay(null);
         }
         catch (InvalidParameterException | EJBException e) {
             userStatus = userService.checkUserStatus(user, prodOfTheDay);

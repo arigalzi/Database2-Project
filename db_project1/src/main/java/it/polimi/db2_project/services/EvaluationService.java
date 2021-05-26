@@ -30,7 +30,7 @@ public class EvaluationService {
 
         List<Evaluation> leaderboard = em.createNamedQuery("Evaluation.getLeaderboard", Evaluation.class).setParameter(1, product).getResultList();
         if (leaderboard == null) {
-            throw new InvalidParameterException("No questionnaires available for this product");
+            throw new InvalidParameterException("No leaderboard because no one has completed the questionnaire or no product of the day");
         } else {
             return leaderboard;
         }
@@ -53,7 +53,7 @@ public class EvaluationService {
             texts.add("Leaderboard is empty!");
         }
 
-        return (List<String>)texts;
+        return texts;
 
     }
 }

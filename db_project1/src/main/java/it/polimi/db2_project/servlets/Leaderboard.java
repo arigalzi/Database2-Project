@@ -64,6 +64,22 @@ public class Leaderboard extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
 
         Product prodOfTheDay = null;
+
+        prodOfTheDay = productService.getProductOfTheDay(null);
+        List<Evaluation> leaderboard = evaluationService.getLeaderboard(prodOfTheDay);
+        List<String> textResponse = evaluationService.convertToString(leaderboard);
+        String jsonLeaderboard = new Gson().toJson(textResponse);
+        out.write(jsonLeaderboard);
+    }
+
+    /*@Override TODO show fra and see if there are problems
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+
+        Product prodOfTheDay = null;
         try {
             prodOfTheDay = productService.getProductOfTheDay();
             List<Evaluation> leaderboard = evaluationService.getLeaderboard(prodOfTheDay);
@@ -81,6 +97,7 @@ public class Leaderboard extends HttpServlet {
                 sendError(request, response, "Database Error", e.getMessage());
             }
         }
-    }
+    }*/
+
 
 }
