@@ -42,4 +42,14 @@ public class Review implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
+
+    /**
+     * Method that sets all the attributes of a review
+     * @param product of the Review
+     * @param text of the Review
+     */
+    public void setReviewAttributes(Product product, String text){
+        setReviewedProduct(product);
+        setText(text);
+    }
 }

@@ -104,8 +104,18 @@ public class Product implements Serializable {
         return image;
     }
 
-    public void setAllAttributes(){
-
+    /**
+     * Method that sets all together the attributes of a given product
+     * @param date is the date that has to be set for the product
+     * @param description is the description that has to be added for the product
+     * @param name is the name of the product
+     * @param image is the image to display with the product
+     */
+    public void setProductAttributes(Date date, String description,String name, byte[] image){
+            setDate(date);
+            setDescription(description);
+            setName(name);
+            setImage(image);
     }
 
 }

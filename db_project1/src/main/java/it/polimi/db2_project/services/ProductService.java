@@ -24,6 +24,14 @@ public class ProductService {
 
     }
 
+    /**
+     * Method used to return the product of the day in two possible cases: product of the current
+     * date to display it in the homepage of the users or product of a given date to display it in
+     * the inspection page of the admin
+     * @param date date of the product that has to be found
+     * @return product of the given date
+     * @throws InvalidParameterException if there is no product for the give date
+     */
     public Product getProductOfTheDay(Date date) throws InvalidParameterException{
         if(date==null)
         date = java.sql.Date.valueOf(LocalDate.now());
@@ -39,6 +47,11 @@ public class ProductService {
         }
     }
 
+    /**
+     * Method to check if a given date has already a product of the day
+     * @param date date at which the availability has to be checked
+     * @return product of that date or null if there is no product
+     */
     public Product checkDateAvailability(Date date){
         Product product;
         try {
@@ -50,20 +63,24 @@ public class ProductService {
         return product;
     }
 
+    /**
+     * Method that creates a new product and adds all the attributes, included all the attributes of the related
+     * questions and reviews (it is used when an admin creates a product)
+     * @param name is the name of the product
+     * @param description is the description related to the product
+     * @param date is the date associated to the product
+     * @param questions are the list of questions related to the product
+     * @param image is the image that shows the product
+     * @param productReviews is the list of reviews related to the product
+     */
     public void createNewProduct(String name,String description,Date date,List<String> questions,byte[] image,List<String> productReviews){
         Product createdProduct = new Product();
-        createdProduct.setDate(date);
-        createdProduct.setDescription(description);
-        createdProduct.setName(name);
-        createdProduct.setImage(image);
+        createdProduct.setProductAttributes(date,description,name,image);
 
         //ADD MANDATORY QUESTIONS FOR THE PRODUCT
         for (int i = 0; i <questions.size() ; i++) {
             Question q = new Question();
-            q.setMandatory(true);
-            q.setProduct(createdProduct);
-            q.setText(questions.get(i));
-            q.setQuestionNumber(i+1);
+            q.setQuestionAttributes(true,createdProduct,questions.get(i),i+1);
             createdProduct.addQuestion(q);
         }
 
@@ -71,23 +88,26 @@ public class ProductService {
         String[] optional = {"Age","Gender","ExpertiseLevel"};
         for (int i = 0; i <3 ; i++) {
             Question q = new Question();
-            q.setMandatory(false);
-            q.setProduct(createdProduct);
-            q.setText(optional[i]);
-            q.setQuestionNumber(i+1);
+            q.setQuestionAttributes(false,createdProduct,optional[i],i+1);
             createdProduct.addQuestion(q);
         }
 
         //ADD REVIEWS
         for (int i = 0; i <productReviews.size(); i++) {
             Review r = new Review();
-            r.setReviewedProduct(createdProduct);
-            r.setText(productReviews.get(i));
+            r.setReviewAttributes(createdProduct, productReviews.get(i));
             createdProduct.addReview(r);
         }
+
         em.persist(createdProduct);
     }
 
+    /**
+     * Method that reads the image correctly in order to display it
+     * @param imageInputStream is the image
+     * @return array of bytes
+     * @throws IOException
+     */
     public static byte[] readImage(InputStream imageInputStream) throws IOException {
         int FILE_SIZE = 2000 * 2000 * 3; // Images of size max 12MB (RGB has 3 bytes per pixel)
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -99,10 +119,14 @@ public class ProductService {
             }
             return outputStream.toByteArray();
         } catch (IOException e) {
-            throw e;
+            throw e; //TODO gestione eccezioni??
         }
     }
 
+    /**
+     * Method that deletes a given product
+     * @param product is the product that has to be deleted
+     */
     public void deleteProduct(Product product) {
         if (!em.contains(product)) {
             product = em.merge(product);

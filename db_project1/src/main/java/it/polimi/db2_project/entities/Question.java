@@ -65,5 +65,19 @@ public class Question implements Serializable{
         this.questionNumber = questionNumber;
     }
 
+    /**
+     * Method that sets all together the attributes of a question
+     * @param isMandatory is to know if question is mandatory or not
+     * @param product is the product the question is related to
+     * @param text is the text of the question
+     * @param questionNumber is the number of the question
+     */
+    public void setQuestionAttributes(boolean isMandatory, Product product, String text, int questionNumber){
+        setMandatory(isMandatory);
+        setProduct(product);
+        setText(text);
+        setQuestionNumber(questionNumber+1);
+    }
+
 
 }

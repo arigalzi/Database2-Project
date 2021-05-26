@@ -114,11 +114,9 @@ public class UserService {
             return UserStatus.BANNED;
         }
         else{
-            List<Answer> ans = em
-                    .createNamedQuery("Answer.getUserAnswers", Answer.class)
-                    .setParameter(1, user.getUsername())
-                    .setParameter(2, product.getProductId())
-                    .getResultList();
+            List<Answer> ans=null;
+            if(product!=null)
+             ans = em.createNamedQuery("Answer.getUserAnswers", Answer.class) .setParameter(1, user.getUsername()).setParameter(2, product.getProductId()).getResultList();
 
             if (ans == null || ans.isEmpty()) {
                 return UserStatus.NOT_COMPLETED;
