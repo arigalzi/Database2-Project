@@ -9,6 +9,9 @@ import java.util.Date;
 @Table(name = "log", schema = "db2_app")
 @NamedQuery(name = "Log.getCurrentLogOfUser", query = "SELECT l FROM Log l WHERE l.user= ?1 AND l.timestamp = (SELECT MAX(l.timestamp) FROM Log l WHERE l.user = ?1)")
 public class Log implements Serializable {
+    public Log() {
+    }
+
     private static final long serialVersionUID = 1L;
 
     @Id

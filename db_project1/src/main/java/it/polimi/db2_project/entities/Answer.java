@@ -16,6 +16,9 @@ import java.io.Serializable;
 @NamedQuery(name = "Answer.getUserAnswers", query = "SELECT a FROM Answer a WHERE a.user.username = ?1 AND a.id.questionKey.productId = ?2")
 @NamedQuery(name = "Answer.getSpecificAnswer", query = "SELECT a FROM Answer a WHERE a.user.userID = ?1 AND a.question.id.questionId = ?2 AND a.question.product.productId = ?3")
 public class Answer implements Serializable {
+    public Answer() {
+    }
+
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId

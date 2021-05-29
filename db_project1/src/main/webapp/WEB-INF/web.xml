@@ -13,20 +13,42 @@
 
         <filter-name>UserFilter</filter-name>
 
-        <url-pattern>/GoToHomepage</url-pattern>
+        <url-pattern>/GoToHomePage</url-pattern>
         <url-pattern>/Error</url-pattern>
         <url-pattern>/Leaderboard</url-pattern>
         <url-pattern>/Logout</url-pattern>
-        <url-pattern>/QuestionnairePageData</url-pattern>
-        <url-pattern>/SubmitAnswer</url-pattern>
+        <url-pattern>/QuestionnaireData</url-pattern>
+        <url-pattern>/AnswerData</url-pattern>
 
         <url-pattern>/homePage.html </url-pattern>
         <url-pattern>/questionnaire.html </url-pattern>
         <url-pattern>/error.html </url-pattern>
         <url-pattern>/greetings.html </url-pattern>
         <url-pattern>/leaderboard.html </url-pattern>
+        <url-pattern>/banned.html</url-pattern>
 
     </filter-mapping>
+
+    <filter-mapping>
+
+        <filter-name>AdminFilter</filter-name>
+
+        <url-pattern>/GoToHomePage</url-pattern>
+        <url-pattern>/CreationData</url-pattern>
+        <url-pattern>/Logout</url-pattern>
+        <url-pattern>/Error</url-pattern>
+        <url-pattern>/Deletion</url-pattern>
+        <url-pattern>/Inspection</url-pattern>
+
+        <url-pattern>/adminHomePage.html </url-pattern>
+        <url-pattern>/adminGreetings.html </url-pattern>
+        <url-pattern>/creationPage.html </url-pattern>
+        <url-pattern>/error.html </url-pattern>
+        <url-pattern>/cancelGreetings.html </url-pattern>
+        <url-pattern>/inspectionPage.html </url-pattern>
+
+    </filter-mapping>
+
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

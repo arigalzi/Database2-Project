@@ -19,6 +19,7 @@ import java.util.List;
 @NamedQuery(name = "User.getUsersCanceled", query = "SELECT distinct r FROM User r , Log l WHERE r.userID = l.userId AND l.timestamp  > ?1 AND l.timestamp  < ?2 AND l.isFormCancelled = true")
 
 public class User implements Serializable {
+    public User() { }
 
     private static final long serialVersionUID = 1L;
 
@@ -41,10 +42,14 @@ public class User implements Serializable {
     @NotNull
     private boolean isAdmin;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade= CascadeType.REMOVE)
     private List<Log> logs;
 
-    public User() { }
+    @ManyToMany
+    @JoinTable(name="evaluation",
+            joinColumns={@JoinColumn(name="userId")},
+            inverseJoinColumns={@JoinColumn(name="productId")})
+    private List<Product> products;
 
     public int getUserID() {
         return userID;

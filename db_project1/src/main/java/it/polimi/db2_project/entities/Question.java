@@ -5,22 +5,19 @@ import it.polimi.db2_project.entities.ids.QuestionKey;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.*;
 
 @Entity
 @Table(name = "question", schema = "db2_app")
 @NamedQuery(name = "Question.getQuestionsOfTheDay",query = "SELECT q FROM Question q WHERE q.product.date = ?1 AND q.isMandatory=true ORDER BY q.questionNumber DESC")
 @NamedQuery(name = "Question.getOptionalQuestions",query = "SELECT q FROM Question q WHERE q.product.date = ?1 AND q.isMandatory=false")
 public class Question implements Serializable{
+    public Question() {
+    }
+
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
     private QuestionKey id;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @MapsId("productId")
-    @JoinColumn(name = "productID")
-    private Product product;
 
     private String text;
 
@@ -29,9 +26,11 @@ public class Question implements Serializable{
 
     private int questionNumber;
 
-    public boolean isMandatory() {
-        return isMandatory;
-    }
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @MapsId("productId")
+    @JoinColumn(name = "productID")
+    private Product product;
+
 
     public void setMandatory(boolean mandatory) {
         isMandatory = mandatory;
@@ -49,14 +48,6 @@ public class Question implements Serializable{
         this.product = product;
     }
 
-    public QuestionKey getQuestionKey() {
-        return id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
     public int getQuestionNumber() {
         return questionNumber;
     }
@@ -64,6 +55,11 @@ public class Question implements Serializable{
     public void setQuestionNumber(int questionNumber) {
         this.questionNumber = questionNumber;
     }
+
+    public String getText() {
+        return text;
+    }
+
 
     /**
      * Method that sets all together the attributes of a question

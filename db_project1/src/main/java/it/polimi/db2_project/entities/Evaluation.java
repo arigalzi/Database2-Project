@@ -9,6 +9,10 @@ import java.io.Serializable;
 @Table(name = "evaluation", schema = "db2_app")
 @NamedQuery(name = "Evaluation.getLeaderboard", query = "SELECT distinct e  FROM Evaluation e WHERE e.product= ?1 GROUP BY e.user order by e.totalPoints desc")
 public class Evaluation implements Serializable {
+
+    public Evaluation() {
+    }
+
     private static final long serialVersionUID = 1L;
 
 

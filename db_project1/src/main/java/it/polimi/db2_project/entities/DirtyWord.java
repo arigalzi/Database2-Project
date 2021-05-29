@@ -11,6 +11,9 @@ import java.util.*;
 @NamedQuery(name = "DirtyWord.checkSentence", query = "SELECT d FROM DirtyWord d WHERE d.word = ?1")
 public class DirtyWord implements Serializable {
 
+    public DirtyWord() {
+    }
+
     private static final long serialVersionUID = 1L;
 
     @Id

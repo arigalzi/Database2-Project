@@ -6,30 +6,23 @@ import javax.persistence.*;
 import java.io.*;
 
 @Entity
-
 @Table(name = "review",schema = "db2_app")
 @NamedQuery(name = "Review.getReview",query = "SELECT r FROM Review r WHERE r.reviewedProduct.productId = ?1 ")
 public class Review implements Serializable {
+    public Review(){ }
 
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
     private ReviewKey id;
 
+    private String text;
+
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name="productID", referencedColumnName="productID")
     private Product reviewedProduct;
 
-    private String text;
-
-    public Review(){
-
-    }
-
-    public Product getReviewedProduct() {
-        return reviewedProduct;
-    }
 
     public String getText() {
         return text;
@@ -41,6 +34,10 @@ public class Review implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Product getReviewedProduct() {
+        return reviewedProduct;
     }
 
     /**
