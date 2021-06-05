@@ -119,7 +119,7 @@ public class ProductService {
             }
             return outputStream.toByteArray();
         } catch (IOException e) {
-            throw e; //TODO gestione eccezioni??
+            throw e;
         }
     }
 

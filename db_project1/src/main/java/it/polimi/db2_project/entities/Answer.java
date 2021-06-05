@@ -33,7 +33,7 @@ public class Answer implements Serializable {
     private User user;
 
 
-    //TODO Fare cascade
+
     @ManyToOne
     @MapsId("questionKey")
     @JoinColumns(
