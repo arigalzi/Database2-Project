@@ -8,7 +8,7 @@ The web application is divided in 2 main parts.
 2) Admin App main functionalities: the creation of new products for a present or posterior date and the inspection and deletion of past data.
 More infos on the specifications here -> specs
 
-###Technical specifications
+### Technical specifications
 The application has been realized in a JEE (Java Enterprise Edition) environment, particularly exploiting JPA, EJBs and Servelts. The following technologies are employed:
 
 - MySQL DBMS
