@@ -23,7 +23,7 @@ The application has been realized in a JEE (Java Enterprise Edition) environment
 
 The ER Diagram of the project and other design choices are accurately described in the Design folder
 
-Group Members
+###### Group Members:
 <br />
 Arianna Galzerano 
 <br />
