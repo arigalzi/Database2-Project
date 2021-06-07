@@ -25,6 +25,8 @@ The ER Diagram of the project and other design choices are accurately described 
 
 Group Members
 <br />
-Arianna Galzerano
+Arianna Galzerano 
+<br />
 Leonardo Giusti
+<br />
 Francesco Govigli
