@@ -14,13 +14,13 @@ The application has been realized in a JEE (Java Enterprise Edition) environment
 - MySQL DBMS
 - TomEE JEE application/web server
 - Triggers and constraints for database-level business constraints and rules.
-Backend:
 - JPA for object relational mapping and transaction management
 - EJB (stateless) for the business objects
 - Java servlet for the client components
-Frontend:
 - HTML5 for the static structure
 - JavaScript for dynamically modifying the pages
+
+
 Documentation
 The ER Diagram of the project and other design choices are accurately described in the Design folder
 
